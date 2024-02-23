@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace HandmadeСosmetics
+namespace HandmadeСosmetics.Views
 {
     public partial class MainWindow : Window
     {
