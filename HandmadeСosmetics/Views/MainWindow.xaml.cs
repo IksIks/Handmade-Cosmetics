@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using HandmadeСosmetics.DataCotnext;
+using System.Windows;
 
 namespace HandmadeСosmetics.Views
 {

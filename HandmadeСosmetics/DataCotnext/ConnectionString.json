@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "PGSQL": "Host=localhost;UserName=postgres;Password=1;Database=HomeShopDB"
+  }
+}
