@@ -2,8 +2,6 @@
 using HandmadeСosmetics.DataCotnext.Configuration;
 using HandmadeСosmetics.Models.MaterialsAndProducts;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System.IO;
 
 namespace HandmadeСosmetics.DataCotnext
 {

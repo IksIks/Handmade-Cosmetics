@@ -2,8 +2,6 @@
 using HandmadeСosmetics.DataCotnext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -43,7 +41,7 @@ namespace HandmadeСosmetics.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ingredients");
+                    b.ToTable("Ingredients", (string)null);
                 });
 
             modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.Product", b =>
@@ -70,7 +68,7 @@ namespace HandmadeСosmetics.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.Recipe", b =>
@@ -92,7 +90,7 @@ namespace HandmadeСosmetics.Migrations
                     b.HasIndex("ProductId")
                         .IsUnique();
 
-                    b.ToTable("Recipes");
+                    b.ToTable("Recipes", (string)null);
                 });
 
             modelBuilder.Entity("IngredientRecipe", b =>
@@ -107,7 +105,7 @@ namespace HandmadeСosmetics.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("IngredientRecipe");
+                    b.ToTable("IngredientRecipe", (string)null);
                 });
 
             modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.Recipe", b =>

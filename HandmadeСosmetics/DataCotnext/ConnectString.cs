@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.IO;
-using System.Windows;
 
 namespace HandmadeСosmetics.Connection
 {
