@@ -9,5 +9,6 @@
       Title="PageCatalog">
 
     <StackPanel>
+        <TextBlock Text="Это страница Каталога" FontSize="40" HorizontalAlignment="Center" />
     </StackPanel>
 </Page>

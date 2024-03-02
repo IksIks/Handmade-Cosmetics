@@ -17,11 +17,11 @@
         </Menu>
         <StatusBar DockPanel.Dock="Bottom" Height="15"/>
         <UniformGrid DockPanel.Dock="Right" Columns="1" Margin="-180,0,10,0" >
-            <Button Content="КАТАЛОГ"/>
-            <Button Content="КЛИЕНТЫ"/>
-            <Button Content="РЕЦЕПТЫ"/>
-            <Button Content="КОМПОНЕНТЫ"/>
+            <Button Name="Catalog" Content="КАТАЛОГ" Command="{Binding SetCurrentPageCommand}" CommandParameter="{Binding ElementName=Catalog}"/>
+            <Button Name="Clients" Content="КЛИЕНТЫ" Command="{Binding SetCurrentPageCommand}" CommandParameter="{Binding ElementName=Clients}"/>
+            <Button Name="Recipes" Content="РЕЦЕПТЫ" Command="{Binding SetCurrentPageCommand}" CommandParameter="{Binding ElementName=Recipes}"/>
+            <Button Name="Components" Content="КОМПОНЕНТЫ" Command="{Binding SetCurrentPageCommand}" CommandParameter="{Binding ElementName=Components}"/>
         </UniformGrid>
-        <Frame Content="{Binding CurrentContent}" Margin="5,0,185,0" />
+        <Frame Content="{Binding CurrentPage}" Margin="5,0,185,0" NavigationUIVisibility="Hidden"/>
     </DockPanel>
 </Window>
