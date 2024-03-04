@@ -24,5 +24,10 @@ namespace HandmadeСosmetics.Views.Pages
         {
             InitializeComponent();
         }
+
+        private void DataGrid_SelectionChanged()
+        {
+
+        }
     }
 }

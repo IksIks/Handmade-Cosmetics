@@ -26,4 +26,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\DB\" />
+  </ItemGroup>
+
 </Project>
