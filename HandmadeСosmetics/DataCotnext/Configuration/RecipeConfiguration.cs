@@ -10,7 +10,9 @@ namespace HandmadeСosmetics.DataCotnext.Configuration
         {
             builder.HasKey(e => e.Id);
             builder.HasMany(e => e.Ingredients).WithMany(r => r.Recipe);
-            builder.HasOne(p => p.Product).WithOne(r => r.Recipe).HasForeignKey<Recipe>(p => p.ProductId);
+            //builder.HasMany(e => e.Ingredients);
+            //builder.HasOne(p => p.Product).WithOne(r => r.Recipe).HasForeignKey<Recipe>(p => p.ProductId);
+            builder.HasMany(p => p.Products).WithOne(r => r.Recipe);
         }
     }
 }
