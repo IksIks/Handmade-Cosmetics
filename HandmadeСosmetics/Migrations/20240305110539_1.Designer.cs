@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HandmadeСosmetics.Migrations
 {
     [DbContext(typeof(DataDBContex))]
-    [Migration("20240225170219_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20240305110539_1")]
+    partial class _1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,9 @@ namespace HandmadeСosmetics.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<double>("CostPerUnitMeasurement")
+                        .HasColumnType("double precision");
 
                     b.Property<double>("IngridientCost")
                         .HasColumnType("double precision");
@@ -65,13 +68,14 @@ namespace HandmadeСosmetics.Migrations
                         .HasColumnType("double precision");
 
                     b.Property<string>("Photo")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("RecipeId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
 
                     b.ToTable("Products");
                 });
@@ -85,15 +89,10 @@ namespace HandmadeСosmetics.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId")
-                        .IsUnique();
 
                     b.ToTable("Recipes");
                 });
@@ -113,15 +112,15 @@ namespace HandmadeСosmetics.Migrations
                     b.ToTable("IngredientRecipe");
                 });
 
-            modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.Recipe", b =>
+            modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.Product", b =>
                 {
-                    b.HasOne("HandmadeСosmetics.Models.MaterialsAndProducts.Product", "Product")
-                        .WithOne("Recipe")
-                        .HasForeignKey("HandmadeСosmetics.Models.MaterialsAndProducts.Recipe", "ProductId")
+                    b.HasOne("HandmadeСosmetics.Models.MaterialsAndProducts.Recipe", "Recipe")
+                        .WithMany("Products")
+                        .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.Navigation("Recipe");
                 });
 
             modelBuilder.Entity("IngredientRecipe", b =>
@@ -139,9 +138,9 @@ namespace HandmadeСosmetics.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.Product", b =>
+            modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.Recipe", b =>
                 {
-                    b.Navigation("Recipe");
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

@@ -8,7 +8,18 @@
         public string? UnitMeasurement { get; set; }
         public double IngridientCost { get; set; }
         public List<Recipe>? Recipe { get; set; }
-        public double CostPerUnitMeasurement { get => IngridientCost / PackageWeight; }
+
+        private double costPerUnitMeasurement;
+
+        public double CostPerUnitMeasurement
+        {
+            get { return costPerUnitMeasurement; }
+            set { costPerUnitMeasurement = IngridientCost / PackageWeight; }
+        }
+
+        public Ingredient()
+        {
+        }
 
         public Ingredient(int id, string name, double packageWeight, string unitMeasurement, double ingridientCost, List<Recipe>? recipe)
         {
@@ -18,6 +29,16 @@
             UnitMeasurement = unitMeasurement;
             IngridientCost = ingridientCost;
             Recipe = recipe;
+        }
+
+        public Ingredient(string name, double packageWeight, string unitMeasurement, double ingridientCost)
+        {
+            //Id = id;
+            Name = name;
+            PackageWeight = packageWeight;
+            UnitMeasurement = unitMeasurement;
+            IngridientCost = ingridientCost;
+            //Recipe = recipe;
         }
     }
 }
