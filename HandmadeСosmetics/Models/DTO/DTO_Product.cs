@@ -1,6 +1,4 @@
-﻿using HandmadeСosmetics.Models.MaterialsAndProducts;
-
-namespace HandmadeСosmetics.Models.DTO
+﻿namespace HandmadeСosmetics.Models.DTO
 {
     internal class DTO_Product
     {

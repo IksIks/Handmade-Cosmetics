@@ -3,24 +3,30 @@ using HandmadeСosmetics.DataCotnext;
 using HandmadeСosmetics.Models.DB;
 using HandmadeСosmetics.Models.DTO;
 using HandmadeСosmetics.Models.MaterialsAndProducts;
+using HandmadeСosmetics.ViewModel;
 using HandmadeСosmetics.Views.Windows;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace HandmadeСosmetics.ViewModels.PagesViewModels
 {
-    internal class PageCatalogViewModel
+    internal class PageCatalogViewModel : ViewModelBase
     {
         public static event Func<Task> ActivateResponseToRecipeTable;
 
-        private DataDBContex dbContext { get; set; }
         private QueryProductTable query { get; set; }
-        public ObservableCollection<DTO_Product> ProductCatalog { get; set; }
+
+        private List<DTO_Product> productCatalog;
+
+        public List<DTO_Product> ProductCatalog
+        {
+            get => productCatalog;
+            set => Set(ref productCatalog, value);
+        }
 
         public PageCatalogViewModel()
         {
             query = new QueryProductTable(new DataDBContex());
-            ProductCatalog = new ObservableCollection<DTO_Product>((query.GetProducts()));
+            ProductCatalog = query.GetProducts();
             EditRowCommand = new LambdaCommand(OnEditRowCommandExecuted, CanEditRowCommandExecute);
             AddNewProductCommand = new LambdaCommand(OnAddNewProductCommandExecuted, CanAddNewProductCommandExecete);
         }
@@ -54,6 +60,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
             AddProductView addProductView = new AddProductView();
             ActivateResponseToRecipeTable?.Invoke();
             addProductView.ShowDialog();
+            ProductCatalog = query.GetProducts();
         }
     }
 }

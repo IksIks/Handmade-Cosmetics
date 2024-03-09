@@ -1,7 +1,6 @@
 ﻿using HandmadeСosmetics.Command;
 using HandmadeСosmetics.DataCotnext;
 using HandmadeСosmetics.Models.DB;
-using HandmadeСosmetics.Models.DTO;
 using HandmadeСosmetics.Models.MaterialsAndProducts;
 using HandmadeСosmetics.ViewModel;
 using HandmadeСosmetics.ViewModels.PagesViewModels;
@@ -17,8 +16,13 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         private List<Recipe> recipes;
         private QueryRecipeTable queryRecipeTable;
         private QueryProductTable queryProductTable;
+        private Product product;
 
-        public Product Product { get; set; }
+        public Product Product
+        {
+            get => product;
+            set => Set(ref product, value);
+        }
 
         public List<Recipe> Recipes
         {
@@ -26,11 +30,9 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             set => Set(ref recipes, value);
         }
 
-        public string FilePath { get; set; } = "Здесь будет указанный путь к файлу";
-
         public AddProductViewModel()
         {
-            Product = new Product();
+            product = new Product();
             recipes = new List<Recipe>();
             queryRecipeTable = new QueryRecipeTable(new DataDBContex());
             queryProductTable = new QueryProductTable(new DataDBContex());

@@ -12,10 +12,14 @@
         <TextBlock Text="Название" />
         <TextBox Text="{Binding Product.Name}" />
         <TextBlock Text="Фото" />
-        <StackPanel Orientation="Vertical" Background="Beige">
-            <TextBlock Text="{Binding Product.Photo}" />
-            <Button Content="Выберите файл" Command="{Binding SelectFileCommand}" />
-        </StackPanel>
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="{Binding Product.Photo, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Width="70" Height="70"/>
+            <Button Grid.Column="1" Content="Выберите файл" Command="{Binding SelectFileCommand}" Margin="10"/>
+        </Grid>
         <TextBlock Text="Рецепт" />
         <ComboBox ItemsSource="{Binding Recipes}" SelectedItem="{Binding Product.Recipe}" DisplayMemberPath="Name" />
         <UniformGrid Rows="1">
