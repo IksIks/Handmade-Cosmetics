@@ -8,6 +8,7 @@ using Microsoft.Win32;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using Image = NetVips.Image;
 
 namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 {
@@ -52,7 +53,22 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             dialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg";
             dialog.Multiselect = false;
             if (dialog.ShowDialog() == true)
-                Product.Photo = dialog.FileName;
+            {
+                Product.Photo = ResizeImage(dialog);
+            }
+        }
+
+        private string ResizeImage(OpenFileDialog dialog)
+        {
+            Image addedImage = Image.Thumbnail(dialog.FileName, 50, 50);
+            string path = Directory.GetCurrentDirectory() + $@"\Images\Thumb_{dialog.SafeFileName}";
+            if (File.Exists(path))
+            {
+                MessageBox.Show("Такой файл уже существует", "!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return "";
+            }
+            addedImage.WriteToFile(path + "[Q=50]");
+            return path;
         }
 
         public ICommand CancelCommand { get; }

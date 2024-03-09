@@ -1,7 +1,7 @@
 ﻿using HandmadeСosmetics.Command;
 using HandmadeСosmetics.ViewModel;
 using HandmadeСosmetics.Views.Pages;
-using System.ComponentModel;
+using System.IO;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -56,6 +56,7 @@ namespace HandmadeСosmetics.ViewModels
             pageRecipes = new PageRecipes();
             pageClients = new PageClients();
             SetCurrentPageCommand = new LambdaCommand(OnSetCurrentPageCommandExecuted);
+            CreareFolderForImages();
         }
 
         public ICommand SetCurrentPageCommand { get; }
@@ -83,6 +84,13 @@ namespace HandmadeСosmetics.ViewModels
 
                 default: break;
             }
+        }
+
+        private void CreareFolderForImages()
+        {
+            string path = Directory.GetCurrentDirectory() + "\\Images";
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
         }
     }
 }

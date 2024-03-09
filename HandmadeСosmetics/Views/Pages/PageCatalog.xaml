@@ -17,26 +17,27 @@
             <ColumnDefinition Width="150*" />
         </Grid.ColumnDefinitions>
         <UniformGrid Grid.Column="0" Columns="1" Margin="2">
-            <Button Content="+" FontSize="40" Command="{Binding AddNewProductCommand}"/>
-            <Button Content="-" FontSize="40"/>
+            <Button Content="+" FontSize="40" Command="{Binding AddNewProductCommand}" />
+            <Button Content="-" FontSize="40" />
             <Button />
         </UniformGrid>
         <DataGrid Name="DataGrid" Grid.Column="1" ItemsSource="{Binding ProductCatalog}" AutoGenerateColumns="False" Margin="2"
-                  FrozenColumnCount="4" ColumnWidth="*"  CanUserResizeRows="False" SelectionMode="Extended">
+                  FrozenColumnCount="4" ColumnWidth="*" RowHeight="50" CanUserResizeRows="False" SelectionMode="Extended"
+                  EnableRowVirtualization="True" VirtualizingPanel.VirtualizationMode="Recycling" EnableColumnVirtualization="True">
             <DataGrid.InputBindings>
                 <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditRowCommand}" CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}" />
             </DataGrid.InputBindings>
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Фото">
+                <DataGridTemplateColumn Header="Фото" Width="50">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Image Source="{Binding Photo}" Height="100" Width="100" />
+                            <Image Source="{Binding Photo}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Название продукта" Binding="{Binding Name}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Рецепт" Binding="{Binding RecipeName}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Чистая стоимость" Binding="{Binding NetCost, StringFormat={}{0} руб.}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Название продукта" Binding="{Binding Name}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Рецепт" Binding="{Binding RecipeName}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Чистая стоимость" Binding="{Binding NetCost, StringFormat={}{0} руб.}" IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
