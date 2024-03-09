@@ -1,0 +1,26 @@
+﻿<Window x:Class="HandmadeСosmetics.Views.Windows.AddProductView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:HandmadeСosmetics.Views.Windows"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:HandmadeСosmetics.ViewModels.WindowsViewModel"
+        Title="AddProductView" Height="250" Width="250" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:AddProductViewModel/>
+    </Window.DataContext>
+    <StackPanel Orientation="Vertical">
+        <TextBlock Text="Название" />
+        <TextBox Text="{Binding DTO_Product.Name}"/>
+        <TextBlock Text="Фото" />
+        <StackPanel Orientation="Vertical" Background="Beige">
+            <TextBlock Text="{Binding DTO_Product.Photo}" />
+            <Button Content="Выберите файл" />
+        </StackPanel>
+        <TextBlock Text="Рецепт" />
+        <ComboBox ItemsSource="{Binding Recipes}" SelectedItem="{Binding DTO_Product.RecipeName}" DisplayMemberPath="Name"/>
+        <UniformGrid Rows="1">
+            <Button Content="Отмена" Margin="5" Width="100" Height="25" Command="{Binding CancelCommand}"/>
+            <Button Content="Добавить" Margin="5" Width="100" Height="25" Command="{Binding AddCommand}"/>
+        </UniformGrid>
+    </StackPanel>
+</Window>

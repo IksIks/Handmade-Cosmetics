@@ -17,7 +17,7 @@
             <ColumnDefinition Width="150*" />
         </Grid.ColumnDefinitions>
         <UniformGrid Grid.Column="0" Columns="1" Margin="2">
-            <Button Content="+" FontSize="40"/>
+            <Button Content="+" FontSize="40" Command="{Binding AddNewProductCommand}"/>
             <Button Content="-" FontSize="40"/>
             <Button />
         </UniformGrid>
@@ -35,7 +35,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Название продукта" Binding="{Binding Name}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Рецепт" Binding="{Binding Recipe.Name}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Рецепт" Binding="{Binding RecipeName}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Чистая стоимость" Binding="{Binding NetCost, StringFormat={}{0} руб.}" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>

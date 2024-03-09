@@ -4,11 +4,7 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
-        //public int? ProductId { get; set; }
-        //public Product? Product { get; set; }
         public List<Product>? Products { get; set; }
-
         public List<Ingredient> Ingredients { get; set; }
 
         //public Recipe(int id, string name, Product product, List<Ingredient> ingredients)
