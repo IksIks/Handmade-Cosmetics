@@ -1,6 +1,7 @@
 ﻿using HandmadeСosmetics.Command;
 using HandmadeСosmetics.DataCotnext;
 using HandmadeСosmetics.Models.DB;
+using HandmadeСosmetics.Models.DTO;
 using HandmadeСosmetics.Models.MaterialsAndProducts;
 using HandmadeСosmetics.ViewModel;
 using HandmadeСosmetics.ViewModels.PagesViewModels;
@@ -24,6 +25,8 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             get => recipes;
             set => Set(ref recipes, value);
         }
+
+        public string FilePath { get; set; } = "Здесь будет указанный путь к файлу";
 
         public AddProductViewModel()
         {

@@ -31,5 +31,10 @@ namespace HandmadeСosmetics.Models.DB
                                 .SetProperty(p => p.Recipe, product.Recipe)
                                 .SetProperty(p => p.NetCost, product.NetCost));
         }
+
+        public async Task AddRecipe(DTO_Product dto_Product)
+        {
+            //await dbContext.Products.AddAsync(dto_Product);
+        }
     }
 }
