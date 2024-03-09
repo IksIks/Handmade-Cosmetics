@@ -9,14 +9,18 @@
         public int RecipeId { get; set; }
         public Recipe? Recipe { get; set; }
 
-        //public Product(int id, string name, string photo, double netCost, Recipe? recipe)
-        //{
-        //    Id = id;
-        //    Name = name;
-        //    Photo = photo;
-        //    NetCost = netCost;
-        //    Recipe = recipe;
-        //}
+        public Product()
+        {
+        }
+
+        public Product(int id, string name, string photo, double netCost, int recipeId)
+        {
+            Id = id;
+            Name = name;
+            Photo = photo;
+            NetCost = netCost;
+            RecipeId = recipeId;
+        }
 
         //public Product(int id, string name, string photo, double netCost)
         //{
