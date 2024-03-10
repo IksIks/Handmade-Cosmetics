@@ -13,7 +13,7 @@ using Image = NetVips.Image;
 
 namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 {
-    internal class AddProductViewModel : ViewModelBase
+    public class AddProductViewModel : ViewModelBase
     {
         private List<Recipe> recipes;
         private QueryRecipeTable queryRecipeTable;
@@ -43,17 +43,32 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             CancelCommand = new LambdaCommand(OnCancelCommandExecuted);
             AddCommand = new LambdaCommand(OnAddCommandExecuted, CanAddCommandExecute);
             SelectFileCommand = new LambdaCommand(OnSelectFileCommandExecuted);
+            UpdateCommand = new LambdaCommand(OnUpdateCommandExecuted, CanUpdateCommandExecute);
         }
 
         private void UpdateProduct(DTO_Product product)
         {
+            Product.Id = product.Id;
             Product.Name = product.Name;
             Product.Photo = product.Photo;
             Product.NetCost = product.NetCost;
         }
 
         //------------------------------------------------------------------------------------------------------------------------------
+        public ICommand UpdateCommand { get; }
 
+        private bool CanUpdateCommandExecute(object p)
+        {
+            return IslinesFilledCorrectly();
+        }
+
+        private void OnUpdateCommandExecuted(object p)
+        {
+            queryProductTable?.UpdateProduct(Product);
+            Application.Current.Windows[1].Close();
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------
         public ICommand SelectFileCommand { get; }
 
         private void OnSelectFileCommandExecuted(object p)
@@ -96,11 +111,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         private bool CanAddCommandExecute(object p)
         {
-            if (String.IsNullOrEmpty(Product.Name) ||
-                Product.Recipe == null ||
-                String.IsNullOrEmpty(Product.Photo))
-                return false;
-            return true;
+            return IslinesFilledCorrectly();
         }
 
         private void OnAddCommandExecuted(object p)
@@ -113,6 +124,15 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         private async Task GetAllRecipes()
         {
             Recipes = await queryRecipeTable.GetRecipes();
+        }
+
+        private bool IslinesFilledCorrectly()
+        {
+            if (String.IsNullOrEmpty(Product.Name) ||
+                Product.Recipe == null ||
+                String.IsNullOrEmpty(Product.Photo))
+                return false;
+            return true;
         }
     }
 }

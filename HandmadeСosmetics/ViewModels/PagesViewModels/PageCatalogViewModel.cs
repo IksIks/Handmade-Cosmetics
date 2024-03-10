@@ -41,6 +41,11 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         private async void OnEditRowCommandExecuted(object p)
         {
+            UpdateProductView updateProduct = new();
+            ActivateResponseToRecipeTableEvent?.Invoke();
+            UpdateProductEvent?.Invoke(p as DTO_Product);
+            updateProduct.ShowDialog();
+            ProductCatalog = query.GetProducts();
         }
 
         public ICommand AddNewProductCommand { get; }

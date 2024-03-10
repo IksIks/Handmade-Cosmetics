@@ -20,8 +20,13 @@ namespace HandmadeСosmetics.Models.MaterialsAndProducts
             set => Set(ref photo, value);
         }
 
-        //public string? Photo { get; set; }
-        public double NetCost { get; set; }
+        private double netCost;
+
+        public double NetCost
+        {
+            get => netCost;
+            set => Set(ref netCost, value);
+        }
 
         public int RecipeId { get; set; }
         public Recipe? Recipe { get; set; }

@@ -1,0 +1,30 @@
+﻿<Window x:Class="HandmadeСosmetics.Views.Windows.UpdateProductView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" mc:Ignorable="d"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:HandmadeСosmetics.Views.Windows"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:vm="clr-namespace:HandmadeСosmetics.ViewModels.WindowsViewModel"
+        Title="Обновление данных" Height="250" Width="250" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:AddProductViewModel />
+    </Window.DataContext>
+    <StackPanel Orientation="Vertical">
+        <TextBlock Text="Название" />
+        <TextBox Text="{Binding Product.Name}" />
+        <TextBlock Text="Фото" />
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="{Binding Product.Photo, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Width="70" Height="70"/>
+            <Button Grid.Column="1" Content="Выберите файл" Command="{Binding SelectFileCommand}" Margin="10"/>
+        </Grid>
+        <TextBlock Text="Рецепт" />
+        <ComboBox ItemsSource="{Binding Recipes}" SelectedItem="{Binding Product.Recipe}" DisplayMemberPath="Name" />
+        <UniformGrid Rows="1">
+            <Button Content="Отмена" Margin="5" Width="100" Height="25" Command="{Binding CancelCommand}" />
+            <Button Content="Изменить" Margin="5" Width="100" Height="25" Command="{Binding UpdateCommand}" />
+        </UniformGrid>
+    </StackPanel>
+</Window>
