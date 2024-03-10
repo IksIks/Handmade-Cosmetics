@@ -13,7 +13,7 @@ using Image = NetVips.Image;
 
 namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 {
-    internal class AddAndUpdateProductViewModel : ViewModelBase
+    internal class AddProductViewModel : ViewModelBase
     {
         private List<Recipe> recipes;
         private QueryRecipeTable queryRecipeTable;
@@ -32,7 +32,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             set => Set(ref recipes, value);
         }
 
-        public AddAndUpdateProductViewModel()
+        public AddProductViewModel()
         {
             product = new Product();
             recipes = new List<Recipe>();

@@ -1,4 +1,4 @@
-﻿<Window x:Class="HandmadeСosmetics.Views.Windows.AddAndUpdateProductView"
+﻿<Window x:Class="HandmadeСosmetics.Views.Windows.AddProductView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:HandmadeСosmetics.Views.Windows"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:HandmadeСosmetics.ViewModels.WindowsViewModel"
         Title="AddProductView" Height="250" Width="250" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
-        <vm:AddAndUpdateProductViewModel />
+        <vm:AddProductViewModel />
     </Window.DataContext>
     <StackPanel Orientation="Vertical">
         <TextBlock Text="Название" />

@@ -41,11 +41,6 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         private async void OnEditRowCommandExecuted(object p)
         {
-            AddAndUpdateProductView updateProductView = new AddAndUpdateProductView();
-            ActivateResponseToRecipeTableEvent?.Invoke();
-            UpdateProductEvent?.Invoke(p as DTO_Product);
-            updateProductView.ShowDialog();
-            ProductCatalog = query.GetProducts();
         }
 
         public ICommand AddNewProductCommand { get; }
@@ -59,7 +54,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         private void OnAddNewProductCommandExecuted(object p)
         {
-            AddAndUpdateProductView addProductView = new AddAndUpdateProductView();
+            AddProductView addProductView = new AddProductView();
             ActivateResponseToRecipeTableEvent?.Invoke();
             addProductView.ShowDialog();
             ProductCatalog = query.GetProducts();
