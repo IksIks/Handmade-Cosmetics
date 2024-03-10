@@ -6,7 +6,13 @@ namespace HandmadeСosmetics.Models.MaterialsAndProducts
     {
         private string? photo;
         public int Id { get; set; }
-        public string Name { get; set; }
+        private string name;
+
+        public string Name
+        {
+            get => name;
+            set => Set(ref name, value);
+        }
 
         public string? Photo
         {
@@ -24,9 +30,8 @@ namespace HandmadeСosmetics.Models.MaterialsAndProducts
         {
         }
 
-        public Product(int id, string name, string photo, double netCost, int recipeId)
+        public Product(string name, string photo, double netCost, int recipeId)
         {
-            Id = id;
             Name = name;
             Photo = photo;
             NetCost = netCost;

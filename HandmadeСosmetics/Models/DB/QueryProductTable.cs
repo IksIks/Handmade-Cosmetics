@@ -16,21 +16,20 @@ namespace HandmadeСosmetics.Models.DB
                  (c, a) => new DTO_Product(c.Id, c.Name, c.Photo, c.NetCost, a.Name)).ToList();
         }
 
-        public void AddProduct(Product product)
+        public async Task AddProduct(Product product)
         {
-            dbContext.Products.Add(new Product(product.Id, product.Name, product.Photo, product.NetCost, product.Recipe.Id));
+            await dbContext.Products.AddAsync(new Product(product.Name, product.Photo, product.NetCost, product.Recipe.Id));
             dbContext.SaveChanges();
         }
 
-        public void UpdateProduct(Product product)
-        {
-            dbContext.Products.Where(p => p.Id == product.Id)
-                                .ExecuteUpdateAsync(s =>
-                                s.SetProperty(p => p.Id, product.Id)
-                                .SetProperty(p => p.Name, product.Name)
-                                .SetProperty(p => p.Recipe, product.Recipe)
-                                .SetProperty(p => p.NetCost, product.NetCost));
-        }
+        //public void UpdateProduct(DTO_Product dto_product)
+        //{
+        //    dbContext.Products.Where(p => p.Id == dto_product.Id)
+        //                        .ExecuteUpdateAsync(s =>
+        //                        s.SetProperty(p => p.Name, dto_product.Name)
+        //                        .SetProperty(p => p.Recipe.Id, dto_product.R)
+        //                        .SetProperty(p => p.NetCost, dto_product.NetCost));
+        //}
 
         public async Task AddRecipe(DTO_Product dto_Product)
         {

@@ -2,7 +2,6 @@
 using HandmadeСosmetics.DataCotnext;
 using HandmadeСosmetics.Models.DB;
 using HandmadeСosmetics.Models.DTO;
-using HandmadeСosmetics.Models.MaterialsAndProducts;
 using HandmadeСosmetics.ViewModel;
 using HandmadeСosmetics.Views.Windows;
 using System.Windows.Input;
@@ -11,7 +10,9 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 {
     internal class PageCatalogViewModel : ViewModelBase
     {
-        public static event Func<Task> ActivateResponseToRecipeTable;
+        public static event Func<Task> ActivateResponseToRecipeTableEvent;
+
+        public static event Action<DTO_Product> UpdateProductEvent;
 
         private QueryProductTable query { get; set; }
 
@@ -35,15 +36,16 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         private bool CanEditRowCommandExecute(object p)
         {
-            if (p is Product)
-            {
-                return true;
-            }
-            return false;
+            return p is DTO_Product;
         }
 
         private async void OnEditRowCommandExecuted(object p)
         {
+            AddAndUpdateProductView updateProductView = new AddAndUpdateProductView();
+            ActivateResponseToRecipeTableEvent?.Invoke();
+            UpdateProductEvent?.Invoke(p as DTO_Product);
+            updateProductView.ShowDialog();
+            ProductCatalog = query.GetProducts();
         }
 
         public ICommand AddNewProductCommand { get; }
@@ -57,8 +59,8 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         private void OnAddNewProductCommandExecuted(object p)
         {
-            AddProductView addProductView = new AddProductView();
-            ActivateResponseToRecipeTable?.Invoke();
+            AddAndUpdateProductView addProductView = new AddAndUpdateProductView();
+            ActivateResponseToRecipeTableEvent?.Invoke();
             addProductView.ShowDialog();
             ProductCatalog = query.GetProducts();
         }

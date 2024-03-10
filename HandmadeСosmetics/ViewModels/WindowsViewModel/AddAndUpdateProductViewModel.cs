@@ -1,6 +1,7 @@
 ﻿using HandmadeСosmetics.Command;
 using HandmadeСosmetics.DataCotnext;
 using HandmadeСosmetics.Models.DB;
+using HandmadeСosmetics.Models.DTO;
 using HandmadeСosmetics.Models.MaterialsAndProducts;
 using HandmadeСosmetics.ViewModel;
 using HandmadeСosmetics.ViewModels.PagesViewModels;
@@ -12,7 +13,7 @@ using Image = NetVips.Image;
 
 namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 {
-    internal class AddProductViewModel : ViewModelBase
+    internal class AddAndUpdateProductViewModel : ViewModelBase
     {
         private List<Recipe> recipes;
         private QueryRecipeTable queryRecipeTable;
@@ -31,17 +32,27 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             set => Set(ref recipes, value);
         }
 
-        public AddProductViewModel()
+        public AddAndUpdateProductViewModel()
         {
             product = new Product();
             recipes = new List<Recipe>();
             queryRecipeTable = new QueryRecipeTable(new DataDBContex());
             queryProductTable = new QueryProductTable(new DataDBContex());
-            PageCatalogViewModel.ActivateResponseToRecipeTable += GetAllRecipes;
+            PageCatalogViewModel.ActivateResponseToRecipeTableEvent += GetAllRecipes;
+            PageCatalogViewModel.UpdateProductEvent += UpdateProduct;
             CancelCommand = new LambdaCommand(OnCancelCommandExecuted);
             AddCommand = new LambdaCommand(OnAddCommandExecuted, CanAddCommandExecute);
             SelectFileCommand = new LambdaCommand(OnSelectFileCommandExecuted);
         }
+
+        private void UpdateProduct(DTO_Product product)
+        {
+            Product.Name = product.Name;
+            Product.Photo = product.Photo;
+            Product.NetCost = product.NetCost;
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------
 
         public ICommand SelectFileCommand { get; }
 
@@ -71,14 +82,16 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             return path;
         }
 
+        //------------------------------------------------------------------------------------------------------------------------------
         public ICommand CancelCommand { get; }
 
         private void OnCancelCommandExecuted(object p)
         {
             Application.Current.Windows[1].Close();
-            PageCatalogViewModel.ActivateResponseToRecipeTable -= GetAllRecipes;
+            PageCatalogViewModel.ActivateResponseToRecipeTableEvent -= GetAllRecipes;
         }
 
+        //------------------------------------------------------------------------------------------------------------------------------
         public ICommand AddCommand { get; }
 
         private bool CanAddCommandExecute(object p)
@@ -92,10 +105,11 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         private void OnAddCommandExecuted(object p)
         {
-            queryProductTable.AddProduct(Product);
+            queryProductTable?.AddProduct(Product);
             Application.Current.Windows[1].Close();
         }
 
+        //------------------------------------------------------------------------------------------------------------------------------
         private async Task GetAllRecipes()
         {
             Recipes = await queryRecipeTable.GetRecipes();

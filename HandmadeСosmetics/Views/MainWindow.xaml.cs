@@ -24,8 +24,6 @@ namespace HandmadeСosmetics.Views
             //    Name = "Рецепт5",
             //    Ingredients = new List<Ingredient>()
             //    {
-            //        new Ingredient( "Игридиент1", 0.8, "ry", 1500),
-            //        new Ingredient( "Игридиент2", 0.9, "ry", 1500),
             //        new Ingredient( "Игридиент3", 0.5, "ry", 1500),
             //        new Ingredient( "Игридиент4", 1.2, "ry", 1500),
             //        new Ingredient( "Игридиент5", 5, "ry", 1500)
@@ -59,9 +57,7 @@ namespace HandmadeСosmetics.Views
             //        {
             //            new Ingredient( "Игридиент1", 0.8, "ry", 1500),
             //            new Ingredient( "Игридиент2", 0.9, "ry", 1500),
-            //            new Ingredient( "Игридиент3", 0.5, "ry", 1500),
-            //            new Ingredient( "Игридиент4", 1.2, "ry", 1500),
-            //            new Ingredient( "Игридиент5", 5, "ry", 1500)
+            //            new Ingredient( "Игридиент3", 0.5, "ry", 1500)
             //        },
             //    },
 
