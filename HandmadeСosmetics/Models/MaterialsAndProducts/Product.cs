@@ -24,9 +24,8 @@ namespace HandmadeСosmetics.Models.MaterialsAndProducts
         {
         }
 
-        public Product(int id, string name, string photo, double netCost, int recipeId)
+        public Product(string name, string photo, double netCost, int recipeId)
         {
-            Id = id;
             Name = name;
             Photo = photo;
             NetCost = netCost;

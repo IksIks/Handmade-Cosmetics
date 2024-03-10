@@ -43,6 +43,8 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             SelectFileCommand = new LambdaCommand(OnSelectFileCommandExecuted);
         }
 
+        //------------------------------------------------------------------------------------------------------------------------------
+
         public ICommand SelectFileCommand { get; }
 
         private void OnSelectFileCommandExecuted(object p)
@@ -71,6 +73,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             return path;
         }
 
+        //------------------------------------------------------------------------------------------------------------------------------
         public ICommand CancelCommand { get; }
 
         private void OnCancelCommandExecuted(object p)
@@ -79,6 +82,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             PageCatalogViewModel.ActivateResponseToRecipeTable -= GetAllRecipes;
         }
 
+        //------------------------------------------------------------------------------------------------------------------------------
         public ICommand AddCommand { get; }
 
         private bool CanAddCommandExecute(object p)
@@ -92,10 +96,11 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         private void OnAddCommandExecuted(object p)
         {
-            queryProductTable.AddProduct(Product);
+            queryProductTable?.AddProduct(Product);
             Application.Current.Windows[1].Close();
         }
 
+        //------------------------------------------------------------------------------------------------------------------------------
         private async Task GetAllRecipes()
         {
             Recipes = await queryRecipeTable.GetRecipes();

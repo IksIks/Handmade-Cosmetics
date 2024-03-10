@@ -9,6 +9,7 @@ namespace HandmadeСosmetics.DataCotnext.Configuration
         public void Configure(EntityTypeBuilder<Ingredient> builder)
         {
             builder.HasKey(e => e.Id);
+            builder.Property(x => x.Id).UseIdentityAlwaysColumn();
             builder.HasMany(r => r.Recipe).WithMany(e => e.Ingredients);
         }
     }

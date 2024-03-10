@@ -35,11 +35,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         private bool CanEditRowCommandExecute(object p)
         {
-            if (p is Product)
-            {
-                return true;
-            }
-            return false;
+            return p is DTO_Product;
         }
 
         private async void OnEditRowCommandExecuted(object p)
