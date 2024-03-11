@@ -4,9 +4,25 @@ namespace HandmadeСosmetics.Models.MaterialsAndProducts
 {
     public class Product : ViewModelBase
     {
+        private double netCost;
         private string? photo;
-        public int Id { get; set; }
         private string name;
+        private double price;
+        private double weight;
+
+        public int Id { get; set; }
+
+        public double Weight
+        {
+            get => weight;
+            set => Set(ref weight, value);
+        }
+
+        public double Price
+        {
+            get => price;
+            set => Set(ref price, value);
+        }
 
         public string Name
         {
@@ -19,8 +35,6 @@ namespace HandmadeСosmetics.Models.MaterialsAndProducts
             get => photo;
             set => Set(ref photo, value);
         }
-
-        private double netCost;
 
         public double NetCost
         {
@@ -35,12 +49,14 @@ namespace HandmadeСosmetics.Models.MaterialsAndProducts
         {
         }
 
-        public Product(string name, string photo, double netCost, int recipeId)
+        public Product(string name, string photo, double netCost, int recipeId, double price, double weight)
         {
             Name = name;
             Photo = photo;
             NetCost = netCost;
             RecipeId = recipeId;
+            Price = price;
+            Weight = weight;
         }
 
         //public Product(int id, string name, string photo, double netCost)

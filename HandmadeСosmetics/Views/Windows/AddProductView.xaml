@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:HandmadeСosmetics.ViewModels.WindowsViewModel"
-        Title="AddProductView" Height="250" Width="250" WindowStartupLocation="CenterScreen">
+        Title="AddProductView" Height="300" Width="250" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <vm:AddProductViewModel />
     </Window.DataContext>
@@ -20,6 +20,10 @@
             <Image Grid.Column="0" Source="{Binding Product.Photo, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Width="70" Height="70"/>
             <Button Grid.Column="1" Content="Выберите файл" Command="{Binding SelectFileCommand}" Margin="10"/>
         </Grid>
+        <TextBlock Text="Цена" />
+        <TextBox Text="{Binding Product.Price}" />
+        <TextBlock Text="Вес" />
+        <TextBox Text="{Binding Product.Weight}" />
         <TextBlock Text="Рецепт" />
         <ComboBox ItemsSource="{Binding Recipes}" SelectedItem="{Binding Product.Recipe}" DisplayMemberPath="Name" />
         <UniformGrid Rows="1">

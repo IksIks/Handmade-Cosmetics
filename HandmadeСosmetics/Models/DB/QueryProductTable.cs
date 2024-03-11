@@ -12,13 +12,15 @@ namespace HandmadeСosmetics.Models.DB
         public List<DTO_Product> GetProducts()
         {
             return dbContext.Products.Join
-                 (dbContext.Recipes, c => c.RecipeId, a => a.Id,
-                 (c, a) => new DTO_Product(c.Id, c.Name, c.Photo, c.NetCost, a.Name)).ToList();
+                 (dbContext.Recipes, p => p.RecipeId, a => a.Id,
+                 (p, a) => new DTO_Product(p.Id, p.Name, p.Photo, p.NetCost, a.Name, p.Price, p.Weight)).ToList();
+            //(p, a) => new DTO_Product(p, a.Name)).ToList();
+            //TODO  почему то не срабатывает этот конструктор, приходит NULL в строке для Photo
         }
 
         public async Task AddProduct(Product product)
         {
-            await dbContext.Products.AddAsync(new Product(product.Name, product.Photo, product.NetCost, product.Recipe.Id));
+            await dbContext.Products.AddAsync(new Product(product.Name, product.Photo, product.NetCost, product.Recipe.Id, product.Price, product.Weight));
             dbContext.SaveChangesAsync();
         }
 
@@ -28,14 +30,10 @@ namespace HandmadeСosmetics.Models.DB
                                 .ExecuteUpdateAsync(s =>
                                 s.SetProperty(p => p.Name, product.Name)
                                 .SetProperty(p => p.Photo, product.Photo)
+                                .SetProperty(p => p.NetCost, product.NetCost)
                                 .SetProperty(p => p.RecipeId, product.Recipe.Id)
-                                .SetProperty(p => p.NetCost, product.NetCost));
+                                .SetProperty(p => p.Price, product.Price));
             dbContext.SaveChanges();
-        }
-
-        public async Task AddRecipe(DTO_Product dto_Product)
-        {
-            //await dbContext.Products.AddAsync(dto_Product);
         }
     }
 }

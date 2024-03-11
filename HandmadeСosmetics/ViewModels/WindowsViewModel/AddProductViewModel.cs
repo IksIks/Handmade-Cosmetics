@@ -19,6 +19,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         private QueryRecipeTable queryRecipeTable;
         private QueryProductTable queryProductTable;
         private Product product;
+        private string addedImagePath = default;
 
         public Product Product
         {
@@ -44,14 +45,6 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             AddCommand = new LambdaCommand(OnAddCommandExecuted, CanAddCommandExecute);
             SelectFileCommand = new LambdaCommand(OnSelectFileCommandExecuted);
             UpdateCommand = new LambdaCommand(OnUpdateCommandExecuted, CanUpdateCommandExecute);
-        }
-
-        private void UpdateProduct(DTO_Product product)
-        {
-            Product.Id = product.Id;
-            Product.Name = product.Name;
-            Product.Photo = product.Photo;
-            Product.NetCost = product.NetCost;
         }
 
         //------------------------------------------------------------------------------------------------------------------------------
@@ -80,21 +73,22 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             dialog.Multiselect = false;
             if (dialog.ShowDialog() == true)
             {
-                Product.Photo = ResizeImage(dialog);
+                Product.Photo = GetPathCreatedImage(dialog);
             }
         }
 
-        private string ResizeImage(OpenFileDialog dialog)
+        private string GetPathCreatedImage(OpenFileDialog dialog)
         {
             Image addedImage = Image.Thumbnail(dialog.FileName, 50, 50);
-            string path = Directory.GetCurrentDirectory() + $@"\Images\Thumb_{dialog.SafeFileName}";
-            if (File.Exists(path))
+            addedImagePath = Directory.GetCurrentDirectory() + $@"\Images\Thumb_{dialog.SafeFileName}";
+            if (File.Exists(addedImagePath))
             {
                 MessageBox.Show("Такой файл уже существует", "!", MessageBoxButton.OK, MessageBoxImage.Error);
                 return "";
             }
-            addedImage.WriteToFile(path + "[Q=50]");
-            return path;
+            addedImage.WriteToFile(addedImagePath + "[Q=50]");
+            addedImage.Close();
+            return addedImagePath;
         }
 
         //------------------------------------------------------------------------------------------------------------------------------
@@ -102,6 +96,9 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         private void OnCancelCommandExecuted(object p)
         {
+            // TODO : Сделать удаление файла после отмены создания Продукта
+            //Product.Photo = "";
+            //File.Delete(addedImagePath);
             Application.Current.Windows[1].Close();
             PageCatalogViewModel.ActivateResponseToRecipeTableEvent -= GetAllRecipes;
         }
@@ -130,9 +127,20 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         {
             if (String.IsNullOrEmpty(Product.Name) ||
                 Product.Recipe == null ||
-                String.IsNullOrEmpty(Product.Photo))
+                Product.Weight < 0 ||
+                Product.Price < 0)
                 return false;
             return true;
+        }
+
+        private void UpdateProduct(DTO_Product product)
+        {
+            Product.Id = product.Id;
+            Product.Name = product.Name;
+            Product.Photo = product.Photo;
+            Product.NetCost = product.NetCost;
+            Product.Price = product.Price;
+            Product.Weight = product.Weight;
         }
     }
 }

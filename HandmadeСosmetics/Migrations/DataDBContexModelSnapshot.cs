@@ -67,8 +67,14 @@ namespace HandmadeСosmetics.Migrations
                     b.Property<string>("Photo")
                         .HasColumnType("text");
 
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
+
                     b.Property<int>("RecipeId")
                         .HasColumnType("integer");
+
+                    b.Property<double>("Weight")
+                        .HasColumnType("double precision");
 
                     b.HasKey("Id");
 
