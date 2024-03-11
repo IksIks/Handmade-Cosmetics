@@ -21,19 +21,23 @@ namespace HandmadeСosmetics.Models.DB
         public async Task AddProduct(Product product)
         {
             await dbContext.Products.AddAsync(new Product(product.Name, product.Photo, product.NetCost, product.Recipe.Id, product.Price, product.Weight));
-            dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
         }
 
-        public void UpdateProduct(Product product)
+        public async Task UpdateProduct(Product product)
         {
-            dbContext.Products.Where(p => p.Id == product.Id)
+            await dbContext.Products.Where(p => p.Id == product.Id)
                                 .ExecuteUpdateAsync(s =>
                                 s.SetProperty(p => p.Name, product.Name)
                                 .SetProperty(p => p.Photo, product.Photo)
                                 .SetProperty(p => p.NetCost, product.NetCost)
                                 .SetProperty(p => p.RecipeId, product.Recipe.Id)
                                 .SetProperty(p => p.Price, product.Price));
-            dbContext.SaveChanges();
+        }
+
+        public async Task DeleteProduct(int id)
+        {
+            await dbContext.Products.Where(p => p.Id == id).ExecuteDeleteAsync();
         }
     }
 }

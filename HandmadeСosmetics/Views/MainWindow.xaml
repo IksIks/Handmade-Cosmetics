@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:HandmadeСosmetics.ViewModels"
         xmlns:local="clr-namespace:HandmadeСosmetics"
         mc:Ignorable="d"
-        Title="Основная программа" Height="450" Width="800">
+        Title="Основная программа" Height="450" Width="850">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
