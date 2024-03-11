@@ -16,10 +16,6 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
         public static event Action<DTO_Product> UpdateProductEvent;
 
         private QueryProductTable query { get; set; }
-<<<<<<< HEAD
-=======
-
->>>>>>> 43278b2f7620ef892ee2d40667c0e4a5796fc45e
         private List<DTO_Product> productCatalog;
 
         public List<DTO_Product> ProductCatalog
