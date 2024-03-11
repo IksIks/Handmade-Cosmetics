@@ -33,7 +33,11 @@ namespace HandmadeСosmetics.Models.DB
                                 .SetProperty(p => p.NetCost, product.NetCost)
                                 .SetProperty(p => p.RecipeId, product.Recipe.Id)
                                 .SetProperty(p => p.Price, product.Price));
-            dbContext.SaveChanges();
+        }
+
+        public async void DeleteProduct(int id)
+        {
+            await dbContext.Products.Where(p => p.Id == id).ExecuteDeleteAsync();
         }
     }
 }
