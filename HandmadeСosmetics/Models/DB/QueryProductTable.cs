@@ -35,7 +35,11 @@ namespace HandmadeСosmetics.Models.DB
                                 .SetProperty(p => p.Price, product.Price));
         }
 
+<<<<<<< HEAD
         public async Task DeleteProduct(int id)
+=======
+        public async void DeleteProduct(int id)
+>>>>>>> 43278b2f7620ef892ee2d40667c0e4a5796fc45e
         {
             await dbContext.Products.Where(p => p.Id == id).ExecuteDeleteAsync();
         }

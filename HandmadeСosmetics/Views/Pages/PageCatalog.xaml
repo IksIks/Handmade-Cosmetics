@@ -4,7 +4,11 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:vm="clr-namespace:HandmadeСosmetics.ViewModels.PagesViewModels"
+<<<<<<< HEAD
       d:DesignHeight="450" d:DesignWidth="850"
+=======
+      d:DesignHeight="450" d:DesignWidth="800"
+>>>>>>> 43278b2f7620ef892ee2d40667c0e4a5796fc45e
       Title="Каталог с товарами">
     <Page.DataContext>
         <vm:PageCatalogViewModel />
