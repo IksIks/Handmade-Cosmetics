@@ -7,7 +7,7 @@ namespace HandmadeСosmetics.Models.DB
 {
     internal class QueryProductTable(DataDBContex dbContext)
     {
-        private DataDBContex dbContext { get; set; } = dbContext;
+        private DataDBContex dbContext = dbContext;
 
         public List<DTO_Product> GetProducts()
         {
@@ -17,7 +17,7 @@ namespace HandmadeСosmetics.Models.DB
                  (dbContext.Recipes, p => p.RecipeId, a => a.Id,
                  (p, a) => new DTO_Product(p.Id, p.Name, p.Photo, p.NetCost, a.Name, p.Price, p.Weight)).ToList();
                 //(p, a) => new DTO_Product(p, a.Name)).ToList();
-                //TODO  почему то не срабатывает этот конструктор, приходит NULL в строке для Photo
+                //TODO почему то не срабатывает этот конструктор, приходит NULL в строке для Photo
             }
         }
 

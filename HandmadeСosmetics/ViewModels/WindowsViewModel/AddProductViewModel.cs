@@ -16,8 +16,8 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
     public class AddProductViewModel : ViewModelBase
     {
         private List<Recipe> recipes;
-        private QueryRecipeTable queryRecipeTable;
-        private QueryProductTable queryProductTable;
+        private readonly QueryRecipeTable queryRecipeTable;
+        private readonly QueryProductTable queryProductTable;
         private Product product;
         private string addedImagePath = default;
 

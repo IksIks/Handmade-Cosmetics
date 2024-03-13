@@ -15,7 +15,7 @@ namespace HandmadeСosmetics.ViewModels
         private Page pageRecipes;
         private Page pageCatalog;
         private Page pageClients;
-        private Page pageComponents;
+        private Page pageIngredients;
 
         public Page CurrentPage
         {
@@ -35,10 +35,10 @@ namespace HandmadeСosmetics.ViewModels
             private set { pageClients = value; }
         }
 
-        public Page PageComponents
+        public Page PageIngredients
         {
-            get { return pageComponents; }
-            private set { pageComponents = value; }
+            get { return pageIngredients; }
+            private set { pageIngredients = value; }
         }
 
         public Page PageRecipes
@@ -52,7 +52,7 @@ namespace HandmadeСosmetics.ViewModels
         public MainWindowViewModel()
         {
             pageCatalog = new PageCatalog();
-            pageComponents = new PageComponents();
+            pageIngredients = new PageIngredients();
             pageRecipes = new PageRecipes();
             pageClients = new PageClients();
             SetCurrentPageCommand = new LambdaCommand(OnSetCurrentPageCommandExecuted);
@@ -79,7 +79,7 @@ namespace HandmadeСosmetics.ViewModels
                     break;
 
                 case "КОМПОНЕНТЫ":
-                    CurrentPage = PageComponents;
+                    CurrentPage = PageIngredients;
                     break;
 
                 default: break;

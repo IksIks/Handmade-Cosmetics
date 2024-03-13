@@ -3,9 +3,9 @@
     public class Ingredient
     {
         public int Id { get; set; }
-        public string? Name { get; set; }
+        public string Name { get; set; }
         public double PackageWeight { get; set; }
-        public string? UnitMeasurement { get; set; }
+        public string UnitMeasurement { get; set; }
         public double IngridientCost { get; set; }
         public List<Recipe>? Recipe { get; set; }
 
@@ -38,6 +38,7 @@
             PackageWeight = packageWeight;
             UnitMeasurement = unitMeasurement;
             IngridientCost = ingridientCost;
+            CostPerUnitMeasurement = ingridientCost / packageWeight;
             //Recipe = recipe;
         }
     }

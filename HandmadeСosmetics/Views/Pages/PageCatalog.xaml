@@ -9,7 +9,7 @@
     <Page.DataContext>
         <vm:PageCatalogViewModel />
     </Page.DataContext>
-    <Grid Background="White">
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60" />
             <ColumnDefinition Width="150*" />
