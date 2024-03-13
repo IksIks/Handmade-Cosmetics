@@ -46,7 +46,7 @@ namespace HandmadeСosmetics.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ingredients");
+                    b.ToTable("Ingredients", (string)null);
                 });
 
             modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.Product", b =>
@@ -80,7 +80,7 @@ namespace HandmadeСosmetics.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.Recipe", b =>
@@ -97,7 +97,7 @@ namespace HandmadeСosmetics.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Recipes");
+                    b.ToTable("Recipes", (string)null);
                 });
 
             modelBuilder.Entity("IngredientRecipe", b =>
@@ -112,7 +112,7 @@ namespace HandmadeСosmetics.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("IngredientRecipe");
+                    b.ToTable("IngredientRecipe", (string)null);
                 });
 
             modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.Product", b =>

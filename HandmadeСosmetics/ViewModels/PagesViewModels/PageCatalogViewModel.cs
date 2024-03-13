@@ -59,7 +59,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         private bool CanAddNewProductCommandExecete(object p)
         {
-            if (ProductCatalog.Count > 0)
+            if (ProductCatalog.Count >= 0)
                 return true;
             return false;
         }

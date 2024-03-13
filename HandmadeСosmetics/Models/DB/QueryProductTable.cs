@@ -11,11 +11,14 @@ namespace HandmadeСosmetics.Models.DB
 
         public List<DTO_Product> GetProducts()
         {
-            return dbContext.Products.Join
+            using (dbContext = new())
+            {
+                return dbContext.Products.Join
                  (dbContext.Recipes, p => p.RecipeId, a => a.Id,
                  (p, a) => new DTO_Product(p.Id, p.Name, p.Photo, p.NetCost, a.Name, p.Price, p.Weight)).ToList();
-            //(p, a) => new DTO_Product(p, a.Name)).ToList();
-            //TODO  почему то не срабатывает этот конструктор, приходит NULL в строке для Photo
+                //(p, a) => new DTO_Product(p, a.Name)).ToList();
+                //TODO  почему то не срабатывает этот конструктор, приходит NULL в строке для Photo
+            }
         }
 
         public async Task AddProduct(Product product)
@@ -37,7 +40,10 @@ namespace HandmadeСosmetics.Models.DB
 
         public async Task DeleteProduct(int id)
         {
-            await dbContext.Products.Where(p => p.Id == id).ExecuteDeleteAsync();
+            using (dbContext = new())
+            {
+                await dbContext.Products.Where(p => p.Id == id).ExecuteDeleteAsync();
+            }
         }
     }
 }
