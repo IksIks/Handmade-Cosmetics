@@ -3,6 +3,8 @@ using HandmadeСosmetics.DataCotnext;
 using HandmadeСosmetics.Models.DB;
 using HandmadeСosmetics.Models.MaterialsAndProducts;
 using HandmadeСosmetics.ViewModel;
+using HandmadeСosmetics.ViewModels.PagesViewModels;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HandmadeСosmetics.ViewModels.WindowsViewModel
@@ -22,24 +24,68 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         {
             ingredient = new Ingredient();
             queryIngredientTable = new QueryIngredientsTable(new DataDBContex());
+            PageIngredientsViewModel.UpdateIngredientEvent += UpdateIngredient;
             AddCommand = new LambdaCommand(OnAddCommandExecute, CanAddCommandExecute);
+            CancelCommand = new LambdaCommand(OnCancelCommandExecuted);
+            UpdateCommand = new LambdaCommand(OnUpdateCommandExecuted, CanUpdateCommandExecute);
         }
+
+        #region Команда добавления нового ингридиента
 
         public ICommand AddCommand { get; }
 
         private bool CanAddCommandExecute(object p)
         {
-            if (String.IsNullOrEmpty(Ingredient.Name)
-                && Ingredient.PackageWeight <= 0
-                && String.IsNullOrEmpty(Ingredient.UnitMeasurement)
-                && Ingredient.IngridientCost <= 0) return false;
-            return true;
+            return IslinesFilledCorrectly();
         }
 
         private void OnAddCommandExecute(object p)
         {
-            //TODO сделать автоматичкский расчет CostPerUnitMeasurement, наверное сделать отдельные поля на каждое поле разметки
-            queryIngredientTable.AddIngredient(Ingredient);
+            queryIngredientTable.AddIngredient(new Ingredient(Ingredient.Name, Ingredient.PackageWeight, Ingredient.UnitMeasurement, Ingredient.IngridientCost, Ingredient.Id));
+        }
+
+        #endregion Команда добавления нового ингридиента
+
+        #region Команда обновления ингредиента
+
+        public ICommand UpdateCommand { get; }
+
+        private bool CanUpdateCommandExecute(object p)
+        {
+            return IslinesFilledCorrectly();
+        }
+
+        private void OnUpdateCommandExecuted(object p)
+        {
+            queryIngredientTable.UpdateIngredient(new Ingredient(Ingredient.Name, Ingredient.PackageWeight, Ingredient.UnitMeasurement, Ingredient.IngridientCost, Ingredient.Id));
+        }
+
+        #endregion Команда обновления ингредиента
+
+        #region Команда отмены
+
+        public ICommand CancelCommand { get; }
+
+        private void OnCancelCommandExecuted(object p)
+        {
+            Application.Current.Windows[1].Close();
+        }
+
+        #endregion Команда отмены
+
+        private void UpdateIngredient(Ingredient ingredient)
+        {
+            Ingredient = ingredient;
+        }
+
+        private bool IslinesFilledCorrectly()
+        {
+            if (String.IsNullOrEmpty(Ingredient.Name) ||
+                Ingredient.PackageWeight <= 0 ||
+                String.IsNullOrEmpty(Ingredient.UnitMeasurement) ||
+                Ingredient.IngridientCost <= 0)
+                return false;
+            return true;
         }
     }
 }
