@@ -12,7 +12,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
     {
         public static Action<Ingredient> UpdateIngredientEvent;
         private List<Ingredient> ingredients;
-        private readonly QueryIngredientsTable query;
+        private readonly QueryIngredientsTable queryIngredientsTable;
 
         public List<Ingredient> Ingredients
         {
@@ -22,8 +22,8 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         public PageIngredientsViewModel()
         {
-            query = new QueryIngredientsTable(new DataCotnext.DataDBContex());
-            Ingredients = query.Get();
+            queryIngredientsTable = new QueryIngredientsTable(new DataCotnext.DataDBContex());
+            Ingredients = queryIngredientsTable.Get();
             //TODO перенести запрос ингредиентов в Основное окно VM
             AddNewIngredientCommand = new LambdaCommand(OnAddNewIngredientCommandExecuted, CanAddNewIngredientCommandWxwcute);
             EditIngredientCommand = new LambdaCommand(OnEditIngredientCommandExecuted, CanEditIngredientCommandExecute);
@@ -44,7 +44,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
         {
             AddIngredientView addIngridientView = new();
             addIngridientView.ShowDialog();
-            Ingredients = query.Get();
+            Ingredients = queryIngredientsTable.Get();
         }
 
         #endregion Команда добавления ингридиента
@@ -63,7 +63,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
             UpdateIngredientView updateIngridientView = new();
             UpdateIngredientEvent?.Invoke(p as Ingredient);
             updateIngridientView.ShowDialog();
-            Ingredients = query.Get();
+            Ingredients = queryIngredientsTable.Get();
         }
 
         #endregion Команда редактирования ингридиента
@@ -79,8 +79,8 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
         {
             if (MessageBox.Show("Вы уверены?", "Удаление", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel) == MessageBoxResult.OK)
             {
-                query.DeleteIngredient((p as Ingredient).Id);
-                Ingredients = query.Get();
+                queryIngredientsTable.DeleteIngredient((p as Ingredient).Id);
+                Ingredients = queryIngredientsTable.Get();
             }
         }
     }

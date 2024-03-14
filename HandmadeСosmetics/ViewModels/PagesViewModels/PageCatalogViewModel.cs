@@ -15,7 +15,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         public static event Action<DTO_Product> UpdateProductEvent;
 
-        private QueryProductTable query { get; }
+        private readonly QueryProductTable queryProductTable;
         private List<DTO_Product> productCatalog;
 
         public List<DTO_Product> ProductCatalog
@@ -26,8 +26,8 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         public PageCatalogViewModel()
         {
-            query = new QueryProductTable(new DataDBContex());
-            ProductCatalog = query.GetProducts();
+            queryProductTable = new QueryProductTable(new DataDBContex());
+            ProductCatalog = queryProductTable.GetProducts();
             //TODO перенести запрос продуктов в Основное окно VM
             EditRowCommand = new LambdaCommand(OnEditRowCommandExecuted, CanEditRowCommandExecute);
             AddNewProductCommand = new LambdaCommand(OnAddNewProductCommandExecuted, CanAddNewProductCommandExecete);
@@ -50,7 +50,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
             AddProductView addProductView = new AddProductView();
             ActivateResponseToRecipeTableEvent?.Invoke();
             addProductView.ShowDialog();
-            ProductCatalog = query.GetProducts();
+            ProductCatalog = queryProductTable.GetProducts();
         }
 
         #endregion Команда добавления нового продукта
@@ -70,7 +70,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
             ActivateResponseToRecipeTableEvent?.Invoke();
             UpdateProductEvent?.Invoke(p as DTO_Product);
             updateProduct.ShowDialog();
-            ProductCatalog = query.GetProducts();
+            ProductCatalog = queryProductTable.GetProducts();
         }
 
         #endregion Команда редактирования данных о продукте
@@ -85,8 +85,8 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
         {
             if (MessageBox.Show("Вы уверены?", "Удаление", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel) == MessageBoxResult.OK)
             {
-                query.DeleteProduct((p as DTO_Product).Id);
-                ProductCatalog = query.GetProducts();
+                queryProductTable.DeleteProduct((p as DTO_Product).Id);
+                ProductCatalog = queryProductTable.GetProducts();
             }
         }
 
