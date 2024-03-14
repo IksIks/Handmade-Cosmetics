@@ -12,7 +12,7 @@ namespace HandmadeСosmetics.Models.DB
         {
             using (dbContext = new())
             {
-                return dbContext.Ingredients.ToList();
+                return dbContext.Ingredients.OrderByDescending(i => i.Name).ToList();
             }
         }
 
