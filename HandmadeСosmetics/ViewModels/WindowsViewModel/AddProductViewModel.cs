@@ -57,7 +57,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         private void OnUpdateCommandExecuted(object p)
         {
-            queryProductTable?.UpdateProduct(Product);
+            queryProductTable.UpdateProduct(Product);
             Application.Current.Windows[1].Close();
         }
 

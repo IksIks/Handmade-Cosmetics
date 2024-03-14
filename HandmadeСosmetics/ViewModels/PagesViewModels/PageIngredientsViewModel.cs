@@ -63,6 +63,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
             UpdateIngredientView updateIngridientView = new();
             UpdateIngredientEvent?.Invoke(p as Ingredient);
             updateIngridientView.ShowDialog();
+            Ingredients = query.Get();
         }
 
         #endregion Команда редактирования ингридиента

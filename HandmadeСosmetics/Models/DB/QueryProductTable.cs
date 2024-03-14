@@ -34,6 +34,7 @@ namespace HandmadeСosmetics.Models.DB
                                 s.SetProperty(p => p.Name, product.Name)
                                 .SetProperty(p => p.Photo, product.Photo)
                                 .SetProperty(p => p.NetCost, product.NetCost)
+                                .SetProperty(p => p.Weight, product.Weight)
                                 .SetProperty(p => p.RecipeId, product.Recipe.Id)
                                 .SetProperty(p => p.Price, product.Price));
         }

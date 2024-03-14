@@ -20,6 +20,8 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             set => Set(ref ingredient, value);
         }
 
+        public List<string> UnitMeasurement { get; set; } = new List<string> { "кг.", "гр.", "мл." };
+
         public AddIngredientViewModel()
         {
             ingredient = new Ingredient();
@@ -42,6 +44,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         private void OnAddCommandExecute(object p)
         {
             queryIngredientTable.AddIngredient(new Ingredient(Ingredient.Name, Ingredient.PackageWeight, Ingredient.UnitMeasurement, Ingredient.IngridientCost, Ingredient.Id));
+            Application.Current.Windows[1].Close();
         }
 
         #endregion Команда добавления нового ингридиента
@@ -58,6 +61,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         private void OnUpdateCommandExecuted(object p)
         {
             queryIngredientTable.UpdateIngredient(new Ingredient(Ingredient.Name, Ingredient.PackageWeight, Ingredient.UnitMeasurement, Ingredient.IngridientCost, Ingredient.Id));
+            Application.Current.Windows[1].Close();
         }
 
         #endregion Команда обновления ингредиента

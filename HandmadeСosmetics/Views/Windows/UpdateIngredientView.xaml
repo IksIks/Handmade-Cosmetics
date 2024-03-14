@@ -14,11 +14,9 @@
         <TextBlock Text="Вес упаковки" />
         <TextBox Text="{Binding Ingredient.PackageWeight}" />
         <TextBlock Text="Единицы измерения" />
-        <TextBox Text="{Binding Ingredient.UnitMeasurement}" />
+        <ComboBox ItemsSource="{Binding UnitMeasurement}" SelectedItem="{Binding Ingredient.UnitMeasurement}" />
         <TextBlock Text="Стоимость ингридиента" />
         <TextBox Text="{Binding Ingredient.IngridientCost}" />
-        <!--<TextBlock Text="Стоимость за гр.\мл." />
-    <TextBox Text="{Binding Ingredient.CostPerUnitMeasurement}" />-->
         <UniformGrid Rows="1">
             <Button Content="Отмена" Margin="5" Width="100" Height="25" Command="{Binding CancelCommand}" />
             <Button Content="Изменить" Margin="5" Width="100" Height="25" Command="{Binding UpdateCommand}" />
