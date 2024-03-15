@@ -10,6 +10,7 @@ namespace HandmadeСosmetics.Models.MaterialsAndProducts
         public double PackageWeight { get; set; }
         public string Name { get; set; }
         public double CostPerUnitMeasurement { get; set; }
+        public List<AmountInRecipe> AmountInRecipe { get; set; }
         public List<Recipe>? Recipe { get; set; }
 
         public Ingredient()

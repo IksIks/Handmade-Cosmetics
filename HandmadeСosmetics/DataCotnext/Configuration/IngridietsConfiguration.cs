@@ -11,6 +11,7 @@ namespace HandmadeСosmetics.DataCotnext.Configuration
             builder.HasKey(e => e.Id);
             builder.Property(x => x.Id).UseIdentityAlwaysColumn();
             builder.HasMany(r => r.Recipe).WithMany(e => e.Ingredients);
+            builder.HasMany(i => i.AmountInRecipe).WithOne(a => a.Ingredient);
         }
     }
 }

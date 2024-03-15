@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HandmadeСosmetics.Migrations
 {
     [DbContext(typeof(DataDBContex))]
-    [Migration("20240311123358_2")]
-    partial class _2
+    [Migration("20240315192640_New")]
+    partial class New
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,27 @@ namespace HandmadeСosmetics.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.AmountInRecipe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("IngredientId")
+                        .HasColumnType("integer");
+
+                    b.Property<double>("Weight")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IngredientId");
+
+                    b.ToTable("AmountInRecipe");
+                });
 
             modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.Ingredient", b =>
                 {
@@ -39,12 +60,14 @@ namespace HandmadeСosmetics.Migrations
                         .HasColumnType("double precision");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<double>("PackageWeight")
                         .HasColumnType("double precision");
 
                     b.Property<string>("UnitMeasurement")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -118,6 +141,17 @@ namespace HandmadeСosmetics.Migrations
                     b.ToTable("IngredientRecipe");
                 });
 
+            modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.AmountInRecipe", b =>
+                {
+                    b.HasOne("HandmadeСosmetics.Models.MaterialsAndProducts.Ingredient", "Ingredient")
+                        .WithMany("AmountInRecipe")
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ingredient");
+                });
+
             modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.Product", b =>
                 {
                     b.HasOne("HandmadeСosmetics.Models.MaterialsAndProducts.Recipe", "Recipe")
@@ -142,6 +176,11 @@ namespace HandmadeСosmetics.Migrations
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.Ingredient", b =>
+                {
+                    b.Navigation("AmountInRecipe");
                 });
 
             modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.Recipe", b =>
