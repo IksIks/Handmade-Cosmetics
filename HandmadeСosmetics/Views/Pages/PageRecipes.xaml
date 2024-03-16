@@ -13,6 +13,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60" />
             <ColumnDefinition Width="150*" />
+            <ColumnDefinition Width="150*" />
         </Grid.ColumnDefinitions>
         <UniformGrid Grid.Column="0" Columns="1" Margin="2">
             <Button Content="+" FontSize="40" Command="{Binding AddNewRecipeCommand}" />
@@ -27,8 +28,14 @@
             </DataGrid.InputBindings>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название рецепта" Binding="{Binding Name}"  IsReadOnly="True" />
-                <DataGridTextColumn Header="Вес упаковки" Binding="{Binding PackageWeight}" IsReadOnly="True" />
-                
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Grid.Column="2" AutoGenerateColumns="False" Margin="2"
+           FrozenColumnCount="2" ColumnWidth="*" RowHeight="50" CanUserResizeRows="False" SelectionMode="Extended"
+           EnableRowVirtualization="True" VirtualizingPanel.VirtualizationMode="Recycling" EnableColumnVirtualization="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Ингредиент" Binding="{Binding Name}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Количество" Binding="{Binding Name}" IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

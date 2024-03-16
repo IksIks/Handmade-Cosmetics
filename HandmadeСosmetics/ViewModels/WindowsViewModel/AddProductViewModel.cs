@@ -141,6 +141,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             Product.NetCost = product.NetCost;
             Product.Price = product.Price;
             Product.Weight = product.Weight;
+            PageCatalogViewModel.UpdateProductEvent -= UpdateProduct;
         }
     }
 }

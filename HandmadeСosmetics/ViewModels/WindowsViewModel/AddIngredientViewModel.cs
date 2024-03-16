@@ -80,6 +80,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         private void UpdateIngredient(Ingredient ingredient)
         {
             Ingredient = ingredient;
+            PageIngredientsViewModel.UpdateIngredientEvent -= UpdateIngredient;
         }
 
         private bool IslinesFilledCorrectly()

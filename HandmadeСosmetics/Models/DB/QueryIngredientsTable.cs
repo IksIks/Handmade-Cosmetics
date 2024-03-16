@@ -16,6 +16,11 @@ namespace HandmadeСosmetics.Models.DB
             }
         }
 
+        //public async Task<List<Ingredient>> GetByRecipeId(int recipeId)
+        //{
+        //    dbContext.Ingredients.Join(dbContext.Recipes, i => )
+        //}
+
         public async Task AddIngredient(Ingredient ingredient)
         {
             await dbContext.Ingredients.AddAsync(ingredient);
