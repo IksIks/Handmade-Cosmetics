@@ -8,9 +8,9 @@ namespace HandmadeСosmetics.Models.DB
     {
         private DataDBContex dbContext { get; set; } = dbContext;
 
-        public List<Recipe> GetRecipes()
+        public async Task<List<Recipe>> GetRecipes()
         {
-            return dbContext.Recipes.AsNoTracking().ToList();
+            return await dbContext.Recipes.AsNoTracking().ToListAsync();
         }
 
         //public async Task<List<Ingredient>> GetByRecipeId(int recipeId)

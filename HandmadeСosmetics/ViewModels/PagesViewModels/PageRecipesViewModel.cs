@@ -27,7 +27,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
         {
             queryIngredientTable = new QueryIngredientsTable(new DataCotnext.DataDBContex());
             queryRecipeTable = new QueryRecipeTable(new DataCotnext.DataDBContex());
-            Recipes = queryRecipeTable.GetRecipes();
+            //Recipes = queryRecipeTable.GetRecipes();
         }
     }
 }
