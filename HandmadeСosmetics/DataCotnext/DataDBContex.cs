@@ -27,6 +27,7 @@ namespace HandmadeСosmetics.DataCotnext
             modelBuilder.ApplyConfiguration(new IngridietsConfiguration());
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new RecipeConfiguration());
+            modelBuilder.ApplyConfiguration(new WeightInRecipeConfiguration());
         }
     }
 }

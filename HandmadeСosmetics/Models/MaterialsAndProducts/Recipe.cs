@@ -5,7 +5,7 @@
         public int Id { get; set; }
         public string Name { get; set; }
         public List<Product>? Products { get; set; }
-        public List<WeightInRecipe> Amounts { get; set; }
+        public List<WeightInRecipe> WeightInRecipes { get; set; }
         public List<Ingredient> Ingredients { get; set; }
 
         //public Recipe(int id, string name, Product product, List<Ingredient> ingredients)
