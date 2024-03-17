@@ -11,7 +11,7 @@ namespace HandmadeСosmetics.Models.MaterialsAndProducts
         public string Name { get; set; }
         public double CostPerUnitMeasurement { get; set; }
         public int AmountInRecipeId { get; set; }
-        public List<AmountInRecipe> AmountInRecipe { get; set; }
+        public List<WeightInRecipe> AmountInRecipe { get; set; }
         public List<Recipe>? Recipe { get; set; }
 
         public Ingredient()
@@ -28,7 +28,7 @@ namespace HandmadeСosmetics.Models.MaterialsAndProducts
             CostPerUnitMeasurement = ingridientCost / packageWeight;
         }
 
-        public Ingredient(string name, double packageWeight, string unitMeasurement, double ingridientCost, List<AmountInRecipe> amountInRecipe, int id = 0)
+        public Ingredient(string name, double packageWeight, string unitMeasurement, double ingridientCost, List<WeightInRecipe> amountInRecipe, int id = 0)
         {
             Id = id;
             Name = name;

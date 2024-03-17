@@ -25,8 +25,8 @@ namespace HandmadeСosmetics.Views
                 Name = "Рецепт4",
                 Ingredients = new List<Ingredient>()
                     {
-                        new Ingredient("Игридиент3", 0.5, "ry", 1500, new List<AmountInRecipe>{new AmountInRecipe(20), new AmountInRecipe(320) }),
-                        new Ingredient("Игридиент4", 1.2, "ry", 1500, new List<AmountInRecipe>{new AmountInRecipe(221), new AmountInRecipe(332) })
+                        new Ingredient("Игридиент3", 0.5, "ry", 1500, new List<WeightInRecipe>{new WeightInRecipe(20), new WeightInRecipe(320) }),
+                        new Ingredient("Игридиент4", 1.2, "ry", 1500, new List<WeightInRecipe>{new WeightInRecipe(221), new WeightInRecipe(332) })
                     },
                 Products = new List<Product>()
                     {
@@ -38,9 +38,9 @@ namespace HandmadeСosmetics.Views
                                 Name = "Рецепт8",
                                 Ingredients = new List<Ingredient>()
                                 {
-                                    new Ingredient( "Игридиент6", 0.8, "ry", 1500, new List<AmountInRecipe>{new AmountInRecipe(125), new AmountInRecipe(254) }),
+                                    new Ingredient( "Игридиент6", 0.8, "ry", 1500, new List<WeightInRecipe>{new WeightInRecipe(125), new WeightInRecipe(254) }),
 
-                                    new Ingredient( "Игридиент8", 0.9, "ry", 1500, new List<AmountInRecipe>{new AmountInRecipe(298), new AmountInRecipe(958) })
+                                    new Ingredient( "Игридиент8", 0.9, "ry", 1500, new List<WeightInRecipe>{new WeightInRecipe(298), new WeightInRecipe(958) })
                                 }
                             }
                         }
@@ -56,9 +56,9 @@ namespace HandmadeСosmetics.Views
                     Name = "Рецепт5",
                     Ingredients = new List<Ingredient>()
                         {
-                            new Ingredient( "Игридиент1", 0.8, "ry", 1500, new List<AmountInRecipe>{new AmountInRecipe(547), new AmountInRecipe(139) }),
-                            new Ingredient( "Игридиент2", 0.9, "ry", 1500, new List<AmountInRecipe>{new AmountInRecipe(459), new AmountInRecipe(341) }),
-                            new Ingredient( "Игридиент5", 0.5, "ry", 1500, new List<AmountInRecipe>{new AmountInRecipe(744), new AmountInRecipe(697) })
+                            new Ingredient( "Игридиент1", 0.8, "ry", 1500, new List<WeightInRecipe>{new WeightInRecipe(547), new WeightInRecipe(139) }),
+                            new Ingredient( "Игридиент2", 0.9, "ry", 1500, new List<WeightInRecipe>{new WeightInRecipe(459), new WeightInRecipe(341) }),
+                            new Ingredient( "Игридиент5", 0.5, "ry", 1500, new List<WeightInRecipe>{new WeightInRecipe(744), new WeightInRecipe(697) })
                         },
                 },
 
