@@ -10,7 +10,7 @@ namespace HandmadeСosmetics.DataCotnext.Configuration
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityAlwaysColumn();
-            builder.HasMany(w => w.Recipes).WithMany(r => r.WeightInRecipes);
+            //builder.HasMany(w => w.Recipes).WithMany(r => r.WeightInRecipes);
         }
     }
 }
