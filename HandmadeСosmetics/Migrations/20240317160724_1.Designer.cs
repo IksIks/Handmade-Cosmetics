@@ -2,6 +2,7 @@
 using HandmadeСosmetics.DataCotnext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HandmadeСosmetics.Migrations
 {
     [DbContext(typeof(DataDBContex))]
-    partial class DataDBContexModelSnapshot : ModelSnapshot
+    [Migration("20240317160724_1")]
+    partial class _1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,21 +23,6 @@ namespace HandmadeСosmetics.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("AmountInRecipeRecipe", b =>
-                {
-                    b.Property<int>("AmountsId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("RecipesId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("AmountsId", "RecipesId");
-
-                    b.HasIndex("RecipesId");
-
-                    b.ToTable("AmountInRecipeRecipe");
-                });
 
             modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.AmountInRecipe", b =>
                 {
@@ -132,11 +120,21 @@ namespace HandmadeСosmetics.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AmountsId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("RecipesId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("AmountsId");
+
+                    b.HasIndex("RecipesId");
 
                     b.ToTable("Recipes");
                 });
@@ -154,21 +152,6 @@ namespace HandmadeСosmetics.Migrations
                     b.HasIndex("RecipeId");
 
                     b.ToTable("IngredientRecipe");
-                });
-
-            modelBuilder.Entity("AmountInRecipeRecipe", b =>
-                {
-                    b.HasOne("HandmadeСosmetics.Models.MaterialsAndProducts.AmountInRecipe", null)
-                        .WithMany()
-                        .HasForeignKey("AmountsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("HandmadeСosmetics.Models.MaterialsAndProducts.Recipe", null)
-                        .WithMany()
-                        .HasForeignKey("RecipesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.AmountInRecipe", b =>
@@ -191,6 +174,21 @@ namespace HandmadeСosmetics.Migrations
                         .IsRequired();
 
                     b.Navigation("Recipe");
+                });
+
+            modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.Recipe", b =>
+                {
+                    b.HasOne("HandmadeСosmetics.Models.MaterialsAndProducts.AmountInRecipe", null)
+                        .WithMany()
+                        .HasForeignKey("AmountsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HandmadeСosmetics.Models.MaterialsAndProducts.Recipe", null)
+                        .WithMany()
+                        .HasForeignKey("RecipesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("IngredientRecipe", b =>

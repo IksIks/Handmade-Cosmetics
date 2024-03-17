@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HandmadeСosmetics.Migrations
 {
     /// <inheritdoc />
-    public partial class New : Migration
+    public partial class _1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,24 +21,12 @@ namespace HandmadeСosmetics.Migrations
                     UnitMeasurement = table.Column<string>(type: "text", nullable: false),
                     PackageWeight = table.Column<double>(type: "double precision", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    CostPerUnitMeasurement = table.Column<double>(type: "double precision", nullable: false)
+                    CostPerUnitMeasurement = table.Column<double>(type: "double precision", nullable: false),
+                    AmountInRecipeId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Ingredients", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Recipes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
-                    Name = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Recipes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -57,6 +45,33 @@ namespace HandmadeСosmetics.Migrations
                         name: "FK_AmountInRecipe_Ingredients_IngredientId",
                         column: x => x.IngredientId,
                         principalTable: "Ingredients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Recipes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityAlwaysColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    AmountsId = table.Column<int>(type: "integer", nullable: false),
+                    RecipesId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Recipes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Recipes_AmountInRecipe_AmountsId",
+                        column: x => x.AmountsId,
+                        principalTable: "AmountInRecipe",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Recipes_Recipes_RecipesId",
+                        column: x => x.RecipesId,
+                        principalTable: "Recipes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -123,14 +138,21 @@ namespace HandmadeСosmetics.Migrations
                 name: "IX_Products_RecipeId",
                 table: "Products",
                 column: "RecipeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Recipes_AmountsId",
+                table: "Recipes",
+                column: "AmountsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Recipes_RecipesId",
+                table: "Recipes",
+                column: "RecipesId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AmountInRecipe");
-
             migrationBuilder.DropTable(
                 name: "IngredientRecipe");
 
@@ -138,10 +160,13 @@ namespace HandmadeСosmetics.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "Ingredients");
+                name: "Recipes");
 
             migrationBuilder.DropTable(
-                name: "Recipes");
+                name: "AmountInRecipe");
+
+            migrationBuilder.DropTable(
+                name: "Ingredients");
         }
     }
 }

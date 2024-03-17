@@ -15,6 +15,9 @@ namespace HandmadeСosmetics.Models.DB
 
         //public async Task<List<Ingredient>> GetByRecipeId(int recipeId)
         //{
+        //    var answer = dbContext.Recipes.Where(r => r.Id == recipeId).Include(r => r.AmountInRecipeId)
+        //        .Include(s => s.AmountInRecipeId)
+        //        .ThenInclude(a => a.Weight).ToListAsync();
         //}
     }
 }

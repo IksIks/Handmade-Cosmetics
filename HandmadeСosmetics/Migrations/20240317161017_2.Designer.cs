@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HandmadeСosmetics.Migrations
 {
     [DbContext(typeof(DataDBContex))]
-    [Migration("20240315192640_New")]
-    partial class New
+    [Migration("20240317161017_2")]
+    partial class _2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,21 @@ namespace HandmadeСosmetics.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("AmountInRecipeRecipe", b =>
+                {
+                    b.Property<int>("AmountsId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RecipesId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("AmountsId", "RecipesId");
+
+                    b.HasIndex("RecipesId");
+
+                    b.ToTable("AmountInRecipeRecipe");
+                });
 
             modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.AmountInRecipe", b =>
                 {
@@ -52,6 +67,9 @@ namespace HandmadeСosmetics.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityAlwaysColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AmountInRecipeId")
+                        .HasColumnType("integer");
 
                     b.Property<double>("CostPerUnitMeasurement")
                         .HasColumnType("double precision");
@@ -139,6 +157,21 @@ namespace HandmadeСosmetics.Migrations
                     b.HasIndex("RecipeId");
 
                     b.ToTable("IngredientRecipe");
+                });
+
+            modelBuilder.Entity("AmountInRecipeRecipe", b =>
+                {
+                    b.HasOne("HandmadeСosmetics.Models.MaterialsAndProducts.AmountInRecipe", null)
+                        .WithMany()
+                        .HasForeignKey("AmountsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HandmadeСosmetics.Models.MaterialsAndProducts.Recipe", null)
+                        .WithMany()
+                        .HasForeignKey("RecipesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HandmadeСosmetics.Models.MaterialsAndProducts.AmountInRecipe", b =>
