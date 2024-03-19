@@ -29,4 +29,3 @@ namespace HandmadeСosmetics.Views
         }
     }
 }
-}

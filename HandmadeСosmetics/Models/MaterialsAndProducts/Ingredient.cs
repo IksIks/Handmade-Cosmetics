@@ -11,7 +11,6 @@ namespace HandmadeСosmetics.Models.MaterialsAndProducts
         public string Name { get; set; }
         public double CostPerUnitMeasurement { get; set; }
         public List<WeightInRecipe> WeightInRecipes { get; set; }
-
         public List<Recipe>? Recipe { get; set; }
 
         public Ingredient()
@@ -38,5 +37,10 @@ namespace HandmadeСosmetics.Models.MaterialsAndProducts
             CostPerUnitMeasurement = ingridientCost / packageWeight;
             WeightInRecipes = weightInRecipes;
         }
+
+        //public override string ToString()
+        //{
+        //    return $"{Name}";
+        //}
     }
 }

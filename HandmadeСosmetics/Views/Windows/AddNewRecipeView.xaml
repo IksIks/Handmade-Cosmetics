@@ -1,0 +1,36 @@
+﻿<Window x:Class="HandmadeСosmetics.Views.Windows.AddNewRecipeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:HandmadeСosmetics.Views.Windows"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:HandmadeСosmetics.ViewModels.WindowsViewModel"
+        Title="Новый ингредиент" Height="300" Width="250" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:AddNewRecipeViewModel />
+    </Window.DataContext>
+    <StackPanel Orientation="Vertical">
+        <TextBlock Text="Название рецепта" />
+        <TextBox Text="{Binding SelectedItem.Id}" />
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Игредиент" />
+            <ComboBox ItemsSource="{Binding Ingredients}" Width="170" SelectedItem="{Binding SelectedItem}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Вес" />
+            <TextBox Text="{Binding Wieght}" Width="170" />
+        </StackPanel>
+        <Button Content="Добавить" Command="{Binding AddIngredientToCollectionCommand}" />
+        <ListView ItemsSource="{Binding IngredientsWeights}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Выбранный ингредиент" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Вес в рецепте" DisplayMemberBinding="{Binding WeightInRecipes[0].Weight}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <UniformGrid Rows="1">
+            <Button Content="Отмена" Margin="5" Width="100" Height="25" Command="{Binding CancelCommand}" />
+            <Button Content="Создать" Margin="5" Width="100" Height="25" Command="{Binding AddCommand}" />
+        </UniformGrid>
+    </StackPanel>
+</Window>

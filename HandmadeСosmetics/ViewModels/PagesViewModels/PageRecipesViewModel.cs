@@ -1,6 +1,9 @@
-﻿using HandmadeСosmetics.Models.DB;
+﻿using HandmadeСosmetics.Command;
+using HandmadeСosmetics.Models.DB;
 using HandmadeСosmetics.Models.MaterialsAndProducts;
 using HandmadeСosmetics.ViewModel;
+using HandmadeСosmetics.Views.Windows;
+using System.Windows.Input;
 
 namespace HandmadeСosmetics.ViewModels.PagesViewModels
 {
@@ -27,7 +30,16 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
         {
             queryIngredientTable = new QueryIngredientsTable(new DataCotnext.DataDBContex());
             queryRecipeTable = new QueryRecipeTable(new DataCotnext.DataDBContex());
+            AddNewRecipeCommand = new LambdaCommand(OnAddNewRecipeCommandExecuted);
             //Recipes = queryRecipeTable.GetRecipes();
+        }
+
+        public ICommand AddNewRecipeCommand { get; }
+
+        private void OnAddNewRecipeCommandExecuted(object p)
+        {
+            AddNewRecipeView addNewRecipeView = new AddNewRecipeView();
+            addNewRecipeView.ShowDialog();
         }
     }
 }
