@@ -58,13 +58,5 @@ namespace HandmadeСosmetics.Models.MaterialsAndProducts
             Price = price;
             Weight = weight;
         }
-
-        //public Product(int id, string name, string photo, double netCost)
-        //{
-        //    Id = id;
-        //    Name = name;
-        //    Photo = photo;
-        //    NetCost = netCost;
-        //}
     }
 }

@@ -26,6 +26,7 @@ namespace HandmadeСosmetics.Views
             //        CostPerUnitMeasurement = r1 / r2
             //    });
             //    dBCon.SaveChanges();
+            //}
         }
     }
 }

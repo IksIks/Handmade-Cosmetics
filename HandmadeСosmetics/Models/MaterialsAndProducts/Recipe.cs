@@ -8,12 +8,8 @@
         public List<WeightInRecipe> WeightInRecipes { get; set; }
         public List<Ingredient> Ingredients { get; set; }
 
-        //public Recipe(int id, string name, Product product, List<Ingredient> ingredients)
-        //{
-        //    Id = id;
-        //    Name = name;
-        //    Product = product;
-        //    Ingredients = ingredients;
-        //}
+        public Recipe()
+        {
+        }
     }
 }

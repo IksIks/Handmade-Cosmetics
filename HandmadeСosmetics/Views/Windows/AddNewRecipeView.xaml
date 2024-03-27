@@ -4,33 +4,43 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:HandmadeСosmetics.ViewModels.WindowsViewModel"
-        Title="Новый ингредиент" Height="300" Width="250" WindowStartupLocation="CenterScreen">
+        xmlns:s="clr-namespace:HandmadeСosmetics.Models.MaterialsAndProducts"
+        Title="Новый ингредиент" Height="400" Width="250" WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <vm:AddNewRecipeViewModel />
     </Window.DataContext>
     <StackPanel Orientation="Vertical">
         <TextBlock Text="Название рецепта" />
-        <TextBox Text="{Binding SelectedItem.Id}" />
+        <TextBox Text="{Binding RecipeName}" />
         <StackPanel Orientation="Horizontal">
             <Label Content="Игредиент" />
-            <ComboBox ItemsSource="{Binding Ingredients}" Width="170" SelectedItem="{Binding SelectedItem}" />
+            <ComboBox ItemsSource="{Binding Ingredients}" Width="170" SelectedItem="{Binding SelectedItem}" SelectedIndex="0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate DataType="s:Ingredient">
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label Content="Вес" />
-            <TextBox Text="{Binding Wieght}" Width="170" />
+            <TextBox Text="{Binding Weight, UpdateSourceTrigger=PropertyChanged}" Width="170" />
         </StackPanel>
-        <Button Content="Добавить" Command="{Binding AddIngredientToCollectionCommand}" />
-        <ListView ItemsSource="{Binding IngredientsWeights}">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Добавить в рецепт" Command="{Binding AddIngredientToCollectionCommand}" Margin="4" />
+            <Button Content="Удалить из рецепта" Command="{Binding DeleteIngredientFromCollectionCommand}" Margin="4" />
+        </StackPanel>
+        <ListView ItemsSource="{Binding IngredientsWeights}" SelectionMode="Multiple" SelectedItem="{Binding DTO_SelectedItem}" Height="180">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Выбранный ингредиент" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="Вес в рецепте" DisplayMemberBinding="{Binding WeightInRecipes[0].Weight}" />
+                    <GridViewColumn Header="Выбранный ингредиент" DisplayMemberBinding="{Binding IngredientName}" />
+                    <GridViewColumn Header="Вес в рецепте" DisplayMemberBinding="{Binding IngredientWeight}" />
                 </GridView>
             </ListView.View>
         </ListView>
         <UniformGrid Rows="1">
             <Button Content="Отмена" Margin="5" Width="100" Height="25" Command="{Binding CancelCommand}" />
-            <Button Content="Создать" Margin="5" Width="100" Height="25" Command="{Binding AddCommand}" />
+            <Button Content="Создать" Margin="5" Width="100" Height="25" Command="{Binding AddRecipeCommand}" />
         </UniformGrid>
     </StackPanel>
 </Window>

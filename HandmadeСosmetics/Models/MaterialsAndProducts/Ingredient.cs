@@ -26,21 +26,5 @@ namespace HandmadeСosmetics.Models.MaterialsAndProducts
             IngridientCost = ingridientCost;
             CostPerUnitMeasurement = ingridientCost / packageWeight;
         }
-
-        public Ingredient(string name, double packageWeight, string unitMeasurement, double ingridientCost, List<WeightInRecipe> weightInRecipes, int id = 0)
-        {
-            Id = id;
-            Name = name;
-            PackageWeight = packageWeight;
-            UnitMeasurement = unitMeasurement;
-            IngridientCost = ingridientCost;
-            CostPerUnitMeasurement = ingridientCost / packageWeight;
-            WeightInRecipes = weightInRecipes;
-        }
-
-        //public override string ToString()
-        //{
-        //    return $"{Name}";
-        //}
     }
 }
