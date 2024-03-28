@@ -1,4 +1,6 @@
 ﻿using HandmadeСosmetics.Command;
+using HandmadeСosmetics.DataCotnext;
+using HandmadeСosmetics.Models.DB;
 using HandmadeСosmetics.ViewModel;
 using HandmadeСosmetics.Views.Pages;
 using System.IO;
@@ -9,6 +11,11 @@ namespace HandmadeСosmetics.ViewModels
 {
     internal class MainWindowViewModel : ViewModelBase
     {
+        private readonly DataDBContex dbContext;
+        private readonly QueryProductTable queryProductTable;
+        private readonly QueryIngredientsTable queryIngredientsTable;
+        private readonly QueryRecipeTable queryRecipeTable;
+
         #region Pages
 
         private Page currentPage;
@@ -51,6 +58,10 @@ namespace HandmadeСosmetics.ViewModels
 
         public MainWindowViewModel()
         {
+            dbContext = new DataDBContex();
+            queryProductTable = new(dbContext);
+            queryIngredientsTable = new(dbContext);
+            queryRecipeTable = new(dbContext);
             pageCatalog = new PageCatalog();
             pageIngredients = new PageIngredients();
             pageRecipes = new PageRecipes();
@@ -68,6 +79,7 @@ namespace HandmadeСosmetics.ViewModels
             {
                 case "КАТАЛОГ":
                     CurrentPage = PageCatalog;
+                    //queryProductTable.GetProducts();
                     break;
 
                 case "КЛИЕНТЫ":
@@ -76,6 +88,7 @@ namespace HandmadeСosmetics.ViewModels
 
                 case "РЕЦЕПТЫ":
                     CurrentPage = PageRecipes;
+                    //queryRecipeTable.GetRecipes();
                     break;
 
                 case "КОМПОНЕНТЫ":

@@ -10,7 +10,16 @@ namespace HandmadeСosmetics.Models.DB
     {
         private DataDBContex dbContext { get; set; } = dbContext;
 
-        public async Task<List<Recipe>> GetRecipes()
+        public async Task Get()
+        {
+            //return dbContext.Recipes.Join(dbContext.Ingredients, r => r.Id, i => i.Id,
+            //                             (r, i) => new Recipe(r.Id, r.Name, r.WeightInRecipes, r.Ingredients)).ToList();
+            var t = dbContext.Recipes.Join(dbContext.Ingredients, r => r.Id, i => i.Id,
+                                            (r, i) => new { r.Id, r.Name, ingred = i.Name, i.WeightInRecipes }).ToList();
+            //return t;
+        }
+
+        public async Task<List<Recipe>> GetRecipesNamesOnly()
         {
             return await dbContext.Recipes.AsNoTracking().ToListAsync();
         }
@@ -28,6 +37,7 @@ namespace HandmadeСosmetics.Models.DB
                     {
                         ingr.Add(ingredient);
                         weight.Add(new WeightInRecipe(dto.IngredientWeight, ingredient));
+                        break;
                     }
                 }
             }
@@ -38,6 +48,7 @@ namespace HandmadeСosmetics.Models.DB
                 WeightInRecipes = weight
             });
             await dbContext.SaveChangesAsync();
+            //TODO перенести весь код поиска элементов в модель Recipe
         }
     }
 }

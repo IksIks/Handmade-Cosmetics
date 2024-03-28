@@ -40,6 +40,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             AddIngredientToCollectionCommand = new LambdaCommand(OnAddIngredientToCollectionCommandExecuted, CanAddIngredientToCollectionCommandExecute);
             DeleteIngredientFromCollectionCommand = new LambdaCommand(OnDeleteIngredientFromCollectionCommandExecuted, CanDeleteIngredientFromCollectionCommandExecute);
             AddRecipeCommand = new LambdaCommand(OnAddRecipeCommandExecuted, CanAddRecipeCommandExecute);
+            CancelCommand = new LambdaCommand(OnCancelCommandExecuted);
         }
 
         #region Команда Добавление ингредиентов к рецепту
@@ -101,5 +102,16 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         }
 
         #endregion Команда Добавление рецепта
+
+        #region Команда закрытия окна
+
+        public ICommand CancelCommand { get; }
+
+        private void OnCancelCommandExecuted(object p)
+        {
+            Application.Current.Windows[1].Close();
+        }
+
+        #endregion Команда закрытия окна
     }
 }

@@ -10,6 +10,7 @@ namespace HandmadeСosmetics.DataCotnext
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<WeightInRecipe> WeightInRecipes { get; set; }
 
         public DataDBContex()
         {

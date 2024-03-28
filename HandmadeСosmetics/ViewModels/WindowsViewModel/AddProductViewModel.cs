@@ -120,7 +120,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         //------------------------------------------------------------------------------------------------------------------------------
         private async Task GetAllRecipes()
         {
-            Recipes = await queryRecipeTable.GetRecipes();
+            Recipes = await queryRecipeTable.GetRecipesNamesOnly();
         }
 
         private bool IslinesFilledCorrectly()
