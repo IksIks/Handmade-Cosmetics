@@ -125,7 +125,7 @@ namespace HandmadeСosmetics.Migrations
 
                     b.HasIndex("RecipesId");
 
-                    b.ToTable("WeightInRecipe");
+                    b.ToTable("WeightInRecipes");
                 });
 
             modelBuilder.Entity("IngredientRecipe", b =>

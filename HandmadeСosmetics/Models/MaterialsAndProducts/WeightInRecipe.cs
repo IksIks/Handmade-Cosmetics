@@ -4,7 +4,9 @@
     {
         public int Id { get; set; }
         public double Weight { get; set; }
+        public int IngredientId { get; set; }// проверить
         public Ingredient Ingredient { get; set; }
+        public int RecipesId { get; set; }// проверить
         public Recipe Recipes { get; set; }
 
         public WeightInRecipe()

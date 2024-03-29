@@ -10,13 +10,16 @@ namespace HandmadeСosmetics.Models.DB
     {
         private DataDBContex dbContext { get; set; } = dbContext;
 
-        public async Task Get()
+        public async Task<List<Recipe>> Get()
         {
-            //return dbContext.Recipes.Join(dbContext.Ingredients, r => r.Id, i => i.Id,
-            //                             (r, i) => new Recipe(r.Id, r.Name, r.WeightInRecipes, r.Ingredients)).ToList();
-            var t = dbContext.Recipes.Join(dbContext.Ingredients, r => r.Id, i => i.Id,
-                                            (r, i) => new { r.Id, r.Name, ingred = i.Name, i.WeightInRecipes }).ToList();
-            //return t;
+            return await dbContext.Recipes.Join(dbContext.Ingredients, r => r.Id, i => i.Id,
+                                         (r, i) => new Recipe
+                                         (
+                                             r.Id,
+                                             r.Name,
+                                             r.WeightInRecipes.Where(x => x.RecipesId == r.Id).ToList(),
+                                             r.Ingredients
+                                         )).ToListAsync();
         }
 
         public async Task<List<Recipe>> GetRecipesNamesOnly()

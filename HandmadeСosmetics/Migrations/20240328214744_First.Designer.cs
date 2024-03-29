@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HandmadeСosmetics.Migrations
 {
     [DbContext(typeof(DataDBContex))]
-    [Migration("20240327194709_First")]
+    [Migration("20240328214744_First")]
     partial class First
     {
         /// <inheritdoc />
@@ -128,7 +128,7 @@ namespace HandmadeСosmetics.Migrations
 
                     b.HasIndex("RecipesId");
 
-                    b.ToTable("WeightInRecipe");
+                    b.ToTable("WeightInRecipes");
                 });
 
             modelBuilder.Entity("IngredientRecipe", b =>

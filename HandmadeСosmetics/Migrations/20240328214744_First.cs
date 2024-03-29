@@ -90,7 +90,7 @@ namespace HandmadeСosmetics.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WeightInRecipe",
+                name: "WeightInRecipes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -101,15 +101,15 @@ namespace HandmadeСosmetics.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WeightInRecipe", x => x.Id);
+                    table.PrimaryKey("PK_WeightInRecipes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WeightInRecipe_Ingredients_IngredientId",
+                        name: "FK_WeightInRecipes_Ingredients_IngredientId",
                         column: x => x.IngredientId,
                         principalTable: "Ingredients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_WeightInRecipe_Recipes_RecipesId",
+                        name: "FK_WeightInRecipes_Recipes_RecipesId",
                         column: x => x.RecipesId,
                         principalTable: "Recipes",
                         principalColumn: "Id",
@@ -127,13 +127,13 @@ namespace HandmadeСosmetics.Migrations
                 column: "RecipeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WeightInRecipe_IngredientId",
-                table: "WeightInRecipe",
+                name: "IX_WeightInRecipes_IngredientId",
+                table: "WeightInRecipes",
                 column: "IngredientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WeightInRecipe_RecipesId",
-                table: "WeightInRecipe",
+                name: "IX_WeightInRecipes_RecipesId",
+                table: "WeightInRecipes",
                 column: "RecipesId");
         }
 
@@ -147,7 +147,7 @@ namespace HandmadeСosmetics.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "WeightInRecipe");
+                name: "WeightInRecipes");
 
             migrationBuilder.DropTable(
                 name: "Ingredients");

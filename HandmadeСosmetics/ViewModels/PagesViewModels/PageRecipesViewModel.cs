@@ -13,7 +13,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
     {
         private readonly QueryIngredientsTable queryIngredientTable;
         private readonly QueryRecipeTable queryRecipeTable;
-        private List<DTO_Recipe> recipes;
+        private List<Recipe> recipes;
         private List<Ingredient> ingredients;
         private Recipe selectedRecipe;
 
@@ -23,7 +23,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
             set => Set(ref selectedRecipe, value);
         }
 
-        public List<DTO_Recipe> Recipes
+        public List<Recipe> Recipes
         {
             get => recipes;
             set => Set(ref recipes, value);
@@ -45,7 +45,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         private async Task GetRecipes()
         {
-            await queryRecipeTable.Get();
+            Recipes = (await queryRecipeTable.Get()).ToList();
             //Recipes = new ObservableCollection<Recipe>(await queryRecipeTable.Get());
             //var y = new ObservableCollection<Recipe>(await queryRecipeTable.Get());
         }

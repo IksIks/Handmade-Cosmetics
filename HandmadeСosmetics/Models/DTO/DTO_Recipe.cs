@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HandmadeСosmetics.Models.MaterialsAndProducts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,9 @@ namespace HandmadeСosmetics.Models.DTO
         public string IngredientName { get; set; }
         public double IngredientWeight { get; set; }
 
+        public List<string> IngredientNames { get; set; }
+        public List<WeightInRecipe> IngredientWeights { get; set; }
+
         public DTO_Recipe()
         {
         }
@@ -23,6 +27,14 @@ namespace HandmadeСosmetics.Models.DTO
             Name = name;
             IngredientName = ingredientName;
             IngredientWeight = ingredientWeight;
+        }
+
+        public DTO_Recipe(int id, string name, List<WeightInRecipe> ingredientWeights /*string ingredientName*/ )
+        {
+            Id = id;
+            Name = name;
+            IngredientWeights = ingredientWeights;
+            //IngredientName = ingredientName;
         }
     }
 }
