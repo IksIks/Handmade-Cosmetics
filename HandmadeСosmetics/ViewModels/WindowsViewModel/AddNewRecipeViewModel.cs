@@ -67,7 +67,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         #endregion Команда Добавление ингредиентов к рецепту
 
-        #region Команда Удаление инорелиентов из рецепта
+        #region Команда удаление ингредиентов из рецепта
 
         public ICommand DeleteIngredientFromCollectionCommand { get; }
 
@@ -81,9 +81,9 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             IngredientsWeights.Remove(DTO_SelectedItem);
         }
 
-        #endregion Команда Удаление инорелиентов из рецепта
+        #endregion Команда удаление ингредиентов из рецепта
 
-        #region Команда Добавление рецепта
+        #region Команда создания рецепта
 
         public ICommand AddRecipeCommand { get; }
 
@@ -101,7 +101,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             Application.Current.Windows[1].Close();
         }
 
-        #endregion Команда Добавление рецепта
+        #endregion Команда создания рецепта
 
         #region Команда закрытия окна
 

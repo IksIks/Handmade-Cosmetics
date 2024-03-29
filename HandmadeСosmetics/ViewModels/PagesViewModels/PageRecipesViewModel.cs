@@ -1,17 +1,14 @@
 ﻿using HandmadeСosmetics.Command;
 using HandmadeСosmetics.Models.DB;
-using HandmadeСosmetics.Models.DTO;
 using HandmadeСosmetics.Models.MaterialsAndProducts;
 using HandmadeСosmetics.ViewModel;
 using HandmadeСosmetics.Views.Windows;
-using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace HandmadeСosmetics.ViewModels.PagesViewModels
 {
     internal class PageRecipesViewModel : ViewModelBase
     {
-        private readonly QueryIngredientsTable queryIngredientTable;
         private readonly QueryRecipeTable queryRecipeTable;
         private List<Recipe> recipes;
         private List<Ingredient> ingredients;
@@ -37,18 +34,18 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         public PageRecipesViewModel()
         {
-            queryIngredientTable = new QueryIngredientsTable(new DataCotnext.DataDBContex());
             queryRecipeTable = new QueryRecipeTable(new DataCotnext.DataDBContex());
             AddNewRecipeCommand = new LambdaCommand(OnAddNewRecipeCommandExecuted);
+            DeleteRecipeCommand = new LambdaCommand(OnDeleteRecipeCommandExecuted, CanDeleteRecipeCommandExecute);
             GetRecipes();
         }
 
         private async Task GetRecipes()
         {
             Recipes = (await queryRecipeTable.Get()).ToList();
-            //Recipes = new ObservableCollection<Recipe>(await queryRecipeTable.Get());
-            //var y = new ObservableCollection<Recipe>(await queryRecipeTable.Get());
         }
+
+        #region Создание рецепта.................................................................................................
 
         public ICommand AddNewRecipeCommand { get; }
 
@@ -58,5 +55,42 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
             addNewRecipeView.ShowDialog();
             GetRecipes();
         }
+
+        #endregion Создание рецепта.................................................................................................
+
+        #region Команда обновления рецепта.......................................................................................
+
+        public ICommand EditRecipeCommand { get; }
+
+        private bool CanEditRecipeCommandExecute(object p)
+        {
+            return p is Recipe;
+        }
+
+        private void OnEditRecipeCommandExecuted(object p)
+        {
+            UpdateRecipeView updateRecipeView = new UpdateRecipeView();
+            updateRecipeView.ShowDialog();
+            GetRecipes();
+        }
+
+        #endregion Команда обновления рецепта.......................................................................................
+
+        #region Удаление рецепта..................................................................................................
+
+        public ICommand DeleteRecipeCommand { get; }
+
+        private bool CanDeleteRecipeCommandExecute(object p)
+        {
+            return p is Recipe;
+        }
+
+        private void OnDeleteRecipeCommandExecuted(object p)
+        {
+            queryRecipeTable.Delete(p as Recipe);
+            GetRecipes();
+        }
+
+        #endregion Удаление рецепта..................................................................................................
     }
 }

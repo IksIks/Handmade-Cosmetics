@@ -31,10 +31,9 @@
                 <DataGridTextColumn Header="Название рецепта" Binding="{Binding Name}"  IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid Grid.Column="2" AutoGenerateColumns="False" Margin="2" ItemsSource="{Binding SelectedRecipe.WeightInRecipes}"
+        <DataGrid Grid.Column="2" AutoGenerateColumns="False" Margin="2" ItemsSource="{Binding SelectedRecipe.WeightInRecipes, UpdateSourceTrigger=PropertyChanged}"
            FrozenColumnCount="2" ColumnWidth="*" RowHeight="50" CanUserResizeRows="False" SelectionMode="Extended"
            EnableRowVirtualization="True" VirtualizingPanel.VirtualizationMode="Recycling" EnableColumnVirtualization="True">
-
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ингредиент" Binding="{Binding Ingredient.Name}" IsReadOnly="True" />
                 <DataGridTextColumn Header="Количество" Binding="{Binding Weight}" IsReadOnly="True" />

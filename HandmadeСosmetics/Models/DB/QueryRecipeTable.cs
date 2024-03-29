@@ -12,14 +12,17 @@ namespace HandmadeСosmetics.Models.DB
 
         public async Task<List<Recipe>> Get()
         {
-            return await dbContext.Recipes.Join(dbContext.Ingredients, r => r.Id, i => i.Id,
-                                         (r, i) => new Recipe
-                                         (
-                                             r.Id,
-                                             r.Name,
-                                             r.WeightInRecipes.Where(x => x.RecipesId == r.Id).ToList(),
-                                             r.Ingredients
-                                         )).ToListAsync();
+            using (dbContext = new DataDBContex())
+            {
+                return await dbContext.Recipes.Join(dbContext.Ingredients, r => r.Id, i => i.Id,
+                                                    (r, i) => new Recipe
+                                                        (
+                                                            r.Id,
+                                                            r.Name,
+                                                            r.WeightInRecipes.Where(x => x.RecipesId == r.Id).ToList(),
+                                                            r.Ingredients
+                                                        )).ToListAsync();
+            }
         }
 
         public async Task<List<Recipe>> GetRecipesNamesOnly()
@@ -52,6 +55,15 @@ namespace HandmadeСosmetics.Models.DB
             });
             await dbContext.SaveChangesAsync();
             //TODO перенести весь код поиска элементов в модель Recipe
+        }
+
+        public async Task Delete(Recipe recipe)
+        {
+            using (dbContext = new())
+            {
+                dbContext.Recipes.Remove(recipe);
+                await dbContext.SaveChangesAsync();
+            }
         }
     }
 }

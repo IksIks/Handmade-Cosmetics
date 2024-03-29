@@ -10,8 +10,8 @@ namespace HandmadeСosmetics.Views
         public MainWindow()
         {
             InitializeComponent();
-            //DataDBContex dBCon = new DataDBContex();
-            //Random r = new Random();
+            DataDBContex dBCon = new DataDBContex();
+            Random r = new Random();
 
             //for (int i = 0; i < 10; i++)
             //{
