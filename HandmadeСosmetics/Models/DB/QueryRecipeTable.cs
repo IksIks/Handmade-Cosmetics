@@ -30,7 +30,7 @@ namespace HandmadeСosmetics.Models.DB
             return await dbContext.Recipes.AsNoTracking().ToListAsync();
         }
 
-        public async Task AddRecipe(string recipeName, ObservableCollection<DTO_Ingredient> dtoIngredients)
+        public async Task AddRecipe(string recipeName, ObservableCollection<IngredientDto> dtoIngredients)
         {
             var query = dbContext.Ingredients.ToList();
             List<WeightInRecipe> weight = new List<WeightInRecipe>();
@@ -47,6 +47,11 @@ namespace HandmadeСosmetics.Models.DB
                     }
                 }
             }
+
+            //var ingrIds = dtoIngredients.Select(x => x.Id).ToList();
+
+            //var ingrs = dbContext.Ingredients.Where(x => ingrIds.Contains(x.Id)).ToList();
+
             await dbContext.Recipes.AddAsync(new Recipe
             {
                 Name = recipeName,

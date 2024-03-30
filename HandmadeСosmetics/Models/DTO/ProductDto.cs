@@ -2,7 +2,7 @@
 
 namespace HandmadeСosmetics.Models.DTO
 {
-    internal class DTO_Product
+    internal class ProductDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -12,11 +12,11 @@ namespace HandmadeСosmetics.Models.DTO
         public double Price { get; set; }
         public double Weight { get; set; }
 
-        public DTO_Product()
+        public ProductDto()
         {
         }
 
-        public DTO_Product(int id, string name, string photo, double netCost, string recipeName, double price, double weight)
+        public ProductDto(int id, string name, string photo, double netCost, string recipeName, double price, double weight)
         {
             Id = id;
             Name = name;

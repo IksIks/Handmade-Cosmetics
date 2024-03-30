@@ -133,7 +133,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             return true;
         }
 
-        private void UpdateProduct(DTO_Product product)
+        private void UpdateProduct(ProductDto product)
         {
             Product.Id = product.Id;
             Product.Name = product.Name;

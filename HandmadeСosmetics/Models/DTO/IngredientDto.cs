@@ -2,17 +2,17 @@
 
 namespace HandmadeСosmetics.Models.DTO
 {
-    internal class DTO_Ingredient
+    internal class IngredientDto
     {
         public int Id { get; set; }
         public string IngredientName { get; set; }
         public double IngredientWeight { get; set; }
 
-        public DTO_Ingredient()
+        public IngredientDto()
         {
         }
 
-        public DTO_Ingredient(Ingredient ingredient, double weight)
+        public IngredientDto(Ingredient ingredient, double weight)
         {
             Id = ingredient.Id;
             IngredientName = ingredient.Name;

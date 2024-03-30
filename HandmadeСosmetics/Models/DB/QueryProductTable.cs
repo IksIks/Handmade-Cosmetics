@@ -9,13 +9,13 @@ namespace HandmadeСosmetics.Models.DB
     {
         private DataDBContex dbContext = dbContext;
 
-        public List<DTO_Product> GetProducts()
+        public List<ProductDto> GetProducts()
         {
             using (dbContext = new())
             {
                 return dbContext.Products.Join
                  (dbContext.Recipes, p => p.RecipeId, a => a.Id,
-                 (p, a) => new DTO_Product(p.Id, p.Name, p.Photo, p.NetCost, a.Name, p.Price, p.Weight)).AsEnumerable()
+                 (p, a) => new ProductDto(p.Id, p.Name, p.Photo, p.NetCost, a.Name, p.Price, p.Weight)).AsEnumerable()
                  .OrderBy(p => p.Name)
                  .ToList();
                 //(p, a) => new DTO_Product(p, a.Name)).ToList();

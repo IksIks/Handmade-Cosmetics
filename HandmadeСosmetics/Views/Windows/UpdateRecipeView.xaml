@@ -30,7 +30,7 @@
             <Button Content="Добавить в рецепт" Command="{Binding AddIngredientToCollectionCommand}" Margin="4" />
             <Button Content="Удалить из рецепта" Command="{Binding DeleteIngredientFromCollectionCommand}" Margin="4" />
         </StackPanel>
-        <ListView ItemsSource="{Binding IngredientsWeights}" SelectionMode="Multiple" SelectedItem="{Binding DTO_SelectedItem}" Height="180">
+        <ListView ItemsSource="{Binding IngredientsWeights}" SelectionMode="Single" SelectedItem="{Binding SelectedItemDto}" Height="180">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Выбранный ингредиент" DisplayMemberBinding="{Binding IngredientName}" />

@@ -13,12 +13,12 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
     {
         public static event Func<Task> ActivateResponseToRecipeTableEvent;
 
-        public static event Action<DTO_Product> UpdateProductEvent;
+        public static event Action<ProductDto> UpdateProductEvent;
 
         private readonly QueryProductTable queryProductTable;
-        private List<DTO_Product> productCatalog;
+        private List<ProductDto> productCatalog;
 
-        public List<DTO_Product> ProductCatalog
+        public List<ProductDto> ProductCatalog
         {
             get => productCatalog;
             set => Set(ref productCatalog, value);
@@ -61,14 +61,14 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         private bool CanEditRowCommandExecute(object p)
         {
-            return p is DTO_Product;
+            return p is ProductDto;
         }
 
         private async void OnEditRowCommandExecuted(object p)
         {
             UpdateProductView updateProduct = new();
             ActivateResponseToRecipeTableEvent?.Invoke();
-            UpdateProductEvent?.Invoke(p as DTO_Product);
+            UpdateProductEvent?.Invoke(p as ProductDto);
             updateProduct.ShowDialog();
             ProductCatalog = queryProductTable.GetProducts();
         }
@@ -79,13 +79,13 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         public ICommand DeleteProductCommand { get; }
 
-        private bool CanDeleteProductCommandExecute(object p) => p is DTO_Product;
+        private bool CanDeleteProductCommandExecute(object p) => p is ProductDto;
 
         private void OnDeleteProductCommandExecuted(Object p)
         {
             if (MessageBox.Show("Вы уверены?", "Удаление", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel) == MessageBoxResult.OK)
             {
-                queryProductTable.DeleteProduct((p as DTO_Product).Id);
+                queryProductTable.DeleteProduct((p as ProductDto).Id);
                 ProductCatalog = queryProductTable.GetProducts();
             }
         }

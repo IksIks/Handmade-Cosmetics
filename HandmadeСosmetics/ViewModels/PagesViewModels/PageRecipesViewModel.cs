@@ -9,6 +9,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 {
     internal class PageRecipesViewModel : ViewModelBase
     {
+        public static Action<Recipe> UpdateRecipeEvent;
         private readonly QueryRecipeTable queryRecipeTable;
         private List<Recipe> recipes;
         private List<Ingredient> ingredients;
@@ -37,6 +38,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
             queryRecipeTable = new QueryRecipeTable(new DataCotnext.DataDBContex());
             AddNewRecipeCommand = new LambdaCommand(OnAddNewRecipeCommandExecuted);
             DeleteRecipeCommand = new LambdaCommand(OnDeleteRecipeCommandExecuted, CanDeleteRecipeCommandExecute);
+            EditRecipeCommand = new LambdaCommand(OnEditRecipeCommandExecuted, CanEditRecipeCommandExecute);
             GetRecipes();
         }
 
@@ -70,6 +72,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
         private void OnEditRecipeCommandExecuted(object p)
         {
             UpdateRecipeView updateRecipeView = new UpdateRecipeView();
+            UpdateRecipeEvent?.Invoke(SelectedRecipe);
             updateRecipeView.ShowDialog();
             GetRecipes();
         }
