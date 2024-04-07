@@ -10,8 +10,8 @@ namespace HandmadeСosmetics.Views
         public MainWindow()
         {
             InitializeComponent();
-            DataDBContex dBCon = new DataDBContex();
-            Random r = new Random();
+            //DataDBContex dBCon = new DataDBContex();
+            //Random r = new Random();
 
             //for (int i = 0; i < 10; i++)
             //{
@@ -19,7 +19,7 @@ namespace HandmadeСosmetics.Views
             //    double r2 = r.Next(100, 600);
             //    dBCon.Add(new Ingredient()
             //    {
-            //        Name = $"Игредиент-{i}",
+            //        Name = $"Ингредиент-{i}",
             //        IngridientCost = r1,
             //        PackageWeight = r2,
             //        UnitMeasurement = "гр.",

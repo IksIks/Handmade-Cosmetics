@@ -38,7 +38,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         private bool CanAddCommandExecute(object p)
         {
-            return IslinesFilledCorrectly();
+            return IsLinesFilledCorrectly();
         }
 
         private void OnAddCommandExecute(object p)
@@ -55,7 +55,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         private bool CanUpdateCommandExecute(object p)
         {
-            return IslinesFilledCorrectly();
+            return IsLinesFilledCorrectly();
         }
 
         private void OnUpdateCommandExecuted(object p)
@@ -83,7 +83,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             PageIngredientsViewModel.UpdateIngredientEvent -= UpdateIngredient;
         }
 
-        private bool IslinesFilledCorrectly()
+        private bool IsLinesFilledCorrectly()
         {
             if (String.IsNullOrEmpty(Ingredient.Name) ||
                 Ingredient.PackageWeight <= 0 ||

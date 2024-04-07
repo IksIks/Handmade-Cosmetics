@@ -2,7 +2,7 @@
 
 namespace HandmadeСosmetics.Models.DTO
 {
-    internal class IngredientDto
+    public class IngredientDto
     {
         public int Id { get; set; }
         public string IngredientName { get; set; }

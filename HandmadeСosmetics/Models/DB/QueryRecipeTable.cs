@@ -14,14 +14,10 @@ namespace HandmadeСosmetics.Models.DB
         {
             using (dbContext = new DataDBContex())
             {
-                return await dbContext.Recipes.Join(dbContext.Ingredients, r => r.Id, i => i.Id,
-                                                    (r, i) => new Recipe
-                                                        (
-                                                            r.Id,
-                                                            r.Name,
-                                                            r.WeightInRecipes.Where(x => x.RecipesId == r.Id).ToList(),
-                                                            r.Ingredients
-                                                        )).ToListAsync();
+                return await dbContext.Recipes.Include(i => i.Ingredients)
+                                              .Include(w => w.WeightInRecipes)
+                                              .OrderBy(r => r.Name)
+                                              .ToListAsync();
             }
         }
 
@@ -60,6 +56,66 @@ namespace HandmadeСosmetics.Models.DB
             });
             await dbContext.SaveChangesAsync();
             //TODO перенести весь код поиска элементов в модель Recipe
+        }
+
+        public async Task Update(int recipeId, ObservableCollection<IngredientDto> ingredientsDto)
+        {
+            var ingredientsFromWeightInRecipesTable = dbContext.WeightInRecipes
+                                                      .Where(x => x.RecipesId == recipeId).ToList();
+
+            var addedIngredientsId = ingredientsDto
+                                     .Where(x => ingredientsFromWeightInRecipesTable
+                                     .All(a => a.IngredientId != x.Id)).Select(a => a.Id).ToList();
+
+            var addedIngredients = dbContext.Ingredients.Where(i => addedIngredientsId.Contains(i.Id)).ToList();
+
+            var removedIngredientsId = ingredientsFromWeightInRecipesTable
+                                       .Where(x => ingredientsDto
+                                       .All(a => a.Id != x.IngredientId)).Select(i => i.IngredientId).ToList();
+
+            var removedIngredients = dbContext.Ingredients
+                                     .Where(i => removedIngredientsId.Contains(i.Id)).ToList();
+
+            var updatedRecipe = dbContext.Recipes
+                                .Include(x => x.Ingredients)
+                                .Include(a => a.WeightInRecipes)
+                                .Where(a => a.Id == recipeId).Single();
+
+            if (addedIngredients.Count > 0)
+                foreach (var ingredient in addedIngredients)
+                {
+                    updatedRecipe.Ingredients.Add(ingredient);
+                    updatedRecipe.WeightInRecipes.Add
+                        (
+                            new WeightInRecipe
+                                (
+                                    recipeId,
+                                    ingredient,
+                                    ingredientsDto.First(x => x.Id == ingredient.Id)
+                                )
+                        );
+                }
+
+            if (removedIngredients.Count > 0)
+                foreach (var item in removedIngredients)
+                {
+                    updatedRecipe.Ingredients.Remove(item);
+                }
+
+            dbContext.WeightInRecipes.RemoveRange(ingredientsFromWeightInRecipesTable
+                                                 .Where(w => removedIngredientsId
+                                                 .Contains(w.IngredientId)));
+
+
+            foreach (IngredientDto iDto in ingredientsDto)
+            {
+                foreach (var ingr in ingredientsFromWeightInRecipesTable)
+                {
+                    if (ingr.IngredientId == iDto.Id)
+                        ingr.Weight = iDto.IngredientWeight;
+                }
+            }
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task Delete(Recipe recipe)

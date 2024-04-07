@@ -1,4 +1,6 @@
-﻿namespace HandmadeСosmetics.Models.MaterialsAndProducts
+﻿using HandmadeСosmetics.Models.DTO;
+
+namespace HandmadeСosmetics.Models.MaterialsAndProducts
 {
     public class WeightInRecipe
     {
@@ -17,6 +19,13 @@
         {
             Weight = weight;
             Ingredient = ingredient;
+        }
+
+        public WeightInRecipe(int recipeId, Ingredient ingredient, IngredientDto ingredientDto)
+        {
+            RecipesId = recipeId;
+            Ingredient = ingredient;
+            Weight = ingredientDto.IngredientWeight;
         }
     }
 }

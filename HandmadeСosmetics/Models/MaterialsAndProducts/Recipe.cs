@@ -14,13 +14,6 @@
         public Recipe()
         {
         }
-
-        public Recipe(int id, string name, List<WeightInRecipe> weightInRecipes, List<Ingredient> ingredients)
-        {
-            Id = id;
-            Name = name;
-            WeightInRecipes = weightInRecipes;
-            Ingredients = ingredients;
-        }
+       
     }
 }

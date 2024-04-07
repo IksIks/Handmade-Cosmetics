@@ -52,7 +52,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         private bool CanUpdateCommandExecute(object p)
         {
-            return IslinesFilledCorrectly();
+            return IsLinesFilledCorrectly();
         }
 
         private void OnUpdateCommandExecuted(object p)
@@ -108,7 +108,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         private bool CanAddCommandExecute(object p)
         {
-            return IslinesFilledCorrectly();
+            return IsLinesFilledCorrectly();
         }
 
         private void OnAddCommandExecuted(object p)
@@ -123,7 +123,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             Recipes = await queryRecipeTable.GetRecipesNamesOnly();
         }
 
-        private bool IslinesFilledCorrectly()
+        private bool IsLinesFilledCorrectly()
         {
             if (String.IsNullOrEmpty(Product.Name) ||
                 Product.Recipe == null ||

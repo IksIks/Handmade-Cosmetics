@@ -12,14 +12,9 @@ namespace HandmadeСosmetics.Models.DB
         {
             using (dbContext = new())
             {
-                return dbContext.Ingredients.OrderBy(i => i.Name).ToList();
+                return dbContext.Ingredients.AsNoTracking().OrderBy(i => i.Name).ToList();
             }
         }
-
-        //public async Task<List<Ingredient>> GetByRecipeId(int recipeId)
-        //{
-        //    dbContext.Ingredients.Join(dbContext.Recipes, i => )
-        //}
 
         public async Task AddIngredient(Ingredient ingredient)
         {

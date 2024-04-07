@@ -17,6 +17,8 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         private readonly QueryRecipeTable queryRecipeTable;
         private string weight;
         private double parseWeight;
+        private string recipeName;
+        private int recipeId;
 
         public string Weight
         {
@@ -24,34 +26,56 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             set => Set(ref weight, value);
         }
 
+        public string RecipeName
+        {
+            get => recipeName;
+            set => Set(ref recipeName, value);
+        }
+
         public List<Ingredient> Ingredients { get; set; } = new();
         public Ingredient SelectedItem { get; set; } = new();
         public IngredientDto SelectedItemDto { get; set; }
-
-        //public ObservableCollection<Ingredient> IngredientsWeights { get; set; } = new();
         public ObservableCollection<IngredientDto> IngredientsWeights { get; set; } = new();
-
-        public string RecipeName { get; set; }
 
         public AddNewRecipeViewModel()
         {
             queryRecipeTable = new(new DataDBContex());
             queryIngredientsTable = new(new DataDBContex());
-            PageRecipesViewModel.UpdateRecipeEvent += Fiiling;
+            PageRecipesViewModel.UpdateRecipeEvent += FillDataUpdateView;
             Ingredients = queryIngredientsTable.Get();
+            //TODO перенести в отдельный метод и сделать асинхронным вызов
+
+            #region Команды
+
             AddIngredientToCollectionCommand = new LambdaCommand(OnAddIngredientToCollectionCommandExecuted, CanAddIngredientToCollectionCommandExecute);
             DeleteIngredientFromCollectionCommand = new LambdaCommand(OnDeleteIngredientFromCollectionCommandExecuted, CanDeleteIngredientFromCollectionCommandExecute);
             AddRecipeCommand = new LambdaCommand(OnAddRecipeCommandExecuted, CanAddRecipeCommandExecute);
             CancelCommand = new LambdaCommand(OnCancelCommandExecuted);
+            UpdateRecipeCommand = new LambdaCommand(OnUpdateRecipeCommandExecuted, CanUpdateRecipeCommandExecute);
+
+            #endregion Команды
         }
 
-        private void Fiiling(Recipe recipe)
+        private void FillDataUpdateView(Recipe recipe)
         {
+            recipeId = recipe.Id;
             RecipeName = recipe.Name;
             foreach (var item in recipe.WeightInRecipes)
             {
                 IngredientsWeights.Add(new IngredientDto(item.Ingredient, item.Weight));
             }
+        }
+
+        public ICommand UpdateRecipeCommand { get; }
+
+        private bool CanUpdateRecipeCommandExecute(object p)
+        {
+            return IsLinesFilledCorrectly();
+        }
+
+        private void OnUpdateRecipeCommandExecuted(object p)
+        {
+            queryRecipeTable.Update(recipeId, IngredientsWeights);
         }
 
         #region Команда Добавление ингредиентов к рецепту
@@ -100,9 +124,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         private bool CanAddRecipeCommandExecute(object p)
         {
-            if (IngredientsWeights.Count <= 0 || String.IsNullOrEmpty(RecipeName))
-                return false;
-            return true;
+            return IsLinesFilledCorrectly();
             //return IngredientsWeights.Count > 0 ? true : false && !String.IsNullOrEmpty(RecipeName);
         }
 
@@ -124,5 +146,12 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         }
 
         #endregion Команда закрытия окна
+
+        private bool IsLinesFilledCorrectly()
+        {
+            if (IngredientsWeights.Count <= 0 || String.IsNullOrEmpty(RecipeName))
+                return false;
+            return true;
+        }
     }
 }
