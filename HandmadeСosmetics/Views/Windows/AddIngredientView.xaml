@@ -10,13 +10,13 @@
     </Window.DataContext>
     <StackPanel Orientation="Vertical">
         <TextBlock Text="Название ингридиента" />
-        <TextBox Text="{Binding Ingredient.Name}" />
+        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
         <TextBlock Text="Вес упаковки" />
-        <TextBox Text="{Binding Ingredient.PackageWeight}" />
+        <TextBox Text="{Binding PackageWeight, UpdateSourceTrigger=PropertyChanged}" />
         <TextBlock Text="Единицы измерения" />
-        <ComboBox ItemsSource="{Binding UnitMeasurement}" SelectedItem="{Binding Ingredient.UnitMeasurement}" />
+        <ComboBox ItemsSource="{Binding UnitMeasurement}" SelectedItem="{Binding IngrUnitMeasurement}" />
         <TextBlock Text="Стоимость ингридиента" />
-        <TextBox Text="{Binding Ingredient.IngridientCost}" />
+        <TextBox Text="{Binding Cost, UpdateSourceTrigger=PropertyChanged}" />
         <UniformGrid Rows="1">
             <Button Content="Отмена" Margin="5" Width="100" Height="25" Command="{Binding CancelCommand}" />
             <Button Content="Добавить" Margin="5" Width="100" Height="25" Command="{Binding AddCommand}" />

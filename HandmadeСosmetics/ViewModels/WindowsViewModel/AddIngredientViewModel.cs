@@ -11,20 +11,43 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 {
     internal class AddIngredientViewModel : ViewModelBase
     {
-        private Ingredient ingredient;
+        private string ingrUnitMeasurement;
         private readonly QueryIngredientsTable queryIngredientTable;
+        private string packageWeight;
+        private string name;
+        private string cost;
+        private double packageWeightTryParse;
+        private double costTryParse;
+        private int id;
 
-        public Ingredient Ingredient
+        public string Cost
         {
-            get => ingredient;
-            set => Set(ref ingredient, value);
+            get => cost;
+            set => Set(ref cost, value);
         }
 
-        public List<string> UnitMeasurement { get; set; } = new List<string> { "кг.", "гр.", "мл." };
+        public string Name
+        {
+            get => name;
+            set => Set(ref name, value);
+        }
+
+        public string PackageWeight
+        {
+            get => packageWeight;
+            set => Set(ref packageWeight, value);
+        }
+
+        public string IngrUnitMeasurement
+        {
+            get => ingrUnitMeasurement;
+            set => Set(ref ingrUnitMeasurement, value);
+        }
+
+        public List<string> UnitMeasurement { get; set; } = new List<string> { "гр.", "мл." };
 
         public AddIngredientViewModel()
         {
-            ingredient = new Ingredient();
             queryIngredientTable = new QueryIngredientsTable(new DataDBContex());
             PageIngredientsViewModel.UpdateIngredientEvent += UpdateIngredient;
             AddCommand = new LambdaCommand(OnAddCommandExecute, CanAddCommandExecute);
@@ -43,7 +66,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         private void OnAddCommandExecute(object p)
         {
-            queryIngredientTable.AddIngredient(new Ingredient(Ingredient.Name, Ingredient.PackageWeight, Ingredient.UnitMeasurement, Ingredient.IngridientCost, Ingredient.Id));
+            queryIngredientTable.AddIngredient(new Ingredient(Name, packageWeightTryParse, ingrUnitMeasurement, costTryParse));
             Application.Current.Windows[1].Close();
         }
 
@@ -60,7 +83,8 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         private void OnUpdateCommandExecuted(object p)
         {
-            queryIngredientTable.UpdateIngredient(new Ingredient(Ingredient.Name, Ingredient.PackageWeight, Ingredient.UnitMeasurement, Ingredient.IngridientCost, Ingredient.Id));
+            //queryIngredientTable.UpdateIngredient(new Ingredient(Ingredient.Name, Ingredient.PackageWeight, Ingredient.UnitMeasurement, Ingredient.IngridientCost, Ingredient.Id));
+            queryIngredientTable.UpdateIngredient(new Ingredient(Name, packageWeightTryParse, ingrUnitMeasurement, costTryParse, id));
             Application.Current.Windows[1].Close();
         }
 
@@ -77,20 +101,26 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         #endregion Команда отмены
 
+        #region Команда обновления ингредиента
+
         private void UpdateIngredient(Ingredient ingredient)
         {
-            Ingredient = ingredient;
+            id = ingredient.Id;
+            Name = ingredient.Name;
+            PackageWeight = ingredient.PackageWeight.ToString();
+            ingrUnitMeasurement = ingredient.UnitMeasurement.ToString();
+            Cost = ingredient.IngridientCost.ToString();
             PageIngredientsViewModel.UpdateIngredientEvent -= UpdateIngredient;
         }
 
         private bool IsLinesFilledCorrectly()
         {
-            if (String.IsNullOrEmpty(Ingredient.Name) ||
-                Ingredient.PackageWeight <= 0 ||
-                String.IsNullOrEmpty(Ingredient.UnitMeasurement) ||
-                Ingredient.IngridientCost <= 0)
+            if (String.IsNullOrEmpty(Name) || !double.TryParse(packageWeight, out packageWeightTryParse) ||
+                String.IsNullOrEmpty(ingrUnitMeasurement) || !double.TryParse(cost, out costTryParse))
                 return false;
             return true;
         }
+
+        #endregion Команда обновления ингредиента
     }
 }
