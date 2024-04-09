@@ -68,6 +68,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         #endregion Команда редактирования ингридиента
 
+        #region Команда удаления ингредиента
         public ICommand DeleteIngredientCommand { get; }
 
         private bool CanDeleteIngredientCommandExwcute(object p)
@@ -82,6 +83,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
                 queryIngredientsTable.DeleteIngredient((p as Ingredient).Id);
                 Ingredients = queryIngredientsTable.Get();
             }
-        }
+        } 
+        #endregion
     }
 }

@@ -16,7 +16,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         private readonly QueryIngredientsTable queryIngredientsTable;
         private readonly QueryRecipeTable queryRecipeTable;
         private string weight;
-        private double parseWeight;
+        private double parsedWeight;
         private string recipeName;
         private int recipeId;
 
@@ -66,25 +66,13 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             }
         }
 
-        public ICommand UpdateRecipeCommand { get; }
-
-        private bool CanUpdateRecipeCommandExecute(object p)
-        {
-            return IsLinesFilledCorrectly();
-        }
-
-        private void OnUpdateRecipeCommandExecuted(object p)
-        {
-            queryRecipeTable.Update(recipeId, IngredientsWeights);
-        }
-
         #region Команда Добавление ингредиентов к рецепту
 
         public ICommand AddIngredientToCollectionCommand { get; }
 
         private bool CanAddIngredientToCollectionCommandExecute(object p)
         {
-            if (!double.TryParse(Weight, out parseWeight))
+            if (!double.TryParse(Weight, out parsedWeight))
                 return false;
             return true;
         }
@@ -96,11 +84,28 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
                 MessageBox.Show("такой ингредиент уже добавлен");
                 return;
             }
-            IngredientsWeights.Add(new IngredientDto(SelectedItem, parseWeight));
+            IngredientsWeights.Add(new IngredientDto(SelectedItem, parsedWeight));
             Weight = default;
         }
 
         #endregion Команда Добавление ингредиентов к рецепту
+
+        #region Команда обновления рецепта
+
+        public ICommand UpdateRecipeCommand { get; }
+
+        private bool CanUpdateRecipeCommandExecute(object p)
+        {
+            return IsLinesFilledCorrectly();
+        }
+
+        private void OnUpdateRecipeCommandExecuted(object p)
+        {
+            queryRecipeTable.Update(recipeId, IngredientsWeights);
+            Application.Current.Windows[1].Close();
+        }
+
+        #endregion Команда обновления рецепта
 
         #region Команда удаление ингредиентов из рецепта
 

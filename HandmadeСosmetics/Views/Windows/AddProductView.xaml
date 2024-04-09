@@ -12,18 +12,18 @@
         <TextBlock Text="Название" />
         <TextBox Text="{Binding Product.Name}" />
         <TextBlock Text="Фото" />
-        <Grid >
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Source="{Binding Product.Photo, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Width="70" Height="70"/>
-            <Button Grid.Column="1" Content="Выберите файл" Command="{Binding SelectFileCommand}" Margin="10"/>
+            <Image Grid.Column="0" Source="{Binding Product.Photo, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Width="70" Height="70" />
+            <Button Grid.Column="1" Content="Выберите файл" Command="{Binding SelectFileCommand}" Margin="10" />
         </Grid>
         <TextBlock Text="Цена" />
-        <TextBox Text="{Binding Product.Price}" />
+        <TextBox Text="{Binding Product.Price, UpdateSourceTrigger=PropertyChanged}" />
         <TextBlock Text="Вес" />
-        <TextBox Text="{Binding Product.Weight}" />
+        <TextBox Text="{Binding Product.Weight, UpdateSourceTrigger=PropertyChanged}" />
         <TextBlock Text="Рецепт" />
         <ComboBox ItemsSource="{Binding Recipes}" SelectedItem="{Binding Product.Recipe}" DisplayMemberPath="Name" />
         <UniformGrid Rows="1">
