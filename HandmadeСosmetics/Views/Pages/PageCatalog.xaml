@@ -21,7 +21,8 @@
         </UniformGrid>
         <DataGrid Name="DataGrid" Grid.Column="1" ItemsSource="{Binding ProductCatalog}" AutoGenerateColumns="False" Margin="2"
                   FrozenColumnCount="4" ColumnWidth="*" RowHeight="50" CanUserResizeRows="False" SelectionMode="Extended"
-                  EnableRowVirtualization="True" VirtualizingPanel.VirtualizationMode="Recycling" EnableColumnVirtualization="True">
+                  EnableRowVirtualization="True" VirtualizingPanel.VirtualizationMode="Recycling" EnableColumnVirtualization="True"
+                  CanUserAddRows="False" CanUserDeleteRows="False">
             <DataGrid.InputBindings>
                 <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditRowCommand}" CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}" />
             </DataGrid.InputBindings>

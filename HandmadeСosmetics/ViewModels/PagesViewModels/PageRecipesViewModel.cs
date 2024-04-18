@@ -3,6 +3,7 @@ using HandmadeСosmetics.Models.DB;
 using HandmadeСosmetics.Models.MaterialsAndProducts;
 using HandmadeСosmetics.ViewModel;
 using HandmadeСosmetics.Views.Windows;
+using System.Windows;
 using System.Windows.Input;
 
 namespace HandmadeСosmetics.ViewModels.PagesViewModels
@@ -90,8 +91,11 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         private void OnDeleteRecipeCommandExecuted(object p)
         {
-            queryRecipeTable.Delete(p as Recipe);
-            GetRecipes();
+            if (MessageBox.Show("Вы уверены?", "Удаление", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel) == MessageBoxResult.OK)
+            {
+                queryRecipeTable.Delete(p as Recipe);
+                GetRecipes();
+            }
         }
 
         #endregion Удаление рецепта..................................................................................................

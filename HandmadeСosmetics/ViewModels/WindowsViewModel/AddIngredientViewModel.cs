@@ -77,6 +77,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         #endregion Команда отмены
 
+        #region Команда обновления ингредиента
         private void UpdateIngredient(Ingredient ingredient)
         {
             Ingredient = ingredient;
@@ -91,6 +92,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
                 Ingredient.IngridientCost <= 0)
                 return false;
             return true;
-        }
+        } 
+        #endregion
     }
 }

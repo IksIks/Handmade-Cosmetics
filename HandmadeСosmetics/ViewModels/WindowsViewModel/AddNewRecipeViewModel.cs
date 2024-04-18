@@ -66,17 +66,6 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             }
         }
 
-        public ICommand UpdateRecipeCommand { get; }
-
-        private bool CanUpdateRecipeCommandExecute(object p)
-        {
-            return IsLinesFilledCorrectly();
-        }
-
-        private void OnUpdateRecipeCommandExecuted(object p)
-        {
-            queryRecipeTable.Update(recipeId, IngredientsWeights);
-        }
 
         #region Команда Добавление ингредиентов к рецепту
 
@@ -101,6 +90,21 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         }
 
         #endregion Команда Добавление ингредиентов к рецепту
+
+        #region Команда обновления рецепта
+        public ICommand UpdateRecipeCommand { get; }
+
+        private bool CanUpdateRecipeCommandExecute(object p)
+        {
+            return IsLinesFilledCorrectly();
+        }
+
+        private void OnUpdateRecipeCommandExecuted(object p)
+        {
+            queryRecipeTable.Update(recipeId, IngredientsWeights);
+            Application.Current.Windows[1].Close();
+        } 
+        #endregion
 
         #region Команда удаление ингредиентов из рецепта
 

@@ -47,7 +47,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             UpdateCommand = new LambdaCommand(OnUpdateCommandExecuted, CanUpdateCommandExecute);
         }
 
-        //------------------------------------------------------------------------------------------------------------------------------
+        #region Команда обновления продукта
         public ICommand UpdateCommand { get; }
 
         private bool CanUpdateCommandExecute(object p)
@@ -60,8 +60,9 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             queryProductTable.UpdateProduct(Product);
             Application.Current.Windows[1].Close();
         }
+        #endregion
 
-        //------------------------------------------------------------------------------------------------------------------------------
+        #region Команда выбора файла
         public ICommand SelectFileCommand { get; }
 
         private void OnSelectFileCommandExecuted(object p)
@@ -75,7 +76,8 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             {
                 Product.Photo = GetPathCreatedImage(dialog);
             }
-        }
+        } 
+        #endregion
 
         private string GetPathCreatedImage(OpenFileDialog dialog)
         {
@@ -91,7 +93,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             return addedImagePath;
         }
 
-        //------------------------------------------------------------------------------------------------------------------------------
+        #region Команда отмены
         public ICommand CancelCommand { get; }
 
         private void OnCancelCommandExecuted(object p)
@@ -102,8 +104,9 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             Application.Current.Windows[1].Close();
             PageCatalogViewModel.ActivateResponseToRecipeTableEvent -= GetAllRecipes;
         }
+        #endregion
 
-        //------------------------------------------------------------------------------------------------------------------------------
+        #region Команда обновления
         public ICommand AddCommand { get; }
 
         private bool CanAddCommandExecute(object p)
@@ -115,9 +118,9 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         {
             queryProductTable?.AddProduct(Product);
             Application.Current.Windows[1].Close();
-        }
+        } 
+        #endregion
 
-        //------------------------------------------------------------------------------------------------------------------------------
         private async Task GetAllRecipes()
         {
             Recipes = await queryRecipeTable.GetRecipesNamesOnly();
