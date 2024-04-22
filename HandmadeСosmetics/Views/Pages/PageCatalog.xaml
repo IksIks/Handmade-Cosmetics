@@ -4,12 +4,11 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:vm="clr-namespace:HandmadeСosmetics.ViewModels.PagesViewModels"
-      d:DesignHeight="450" d:DesignWidth="850"
-      Title="Каталог с товарами">
+      d:DesignHeight="450" d:DesignWidth="850">
     <Page.DataContext>
         <vm:PageCatalogViewModel />
     </Page.DataContext>
-    <Grid >
+    <Grid Background="BlanchedAlmond" ShowGridLines="False" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60" />
             <ColumnDefinition Width="150*" />
@@ -19,26 +18,32 @@
             <Button Content="-" FontSize="40" Command="{Binding DeleteProductCommand}" CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}" />
             <Button />
         </UniformGrid>
-        <DataGrid Name="DataGrid" Grid.Column="1" ItemsSource="{Binding ProductCatalog}" AutoGenerateColumns="False" Margin="2"
-                  FrozenColumnCount="4" ColumnWidth="*" RowHeight="50" CanUserResizeRows="False" SelectionMode="Extended"
-                  EnableRowVirtualization="True" VirtualizingPanel.VirtualizationMode="Recycling" EnableColumnVirtualization="True"
-                  CanUserAddRows="False" CanUserDeleteRows="False">
+        <DataGrid Name="DataGrid" Grid.Column="1" Style="{StaticResource DataGridStyle}" ItemsSource="{Binding ProductCatalog}" 
+                  Margin="2" ColumnWidth="*" RowHeight="60" FrozenColumnCount="4" 
+                  EnableRowVirtualization="True"
+                  VirtualizingPanel.VirtualizationMode="Recycling"
+                  EnableColumnVirtualization="True">
             <DataGrid.InputBindings>
                 <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditRowCommand}" CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}" />
             </DataGrid.InputBindings>
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Фото" Width="50">
+                <DataGridTemplateColumn Header="Фото" Width="50" CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image Source="{Binding Photo}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Название продукта" Binding="{Binding Name}" IsReadOnly="True" />
-                <DataGridTextColumn Header="Рецепт" Binding="{Binding RecipeName}" IsReadOnly="True" />
-                <DataGridTextColumn Header="Вес" Binding="{Binding Weight, StringFormat={}{0} грамм.}" IsReadOnly="True" />
-                <DataGridTextColumn Header="Чистая стоимость" Binding="{Binding NetCost, StringFormat={}{0} руб.}" IsReadOnly="True" />
-                <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0} руб.}" IsReadOnly="True" />
+                <DataGridTextColumn Header="Название" Binding="{Binding Name}" IsReadOnly="True"
+                            CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}"/>
+                <DataGridTextColumn Header="Рецепт" Binding="{Binding RecipeName}" IsReadOnly="True"
+                            CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}"/>
+                <DataGridTextColumn Header="Вес" Binding="{Binding Weight, StringFormat={}{0} грамм.}" IsReadOnly="True"
+                            CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}"/>
+                <DataGridTextColumn Header="Чистая стоимость" Binding="{Binding NetCost, StringFormat={}{0} руб.}" IsReadOnly="True"
+                            CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}"/>
+                <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0} руб.}" IsReadOnly="True"
+                            CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

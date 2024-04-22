@@ -1,27 +1,65 @@
 ﻿<Window x:Class="HandmadeСosmetics.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:HandmadeСosmetics"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:HandmadeСosmetics.ViewModels"
-        xmlns:local="clr-namespace:HandmadeСosmetics"
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d"
-        Title="Основная программа" Height="450" Width="850">
+        Height="500" Width="900" WindowStartupLocation="CenterScreen" Background="BlanchedAlmond">
     <Window.DataContext>
-        <vm:MainWindowViewModel/>
+        <vm:MainWindowViewModel />
     </Window.DataContext>
     <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Меню">
+        <Menu DockPanel.Dock="Top" Background="Brown">
+            <MenuItem Header="Меню" Background="LightCoral" FontWeight="Bold">
+                <MenuItem Command="{Binding СalculatorCommand}" >
+                    <MenuItem.Icon>
+                        <fa:ImageAwesome Icon="Solid_Calculator"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
         </Menu>
-        <StatusBar DockPanel.Dock="Bottom" Height="15"/>
-        <UniformGrid DockPanel.Dock="Right" Columns="1" Margin="-150,0,10,0" >
-            <Button Name="Catalog" Content="КАТАЛОГ" Command="{Binding SetCurrentPageCommand}" CommandParameter="{Binding ElementName=Catalog}"/>
-            <Button Name="Recipes" Content="РЕЦЕПТЫ" Command="{Binding SetCurrentPageCommand}" CommandParameter="{Binding ElementName=Recipes}"/>
-            <Button Name="Clients" Content="КЛИЕНТЫ" Command="{Binding SetCurrentPageCommand}" CommandParameter="{Binding ElementName=Clients}"/>
-            <Button Name="Components" Content="КОМПОНЕНТЫ" Command="{Binding SetCurrentPageCommand}" CommandParameter="{Binding ElementName=Components}"/>
+        <StatusBar DockPanel.Dock="Bottom" Height="15" />
+        <UniformGrid DockPanel.Dock="Right" Columns="1" Margin="-155,0,10,0">
+            <Button Command="{Binding SetCurrentPageCommand}" CommandParameter="{Binding ElementName=Catalog}" 
+                    Style="{StaticResource MainWindowButtons_1}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="Regular_ListAlt" Width="25" Margin="0,0,5,0"/>
+                        <TextBlock x:Name="Catalog" Text="КАТАЛОГ" Padding="0,2,0,0"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding SetCurrentPageCommand}" CommandParameter="{Binding ElementName=Recipes}"
+                    Style="{StaticResource MainWindowButtons_2}" >
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="Solid_Receipt" Width="20" Margin="0,0,5,0" />
+                        <TextBlock x:Name="Recipes" Text="РЕЦЕПТЫ" Padding="0,5,0,0"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding SetCurrentPageCommand}" CommandParameter="{Binding ElementName=Clients}"
+                    Style="{StaticResource MainWindowButtons_3}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="Solid_PeopleArrows" Width="20" Margin="0,0,5,0" />
+                        <TextBlock x:Name="Clients" Text="КЛИЕНТЫ" Padding="0,1,0,0"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
+
+            <Button Command="{Binding SetCurrentPageCommand}" CommandParameter="{Binding ElementName=Components}"
+                    Style="{StaticResource MainWindowButtons_4}">
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                        <fa:ImageAwesome Icon="Solid_Cocktail" Width="25" Margin="0,0,5,0" />
+                        <TextBlock x:Name="Components" Text="КОМПОНЕНТЫ" Padding="0,3,0,0"/>
+                    </StackPanel>
+                </Button.Content>
+            </Button>
         </UniformGrid>
-        <Frame Content="{Binding CurrentPage}" Margin="5,0,165,0" NavigationUIVisibility="Hidden"/>
+        <Frame Content="{Binding CurrentPage}" Margin="0,0,155,0" NavigationUIVisibility="Hidden" />
     </DockPanel>
 </Window>

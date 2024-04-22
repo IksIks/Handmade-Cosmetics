@@ -3,6 +3,7 @@ using HandmadeСosmetics.DataCotnext;
 using HandmadeСosmetics.Models.DB;
 using HandmadeСosmetics.ViewModel;
 using HandmadeСosmetics.Views.Pages;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -67,15 +68,22 @@ namespace HandmadeСosmetics.ViewModels
             pageRecipes = new PageRecipes();
             pageClients = new PageClients();
             SetCurrentPageCommand = new LambdaCommand(OnSetCurrentPageCommandExecuted);
+            СalculatorCommand = new LambdaCommand(OnСalculatorCommandExecuted);
             CreareFolderForImages();
+        }
+
+        public ICommand СalculatorCommand { get; }
+        private void OnСalculatorCommandExecuted (object p)
+        {
+            Process.Start("calc.exe");
         }
 
         public ICommand SetCurrentPageCommand { get; }
 
         private void OnSetCurrentPageCommandExecuted(object p)
         {
-            var b = p as Button;
-            switch (b.Content)
+            var b = p as TextBlock;
+            switch (b.Text)
             {
                 case "КАТАЛОГ":
                     CurrentPage = PageCatalog;
