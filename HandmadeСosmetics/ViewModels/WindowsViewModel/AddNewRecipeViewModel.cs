@@ -101,7 +101,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         private void OnUpdateRecipeCommandExecuted(object p)
         {
-            queryRecipeTable.Update(recipeId, IngredientsWeights);
+            queryRecipeTable.Update(recipeId, IngredientsWeights, RecipeName);
             Application.Current.Windows[1].Close();
         }
 

@@ -58,7 +58,7 @@ namespace HandmadeСosmetics.Models.DB
             //TODO перенести весь код поиска элементов в модель Recipe
         }
 
-        public async Task Update(int recipeId, ObservableCollection<IngredientDto> ingredientsDto)
+        public async Task Update(int recipeId, ObservableCollection<IngredientDto> ingredientsDto, string recipeName)
         {
             var ingredientsFromWeightInRecipesTable = dbContext.WeightInRecipes
                                                       .Where(x => x.RecipesId == recipeId).ToList();
@@ -106,6 +106,8 @@ namespace HandmadeСosmetics.Models.DB
                                                  .Where(w => removedIngredientsId
                                                  .Contains(w.IngredientId)));
 
+            if (!updatedRecipe.Name.Equals(recipeName))
+                updatedRecipe.Name = recipeName;
 
             foreach (IngredientDto iDto in ingredientsDto)
             {
