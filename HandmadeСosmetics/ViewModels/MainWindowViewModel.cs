@@ -73,9 +73,10 @@ namespace HandmadeСosmetics.ViewModels
         }
 
         public ICommand СalculatorCommand { get; }
-        private void OnСalculatorCommandExecuted (object p)
+
+        private void OnСalculatorCommandExecuted(object p)
         {
-            Process.Start("calc.exe");
+            Process.Start("win32calc.exe");
         }
 
         public ICommand SetCurrentPageCommand { get; }

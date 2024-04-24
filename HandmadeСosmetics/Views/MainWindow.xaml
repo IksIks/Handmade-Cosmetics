@@ -4,39 +4,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:HandmadeСosmetics.ViewModels"
-        xmlns:fa="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d"
         Height="500" Width="900" WindowStartupLocation="CenterScreen" Background="BlanchedAlmond">
     <Window.DataContext>
         <vm:MainWindowViewModel />
     </Window.DataContext>
     <DockPanel>
-        <Menu DockPanel.Dock="Top" Background="Brown">
-            <MenuItem Header="Меню" Background="LightCoral" FontWeight="Bold">
-                <MenuItem Command="{Binding СalculatorCommand}" >
+        <Menu DockPanel.Dock="Top" Background="BlanchedAlmond">
+            <MenuItem Header="Меню" Background="Gray" FontWeight="Bold">
+                <MenuItem Command="{Binding СalculatorCommand}" Header="Калькулятор">
                     <MenuItem.Icon>
-                        <fa:ImageAwesome Icon="Solid_Calculator"/>
+                        <Image Source="../Resources/Icons/calc.png" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
         </Menu>
         <StatusBar DockPanel.Dock="Bottom" Height="15" />
         <UniformGrid DockPanel.Dock="Right" Columns="1" Margin="-155,0,10,0">
-            <Button Command="{Binding SetCurrentPageCommand}" CommandParameter="{Binding ElementName=Catalog}" 
+            <Button Command="{Binding SetCurrentPageCommand}" CommandParameter="{Binding ElementName=Catalog}"
                     Style="{StaticResource MainWindowButtons_1}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
-                        <fa:ImageAwesome Icon="Regular_ListAlt" Width="25" Margin="0,0,5,0"/>
-                        <TextBlock x:Name="Catalog" Text="КАТАЛОГ" Padding="0,2,0,0"/>
+                        <Image Source="../Resources/Icons/soap.ico" Width="35" Margin="0,0,10,0" />
+                        <TextBlock x:Name="Catalog" Text="КАТАЛОГ" Padding="0,8,0,0" />
                     </StackPanel>
                 </Button.Content>
             </Button>
             <Button Command="{Binding SetCurrentPageCommand}" CommandParameter="{Binding ElementName=Recipes}"
-                    Style="{StaticResource MainWindowButtons_2}" >
+                    Style="{StaticResource MainWindowButtons_2}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
-                        <fa:ImageAwesome Icon="Solid_Receipt" Width="20" Margin="0,0,5,0" />
-                        <TextBlock x:Name="Recipes" Text="РЕЦЕПТЫ" Padding="0,5,0,0"/>
+                        <Image Source="../Resources/Icons/Recipe.png" Width="35" Margin="0,0,10,0" />
+                        <TextBlock x:Name="Recipes" Text="РЕЦЕПТЫ" Padding="0,7,0,0" />
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -44,8 +43,8 @@
                     Style="{StaticResource MainWindowButtons_3}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
-                        <fa:ImageAwesome Icon="Solid_PeopleArrows" Width="20" Margin="0,0,5,0" />
-                        <TextBlock x:Name="Clients" Text="КЛИЕНТЫ" Padding="0,1,0,0"/>
+                        <Image Source="../Resources/Icons/customer.png" Width="35" Margin="0,0,10,0" />
+                        <TextBlock x:Name="Clients" Text="КЛИЕНТЫ" Padding="0,8,0,0" />
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -54,8 +53,8 @@
                     Style="{StaticResource MainWindowButtons_4}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
-                        <fa:ImageAwesome Icon="Solid_Cocktail" Width="25" Margin="0,0,5,0" />
-                        <TextBlock x:Name="Components" Text="КОМПОНЕНТЫ" Padding="0,3,0,0"/>
+                        <Image Source="../Resources/Icons/ingredient.png" Width="35" Margin="0,0,10,0" />
+                        <TextBlock x:Name="Components" Text="КОМПОНЕНТЫ" Padding="0,8,0,0" />
                     </StackPanel>
                 </Button.Content>
             </Button>
