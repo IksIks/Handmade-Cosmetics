@@ -12,11 +12,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icons\add2.png" />
+    <None Remove="Resources\Icons\bathBomb.png" />
     <None Remove="Resources\Icons\calc.png" />
     <None Remove="Resources\Icons\customer.png" />
+    <None Remove="Resources\Icons\delete2.png" />
     <None Remove="Resources\Icons\ingredient.png" />
     <None Remove="Resources\Icons\Recipe.png" />
-    <None Remove="Resources\Icons\soap.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,19 +40,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Icons\add2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\bathBomb.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\calc.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\customer.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\delete2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\ingredient.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\Recipe.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\Icons\soap.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

@@ -4,46 +4,53 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:vm="clr-namespace:HandmadeСosmetics.ViewModels.PagesViewModels"
-      d:DesignHeight="450" d:DesignWidth="850">
+      d:DesignHeight="450" d:DesignWidth="800">
     <Page.DataContext>
         <vm:PageCatalogViewModel />
     </Page.DataContext>
-    <Grid Background="BlanchedAlmond" ShowGridLines="False" >
+    <Grid Background="BlanchedAlmond" ShowGridLines="False">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60" />
             <ColumnDefinition Width="150*" />
         </Grid.ColumnDefinitions>
         <UniformGrid Grid.Column="0" Columns="1" Margin="2">
-            <Button Content="+" FontSize="40" Command="{Binding AddNewProductCommand}" />
-            <Button Content="-" FontSize="40" Command="{Binding DeleteProductCommand}" CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}" />
-            <Button />
+            <Button FontSize="40" Command="{Binding AddNewProductCommand}" Style="{StaticResource ButtonAdd}">
+                <Button.Content>
+                    <Image Source="/Resources/Icons/add2.png" />
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding DeleteProductCommand}" CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
+                    Style="{StaticResource ButtonDelete}">
+                <Button.Content>
+                    <Image Source="/Resources/Icons/delete2.png" Width="40" />
+                </Button.Content>
+            </Button>
+            <!--<Button Background="Transparent" />-->
         </UniformGrid>
-        <DataGrid Name="DataGrid" Grid.Column="1" Style="{StaticResource DataGridStyle}" ItemsSource="{Binding ProductCatalog}" 
-                  Margin="2" ColumnWidth="*" RowHeight="60" FrozenColumnCount="4" 
-                  EnableRowVirtualization="True"
-                  VirtualizingPanel.VirtualizationMode="Recycling"
-                  EnableColumnVirtualization="True">
+        <DataGrid Name="DataGrid" Grid.Column="1" Style="{StaticResource DataGridStyle}" ItemsSource="{Binding ProductCatalog}"
+                  Margin="2" ColumnWidth="*" RowHeight="60" FrozenColumnCount="4" EnableRowVirtualization="True"
+                  VirtualizingPanel.VirtualizationMode="Recycling" EnableColumnVirtualization="True" HorizontalScrollBarVisibility="Disabled">
             <DataGrid.InputBindings>
                 <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditRowCommand}" CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}" />
             </DataGrid.InputBindings>
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Фото" Width="50" CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}">
+                <DataGridTemplateColumn Header="Фото" Width="80" CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image Source="{Binding Photo}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Название" Binding="{Binding Name}" IsReadOnly="True"
-                            CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}"/>
-                <DataGridTextColumn Header="Рецепт" Binding="{Binding RecipeName}" IsReadOnly="True"
-                            CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}"/>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name}" IsReadOnly="True" Width="180"
+                            CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" />
+                <DataGridTextColumn Header="Рецепт" Binding="{Binding RecipeName}" IsReadOnly="True" Width="160"
+                            CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" />
                 <DataGridTextColumn Header="Вес" Binding="{Binding Weight, StringFormat={}{0} грамм.}" IsReadOnly="True"
-                            CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}"/>
-                <DataGridTextColumn Header="Чистая стоимость" Binding="{Binding NetCost, StringFormat={}{0} руб.}" IsReadOnly="True"
-                            CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}"/>
+                            CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" Width="100" />
+                <DataGridTextColumn Header="Стоимость" Binding="{Binding NetCost, StringFormat={}{0} руб.}" IsReadOnly="True"
+                            CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" Width="100" />
                 <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0} руб.}" IsReadOnly="True"
-                            CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}"/>
+                            CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

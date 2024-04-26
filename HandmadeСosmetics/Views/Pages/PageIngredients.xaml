@@ -15,30 +15,39 @@
             <ColumnDefinition Width="150*" />
         </Grid.ColumnDefinitions>
         <UniformGrid Grid.Column="0" Columns="1" Margin="2">
-            <Button Content="+" FontSize="40" Command="{Binding AddNewIngredientCommand}" />
-            <Button Content="-" FontSize="40" Command="{Binding DeleteIngredientCommand}" CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}" />
-            <Button />
+            <Button Command="{Binding AddNewIngredientCommand}" Style="{StaticResource ButtonAdd}">
+                <Button.Content>
+                    <Image Source="/Resources/Icons/add2.png" />
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding DeleteIngredientCommand}" CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
+                    Style="{StaticResource ButtonDelete}">
+                <Button.Content>
+                    <Image Source="/Resources/Icons/delete2.png" Width="40" />
+                </Button.Content>
+            </Button>
+            <!--<Button />-->
         </UniformGrid>
-        <DataGrid Name="DataGrid" Grid.Column="1" Style="{StaticResource DataGridStyle}" ItemsSource="{Binding Ingredients}" 
-                  Margin="2" FrozenColumnCount="4" 
+        <DataGrid Name="DataGrid" Grid.Column="1" Style="{StaticResource DataGridStyle}" ItemsSource="{Binding Ingredients}"
+                  Margin="2" FrozenColumnCount="4"
                   ColumnWidth="*" RowHeight="50"
-                  EnableRowVirtualization="True" 
+                  EnableRowVirtualization="True"
                   VirtualizingPanel.VirtualizationMode="Recycling"
                   EnableColumnVirtualization="True">
             <DataGrid.InputBindings>
                 <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditIngredientCommand}" CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}" />
             </DataGrid.InputBindings>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Название ингридиента" Binding="{Binding Name}"  IsReadOnly="True" 
-                                    CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}"/>
-                <DataGridTextColumn Header="Вес упаковки" Binding="{Binding PackageWeight}" IsReadOnly="True" 
-                                    CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}"/>
-                <DataGridTextColumn Header="Единицы измерения" Binding="{Binding UnitMeasurement}" IsReadOnly="True" 
-                                    CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}"/>
-                <DataGridTextColumn Header="Стоимость ингридиента" Binding="{Binding IngridientCost, StringFormat={}{0} руб.}" IsReadOnly="True" 
-                                    CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}"/>
-                <DataGridTextColumn Header="Стоимость за гр.\мл." Binding="{Binding CostPerUnitMeasurement, StringFormat={}{0} руб.}" IsReadOnly="True" 
-                                    CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}"/>
+                <DataGridTextColumn Header="Ингридиент" Binding="{Binding Name}"  IsReadOnly="True" Width="190"
+                                    CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" />
+                <DataGridTextColumn Header="Вес упаковки" Binding="{Binding PackageWeight}" IsReadOnly="True" Width="100"
+                                    CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" />
+                <DataGridTextColumn Header="Ед. изм." Binding="{Binding UnitMeasurement}" IsReadOnly="True" Width="60"
+                                    CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" />
+                <DataGridTextColumn Header="Стоимость ингр-та" Binding="{Binding IngridientCost, StringFormat={}{0} руб.}" IsReadOnly="True"
+                                    CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" />
+                <DataGridTextColumn Header="Стоимость за гр.\мл." Binding="{Binding CostPerUnitMeasurement, StringFormat={}{0:##} руб.}" IsReadOnly="True"
+                                    CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

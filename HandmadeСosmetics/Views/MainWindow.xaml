@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:HandmadeСosmetics.ViewModels"
         mc:Ignorable="d"
-        Height="500" Width="900" WindowStartupLocation="CenterScreen" Background="BlanchedAlmond">
+        Height="500" Width="1000" WindowStartupLocation="CenterScreen" Background="BlanchedAlmond">
     <Window.DataContext>
         <vm:MainWindowViewModel />
     </Window.DataContext>
     <DockPanel>
         <Menu DockPanel.Dock="Top" Background="BlanchedAlmond">
-            <MenuItem Header="Меню" Background="Gray" FontWeight="Bold">
+            <MenuItem Header="Меню" Background="Gray" FontWeight="Bold" Height="25">
                 <MenuItem Command="{Binding СalculatorCommand}" Header="Калькулятор">
                     <MenuItem.Icon>
                         <Image Source="../Resources/Icons/calc.png" />
@@ -25,7 +25,7 @@
                     Style="{StaticResource MainWindowButtons_1}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="../Resources/Icons/soap.ico" Width="35" Margin="0,0,10,0" />
+                        <Image Source="/Resources/Icons/bathBomb.png" Width="35" Margin="0,0,10,0" />
                         <TextBlock x:Name="Catalog" Text="КАТАЛОГ" Padding="0,8,0,0" />
                     </StackPanel>
                 </Button.Content>

@@ -17,32 +17,41 @@
             <ColumnDefinition Width="150*" />
         </Grid.ColumnDefinitions>
         <UniformGrid Grid.Column="0" Columns="1" Margin="2">
-            <Button Content="+" FontSize="40" Command="{Binding AddNewRecipeCommand}" />
-            <Button Content="-" FontSize="40" Command="{Binding DeleteRecipeCommand}" CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}" />
-            <Button />
+            <Button Command="{Binding AddNewRecipeCommand}" Style="{StaticResource ButtonAdd}">
+                <Button.Content>
+                    <Image Source="/Resources/Icons/add2.png" />
+                </Button.Content>
+            </Button>
+            <Button Command="{Binding DeleteRecipeCommand}" CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
+                    Style="{StaticResource ButtonDelete}">
+                <Button.Content>
+                    <Image Source="/Resources/Icons/delete2.png" Width="40" />
+                </Button.Content>
+            </Button>
+            <!--<Button />-->
         </UniformGrid>
         <DataGrid Name="DataGrid" Grid.Column="1" ItemsSource="{Binding Recipes, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="2" SelectedItem="{Binding SelectedRecipe}"
            FrozenColumnCount="4" ColumnWidth="*" RowHeight="50" CanUserResizeRows="False" SelectionMode="Extended"
            EnableRowVirtualization="True" VirtualizingPanel.VirtualizationMode="Recycling" EnableColumnVirtualization="True"
-           CanUserAddRows="False" CanUserDeleteRows="False"  Background="Bisque" GridLinesVisibility="None" >
+           CanUserAddRows="False" CanUserDeleteRows="False"  Background="Bisque" GridLinesVisibility="None">
             <DataGrid.InputBindings>
                 <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditRecipeCommand}" CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}" />
             </DataGrid.InputBindings>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Название рецепта" Binding="{Binding Name}"  IsReadOnly="True" 
-                                    CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}"/>
+                <DataGridTextColumn Header="Название рецепта" Binding="{Binding Name}"  IsReadOnly="True"
+                                    CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" />
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid Grid.Column="2" AutoGenerateColumns="False" Margin="2" ItemsSource="{Binding SelectedRecipe.WeightInRecipes, UpdateSourceTrigger=PropertyChanged}"
                   FrozenColumnCount="2" ColumnWidth="*" RowHeight="50" CanUserResizeRows="False" SelectionMode="Extended"
                   EnableRowVirtualization="True" VirtualizingPanel.VirtualizationMode="Recycling" EnableColumnVirtualization="True"
-                  CanUserAddRows="False" CanUserDeleteRows="False"  Background="Bisque" GridLinesVisibility="None" >
+                  CanUserAddRows="False" CanUserDeleteRows="False"  Background="Bisque" GridLinesVisibility="None">
 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Ингредиент" Binding="{Binding Ingredient.Name}" IsReadOnly="True" 
-                                    CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}"/>
+                <DataGridTextColumn Header="Ингредиент" Binding="{Binding Ingredient.Name}" IsReadOnly="True"
+                                    CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" />
                 <DataGridTextColumn Header="Количество" Binding="{Binding Weight}" IsReadOnly="True"
-                                    CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}"/>
+                                    CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
