@@ -17,13 +17,13 @@
             <ColumnDefinition Width="150*" />
         </Grid.ColumnDefinitions>
         <UniformGrid Grid.Column="0" Columns="1" Margin="2">
-            <Button Command="{Binding AddNewRecipeCommand}" Style="{StaticResource ButtonAdd}">
+            <Button Command="{Binding AddNewRecipeCommand}" Style="{StaticResource ButtonAddToTable}">
                 <Button.Content>
                     <Image Source="/Resources/Icons/add2.png" />
                 </Button.Content>
             </Button>
             <Button Command="{Binding DeleteRecipeCommand}" CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}"
-                    Style="{StaticResource ButtonDelete}">
+                    Style="{StaticResource ButtonDeleteFormTable}">
                 <Button.Content>
                     <Image Source="/Resources/Icons/delete2.png" Width="40" />
                 </Button.Content>

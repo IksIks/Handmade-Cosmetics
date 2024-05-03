@@ -200,7 +200,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="ButtonAdd" TargetType="Button">
+    <Style x:Key="ButtonAddToTable" TargetType="Button">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -246,7 +246,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="ButtonDelete" TargetType="Button">
+    <Style x:Key="ButtonDeleteFormTable" TargetType="Button">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -291,5 +291,17 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+    <Style x:Key="ButtonAddOrUpdate" TargetType="Button">
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Height" Value="25" />
+        <Setter Property="Margin" Value="2,5,0,5" />
+        <Setter Property="Background" Value="Red" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Padding" Value="0,0,0,3" />
+    </Style>
+    <Style x:Key="ButtonCancel" TargetType="Button" BasedOn="{StaticResource ButtonAddOrUpdate}">
+        <Setter Property="Margin" Value="0,5,2,5" />
+        <Setter Property="Background" Value="Aqua" />
     </Style>
 </ResourceDictionary>

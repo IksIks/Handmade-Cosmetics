@@ -7,8 +7,10 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/ButtonsStyle.xaml" />
-                <ResourceDictionary Source="Resources/Styles/DataGridCellStyle.xaml"/>
-                <ResourceDictionary Source="Resources/Styles/DataGridStyle.xaml"/>
+                <ResourceDictionary Source="Resources/Styles/DataGridCellStyle.xaml" />
+                <ResourceDictionary Source="Resources/Styles/DataGridStyle.xaml" />
+                <ResourceDictionary Source="Resources/Styles/TextBlockStyle.xaml" />
+                <ResourceDictionary Source="Resources/Styles/TextBoxStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

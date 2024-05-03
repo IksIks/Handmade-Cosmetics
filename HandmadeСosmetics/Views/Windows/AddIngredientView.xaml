@@ -4,22 +4,33 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:HandmadeСosmetics.ViewModels.WindowsViewModel"
-        Title="Новый ингредиент" Height="300" Width="250" WindowStartupLocation="CenterScreen">
+       MaxHeight="260" MaxWidth="250"  MinHeight="260" MinWidth="250" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="BlanchedAlmond">
     <Window.DataContext>
         <vm:AddIngredientViewModel />
     </Window.DataContext>
-    <StackPanel Orientation="Vertical">
-        <TextBlock Text="Название ингридиента" />
-        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock Text="Вес упаковки" />
-        <TextBox Text="{Binding PackageWeight, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock Text="Единицы измерения" />
-        <ComboBox ItemsSource="{Binding UnitMeasurement}" SelectedItem="{Binding IngrUnitMeasurement}" />
-        <TextBlock Text="Стоимость ингридиента" />
-        <TextBox Text="{Binding Cost, UpdateSourceTrigger=PropertyChanged}" />
-        <UniformGrid Rows="1">
-            <Button Content="Отмена" Margin="5" Width="100" Height="25" Command="{Binding CancelCommand}" />
-            <Button Content="Добавить" Margin="5" Width="100" Height="25" Command="{Binding AddCommand}" />
+    <StackPanel Orientation="Vertical" Background="BlanchedAlmond" Margin="6">
+        <TextBlock Text="Название ингридиента" Style="{StaticResource TextBlockStyle}" />
+        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="173" Style="{StaticResource TextBoxStyle}" />
+        <TextBlock Text="Вес упаковки" Style="{StaticResource TextBlockStyle}" />
+        <TextBox Text="{Binding PackageWeight, UpdateSourceTrigger=PropertyChanged}" Width="100" Style="{StaticResource TextBoxStyle}" />
+        <TextBlock Text="Единицы измерения" Style="{StaticResource TextBlockStyle}" />
+        <ComboBox ItemsSource="{Binding UnitMeasurement}" SelectedItem="{Binding IngrUnitMeasurement}" Width="100"  HorizontalAlignment="Left"
+                  Background="Red" />
+        <TextBlock Text="Стоимость ингридиента" Style="{StaticResource TextBlockStyle}" />
+        <TextBox Text="{Binding Cost, UpdateSourceTrigger=PropertyChanged}" Width="100" Style="{StaticResource TextBoxStyle}" />
+        <UniformGrid Rows="1" Margin="0,5,0,0">
+            <Border>
+                <Border.Effect>
+                     <DropShadowEffect ShadowDepth="4" />
+                 </Border.Effect>
+                <Button Content="Отмена" Style="{StaticResource ButtonCancel}" Command="{Binding CancelCommand}" />
+            </Border>
+            <Border>
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="4" />
+                </Border.Effect>
+                <Button Content="Добавить" Style="{StaticResource ButtonAddOrUpdate}" Command="{Binding AddCommand}" />
+            </Border>
         </UniformGrid>
     </StackPanel>
 </Window>
