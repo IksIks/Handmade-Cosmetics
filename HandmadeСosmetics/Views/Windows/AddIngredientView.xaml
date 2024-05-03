@@ -21,15 +21,15 @@
         <UniformGrid Rows="1" Margin="0,5,0,0">
             <Border>
                 <Border.Effect>
-                     <DropShadowEffect ShadowDepth="4" />
-                 </Border.Effect>
+                    <DropShadowEffect ShadowDepth="4" />
+                </Border.Effect>
                 <Button Content="Отмена" Style="{StaticResource ButtonCancel}" Command="{Binding CancelCommand}" />
             </Border>
             <Border>
                 <Border.Effect>
                     <DropShadowEffect ShadowDepth="4" />
                 </Border.Effect>
-                <Button Content="Добавить" Style="{StaticResource ButtonAddOrUpdate}" Command="{Binding AddCommand}" />
+                <Button Content="{Binding ButtonContext}" Style="{StaticResource ButtonAddOrUpdate}" Command="{Binding AddOrUpdateCommand}" />
             </Border>
         </UniformGrid>
     </StackPanel>

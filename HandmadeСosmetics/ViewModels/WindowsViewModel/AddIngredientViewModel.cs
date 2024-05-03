@@ -19,6 +19,13 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         private double packageWeightTryParse;
         private double costTryParse;
         private int id;
+        private string buttonContext = "Добавить";
+
+        public string ButtonContext
+        {
+            get => buttonContext;
+            set => Set(ref buttonContext, value);
+        }
 
         public string Cost
         {
@@ -50,45 +57,47 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         {
             queryIngredientTable = new QueryIngredientsTable(new DataDBContex());
             PageIngredientsViewModel.UpdateIngredientEvent += UpdateIngredient;
-            AddCommand = new LambdaCommand(OnAddCommandExecute, CanAddCommandExecute);
+            AddOrUpdateCommand = new LambdaCommand(OnAddOrUpdateCommandExecute, CanAddOrUpdateCommandExecute);
             CancelCommand = new LambdaCommand(OnCancelCommandExecuted);
-            UpdateCommand = new LambdaCommand(OnUpdateCommandExecuted, CanUpdateCommandExecute);
+            //UpdateCommand = new LambdaCommand(OnUpdateCommandExecuted, CanUpdateCommandExecute);
         }
 
         #region Команда добавления нового ингридиента
 
-        public ICommand AddCommand { get; }
+        public ICommand AddOrUpdateCommand { get; }
 
-        private bool CanAddCommandExecute(object p)
+        private bool CanAddOrUpdateCommandExecute(object p)
         {
             return IsLinesFilledCorrectly();
         }
 
-        private void OnAddCommandExecute(object p)
+        private void OnAddOrUpdateCommandExecute(object p)
         {
-            queryIngredientTable.AddIngredient(new Ingredient(Name, packageWeightTryParse, ingrUnitMeasurement, costTryParse));
+            if (ButtonContext.Equals("Добавить"))
+                queryIngredientTable.AddIngredient(new Ingredient(Name, packageWeightTryParse, IngrUnitMeasurement, costTryParse));
+            if (ButtonContext.Equals("Изменить"))
+                queryIngredientTable.UpdateIngredient(new Ingredient(Name, packageWeightTryParse, IngrUnitMeasurement, costTryParse, id));
             Application.Current.Windows[1].Close();
         }
 
         #endregion Команда добавления нового ингридиента
 
-        #region Команда обновления ингредиента
+        //#region Команда обновления ингредиента
 
-        public ICommand UpdateCommand { get; }
+        //public ICommand UpdateCommand { get; }
 
-        private bool CanUpdateCommandExecute(object p)
-        {
-            return IsLinesFilledCorrectly();
-        }
+        //private bool CanUpdateCommandExecute(object p)
+        //{
+        //    return IsLinesFilledCorrectly();
+        //}
 
-        private void OnUpdateCommandExecuted(object p)
-        {
-            //queryIngredientTable.UpdateIngredient(new Ingredient(Ingredient.Name, Ingredient.PackageWeight, Ingredient.UnitMeasurement, Ingredient.IngridientCost, Ingredient.Id));
-            queryIngredientTable.UpdateIngredient(new Ingredient(Name, packageWeightTryParse, ingrUnitMeasurement, costTryParse, id));
-            Application.Current.Windows[1].Close();
-        }
+        //private void OnUpdateCommandExecuted(object p)
+        //{
+        //    queryIngredientTable.UpdateIngredient(new Ingredient(Name, packageWeightTryParse, ingrUnitMeasurement, costTryParse, id));
+        //    Application.Current.Windows[1].Close();
+        //}
 
-        #endregion Команда обновления ингредиента
+        //#endregion Команда обновления ингредиента
 
         #region Команда отмены
 
@@ -101,14 +110,13 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         #endregion Команда отмены
 
-        #region Команда обновления ингредиента
-
         private void UpdateIngredient(Ingredient ingredient)
         {
+            ButtonContext = "Изменить";
             id = ingredient.Id;
             Name = ingredient.Name;
             PackageWeight = ingredient.PackageWeight.ToString();
-            ingrUnitMeasurement = ingredient.UnitMeasurement.ToString();
+            IngrUnitMeasurement = ingredient.UnitMeasurement.ToString();
             Cost = ingredient.IngridientCost.ToString();
             PageIngredientsViewModel.UpdateIngredientEvent -= UpdateIngredient;
         }
@@ -116,11 +124,9 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         private bool IsLinesFilledCorrectly()
         {
             if (String.IsNullOrEmpty(Name) || !double.TryParse(packageWeight, out packageWeightTryParse) ||
-                String.IsNullOrEmpty(ingrUnitMeasurement) || !double.TryParse(cost, out costTryParse))
+                String.IsNullOrEmpty(IngrUnitMeasurement) || !double.TryParse(cost, out costTryParse))
                 return false;
             return true;
         }
-
-        #endregion Команда обновления ингредиента
     }
 }
