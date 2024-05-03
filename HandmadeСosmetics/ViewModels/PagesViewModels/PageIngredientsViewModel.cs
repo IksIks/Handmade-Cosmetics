@@ -60,7 +60,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         private void OnEditIngredientCommandExecuted(Object p)
         {
-            UpdateIngredientView updateIngridientView = new();
+            AddIngredientView updateIngridientView = new();
             UpdateIngredientEvent?.Invoke(p as Ingredient);
             updateIngridientView.ShowDialog();
             Ingredients = queryIngredientsTable.Get();
@@ -69,6 +69,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
         #endregion Команда редактирования ингридиента
 
         #region Команда удаления ингредиента
+
         public ICommand DeleteIngredientCommand { get; }
 
         private bool CanDeleteIngredientCommandExwcute(object p)
@@ -83,7 +84,8 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
                 queryIngredientsTable.DeleteIngredient((p as Ingredient).Id);
                 Ingredients = queryIngredientsTable.Get();
             }
-        } 
-        #endregion
+        }
+
+        #endregion Команда удаления ингредиента
     }
 }
