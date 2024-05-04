@@ -72,7 +72,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         private void OnEditRecipeCommandExecuted(object p)
         {
-            UpdateRecipeView updateRecipeView = new UpdateRecipeView();
+            AddNewRecipeView updateRecipeView = new();
             UpdateRecipeEvent?.Invoke(SelectedRecipe);
             updateRecipeView.ShowDialog();
             GetRecipes();

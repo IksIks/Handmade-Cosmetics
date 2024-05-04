@@ -59,10 +59,9 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             PageIngredientsViewModel.UpdateIngredientEvent += UpdateIngredient;
             AddOrUpdateCommand = new LambdaCommand(OnAddOrUpdateCommandExecute, CanAddOrUpdateCommandExecute);
             CancelCommand = new LambdaCommand(OnCancelCommandExecuted);
-            //UpdateCommand = new LambdaCommand(OnUpdateCommandExecuted, CanUpdateCommandExecute);
         }
 
-        #region Команда добавления нового ингридиента
+        #region Команда добавления или изменения ингридиента
 
         public ICommand AddOrUpdateCommand { get; }
 
@@ -71,33 +70,16 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             return IsLinesFilledCorrectly();
         }
 
-        private void OnAddOrUpdateCommandExecute(object p)
+        private async void OnAddOrUpdateCommandExecute(object p)
         {
             if (ButtonContext.Equals("Добавить"))
-                queryIngredientTable.AddIngredient(new Ingredient(Name, packageWeightTryParse, IngrUnitMeasurement, costTryParse));
+                await queryIngredientTable.AddIngredient(new Ingredient(Name, packageWeightTryParse, IngrUnitMeasurement, costTryParse));
             if (ButtonContext.Equals("Изменить"))
-                queryIngredientTable.UpdateIngredient(new Ingredient(Name, packageWeightTryParse, IngrUnitMeasurement, costTryParse, id));
+                await queryIngredientTable.UpdateIngredient(new Ingredient(Name, packageWeightTryParse, IngrUnitMeasurement, costTryParse, id));
             Application.Current.Windows[1].Close();
         }
 
-        #endregion Команда добавления нового ингридиента
-
-        //#region Команда обновления ингредиента
-
-        //public ICommand UpdateCommand { get; }
-
-        //private bool CanUpdateCommandExecute(object p)
-        //{
-        //    return IsLinesFilledCorrectly();
-        //}
-
-        //private void OnUpdateCommandExecuted(object p)
-        //{
-        //    queryIngredientTable.UpdateIngredient(new Ingredient(Name, packageWeightTryParse, ingrUnitMeasurement, costTryParse, id));
-        //    Application.Current.Windows[1].Close();
-        //}
-
-        //#endregion Команда обновления ингредиента
+        #endregion Команда добавления или изменения ингридиента
 
         #region Команда отмены
 

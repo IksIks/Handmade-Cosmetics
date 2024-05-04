@@ -299,6 +299,7 @@
         <Setter Property="Background" Value="Red" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Padding" Value="0,0,0,3" />
+        <Setter Property="FontWeight" Value="DemiBold" />
     </Style>
     <Style x:Key="ButtonCancel" TargetType="Button" BasedOn="{StaticResource ButtonAddOrUpdate}">
         <Setter Property="Margin" Value="0,5,2,5" />

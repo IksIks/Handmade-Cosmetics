@@ -11,5 +11,10 @@ namespace HandmadeСosmetics.Views.Windows
         {
             InitializeComponent();
         }
+
+        private void ComboBox_SelectionChanged()
+        {
+
+        }
     }
 }

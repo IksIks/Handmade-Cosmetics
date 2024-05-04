@@ -5,42 +5,65 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:HandmadeСosmetics.ViewModels.WindowsViewModel"
         xmlns:s="clr-namespace:HandmadeСosmetics.Models.MaterialsAndProducts"
-        Title="Новый ингредиент" Height="400" Width="250" WindowStartupLocation="CenterScreen">
+        MaxHeight="420" MaxWidth="310"  MinHeight="420" MinWidth="310" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="BlanchedAlmond">
     <Window.DataContext>
         <vm:AddNewRecipeViewModel />
     </Window.DataContext>
-    <StackPanel Orientation="Vertical">
-        <TextBlock Text="Название рецепта" />
-        <TextBox Text="{Binding RecipeName}" />
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Игредиент" />
-            <ComboBox ItemsSource="{Binding Ingredients}" Width="170" SelectedItem="{Binding SelectedItem}" SelectedIndex="0">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate DataType="s:Ingredient">
-                        <TextBlock Text="{Binding Name}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <Label Content="Вес" />
-            <TextBox Text="{Binding Weight, UpdateSourceTrigger=PropertyChanged}" Width="170" />
-        </StackPanel>
+    <StackPanel Orientation="Vertical" Background="BlanchedAlmond" Margin="6">
+        <TextBlock Text="Название рецепта" Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Center" />
+        <TextBox Text="{Binding RecipeName}" Style="{StaticResource TextBoxStyle}" Width="180" HorizontalAlignment="Center" TextAlignment="Center" />
+        <TextBlock Text="Ингредиент" Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Center" />
+        <ComboBox ItemsSource="{Binding Ingredients}" Width="180" SelectedItem="{Binding SelectedItem}" SelectedIndex="0" HorizontalAlignment="Center"
+                  HorizontalContentAlignment="Center">
+            <ComboBox.ItemTemplate>
+                <DataTemplate DataType="s:Ingredient">
+                    <TextBlock Text="{Binding Name}" FontSize="16" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <TextBlock Text="Вес" Style="{StaticResource TextBlockStyle}" HorizontalAlignment="Center" />
+        <TextBox Text="{Binding Weight, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxStyle}" Width="180" HorizontalAlignment="Center"
+                 TextAlignment="Center" />
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Добавить в рецепт" Command="{Binding AddIngredientToCollectionCommand}" Margin="4" />
-            <Button Content="Удалить из рецепта" Command="{Binding DeleteIngredientFromCollectionCommand}" Margin="4" />
+            <StackPanel.Resources>
+                <Style x:Key="Btn" TargetType="Button">
+                    <Setter Property="Margin" Value="4,6" />
+                    <Setter Property="FontSize" Value="14" />
+                </Style>
+            </StackPanel.Resources>
+            <Button Content="Добавить в рецепт" Command="{Binding AddIngredientToCollectionCommand}" Background="Aquamarine" Style="{StaticResource Btn}" />
+            <Button Content="Удалить из рецепта" Command="{Binding DeleteIngredientFromCollectionCommand}" Background="Chocolate" Style="{StaticResource Btn}" />
         </StackPanel>
-        <ListView ItemsSource="{Binding IngredientsWeights}" SelectionMode="Multiple" SelectedItem="{Binding SelectedItemDto}" Height="180">
+        <ListView ItemsSource="{Binding IngredientsWeights}" SelectionMode="Single" SelectedItem="{Binding SelectedItemDto}" Height="180"
+                  Background="Beige" BorderThickness="0" Width="262" FontSize="14">
+            <ListView.Resources>
+                <Style x:Key="Header" TargetType="GridViewColumnHeader">
+                    <Setter Property="Background" Value="CadetBlue" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+            </ListView.Resources>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Выбранный ингредиент" DisplayMemberBinding="{Binding IngredientName}" />
-                    <GridViewColumn Header="Вес в рецепте" DisplayMemberBinding="{Binding IngredientWeight}" />
+                    <GridViewColumn Header="Выбранный ингредиент" DisplayMemberBinding="{Binding IngredientName}" HeaderContainerStyle="{StaticResource Header}"
+                                    Width="160" />
+                    <GridViewColumn Header="Вес в рецепте" DisplayMemberBinding="{Binding IngredientWeight}" HeaderContainerStyle="{StaticResource Header}"
+                                    Width="105" />
                 </GridView>
             </ListView.View>
         </ListView>
         <UniformGrid Rows="1">
-            <Button Content="Отмена" Margin="5" Width="100" Height="25" Command="{Binding CancelCommand}" />
-            <Button Content="Создать" Margin="5" Width="100" Height="25" Command="{Binding AddRecipeCommand}" />
+            <Border>
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="4" />
+                </Border.Effect>
+                <Button Content="Отмена" Style="{StaticResource ButtonCancel}" Command="{Binding CancelCommand}" />
+            </Border>
+            <Border>
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="4" />
+                </Border.Effect>
+                <Button Content="{Binding  ButtonContext}" Style="{StaticResource ButtonAddOrUpdate}" Command="{Binding AddOrUpdateRecipeCommand}" />
+            </Border>
         </UniformGrid>
     </StackPanel>
 </Window>
