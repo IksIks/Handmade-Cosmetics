@@ -21,9 +21,9 @@ namespace HandmadeСosmetics.Models.DB
             }
         }
 
-        public async Task<List<Recipe>> GetRecipesNamesOnly()
+        public List<Recipe> GetRecipesNamesOnly()
         {
-            return await dbContext.Recipes.AsNoTracking().ToListAsync();
+            return dbContext.Recipes.AsNoTracking().ToList();
         }
 
         public async Task AddRecipe(string recipeName, ObservableCollection<IngredientDto> dtoIngredients)

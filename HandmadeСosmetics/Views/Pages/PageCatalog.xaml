@@ -43,7 +43,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Название" Binding="{Binding Name}" IsReadOnly="True" Width="180"
                             CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" />
-                <DataGridTextColumn Header="Рецепт" Binding="{Binding RecipeName}" IsReadOnly="True" Width="160"
+                <DataGridTextColumn Header="Рецепт" Binding="{Binding Recipe.Name}" IsReadOnly="True" Width="160"
                             CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" />
                 <DataGridTextColumn Header="Вес" Binding="{Binding Weight, StringFormat={}{0} грамм.}" IsReadOnly="True"
                             CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" Width="100" />

@@ -21,6 +21,14 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         private Product product;
         private string addedImagePath = default;
 
+        private int selectedIndex;
+
+        public int SelectedIndex
+        {
+            get => selectedIndex;
+            set => Set(ref selectedIndex, value);
+        }
+
         public Product Product
         {
             get => product;
@@ -48,6 +56,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         }
 
         #region Команда обновления продукта
+
         public ICommand UpdateCommand { get; }
 
         private bool CanUpdateCommandExecute(object p)
@@ -60,9 +69,11 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             queryProductTable.UpdateProduct(Product);
             Application.Current.Windows[1].Close();
         }
-        #endregion
+
+        #endregion Команда обновления продукта
 
         #region Команда выбора файла
+
         public ICommand SelectFileCommand { get; }
 
         private void OnSelectFileCommandExecuted(object p)
@@ -76,8 +87,9 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             {
                 Product.Photo = GetPathCreatedImage(dialog);
             }
-        } 
-        #endregion
+        }
+
+        #endregion Команда выбора файла
 
         private string GetPathCreatedImage(OpenFileDialog dialog)
         {
@@ -94,6 +106,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         }
 
         #region Команда отмены
+
         public ICommand CancelCommand { get; }
 
         private void OnCancelCommandExecuted(object p)
@@ -104,9 +117,11 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             Application.Current.Windows[1].Close();
             PageCatalogViewModel.ActivateResponseToRecipeTableEvent -= GetAllRecipes;
         }
-        #endregion
 
-        #region Команда обновления
+        #endregion Команда отмены
+
+        #region Команда добавления продукта
+
         public ICommand AddCommand { get; }
 
         private bool CanAddCommandExecute(object p)
@@ -118,12 +133,13 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         {
             queryProductTable?.AddProduct(Product);
             Application.Current.Windows[1].Close();
-        } 
-        #endregion
+        }
 
-        private async Task GetAllRecipes()
+        #endregion Команда добавления продукта
+
+        private void GetAllRecipes()
         {
-            Recipes = await queryRecipeTable.GetRecipesNamesOnly();
+            Recipes = queryRecipeTable.GetRecipesNamesOnly();
         }
 
         private bool IsLinesFilledCorrectly()
@@ -136,8 +152,9 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             return true;
         }
 
-        private void UpdateProduct(ProductDto product)
+        private void UpdateProduct(Product product)
         {
+            SelectedIndex = Recipes.FindIndex(r => r.Name == product.Recipe.Name);
             Product.Id = product.Id;
             Product.Name = product.Name;
             Product.Photo = product.Photo;
