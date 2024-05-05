@@ -1,7 +1,6 @@
 ﻿using HandmadeСosmetics.Command;
 using HandmadeСosmetics.DataCotnext;
 using HandmadeСosmetics.Models.DB;
-using HandmadeСosmetics.Models.DTO;
 using HandmadeСosmetics.Models.MaterialsAndProducts;
 using HandmadeСosmetics.ViewModel;
 using HandmadeСosmetics.ViewModels.PagesViewModels;
@@ -20,6 +19,13 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         private readonly QueryProductTable queryProductTable;
         private Product product;
         private string addedImagePath = default;
+        private string buttonContext = "Добавить";
+
+        public string ButtonContext
+        {
+            get => buttonContext;
+            set => Set(ref buttonContext, value);
+        }
 
         private int selectedIndex;
 
@@ -50,27 +56,47 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             PageCatalogViewModel.ActivateResponseToRecipeTableEvent += GetAllRecipes;
             PageCatalogViewModel.UpdateProductEvent += UpdateProduct;
             CancelCommand = new LambdaCommand(OnCancelCommandExecuted);
-            AddCommand = new LambdaCommand(OnAddCommandExecuted, CanAddCommandExecute);
+            AddOrUpdateCommand = new LambdaCommand(OnAddOrUpdateCommandExecuted, CanAddOrUpdateCommandExecute);
             SelectFileCommand = new LambdaCommand(OnSelectFileCommandExecuted);
-            UpdateCommand = new LambdaCommand(OnUpdateCommandExecuted, CanUpdateCommandExecute);
+            //UpdateCommand = new LambdaCommand(OnUpdateCommandExecuted, CanUpdateCommandExecute);
         }
 
-        #region Команда обновления продукта
+        #region Команда добавления продукта
 
-        public ICommand UpdateCommand { get; }
+        public ICommand AddOrUpdateCommand { get; }
 
-        private bool CanUpdateCommandExecute(object p)
+        private bool CanAddOrUpdateCommandExecute(object p)
         {
             return IsLinesFilledCorrectly();
         }
 
-        private void OnUpdateCommandExecuted(object p)
+        private void OnAddOrUpdateCommandExecuted(object p)
         {
-            queryProductTable.UpdateProduct(Product);
+            if (ButtonContext.Equals("Добавить"))
+                queryProductTable?.AddProduct(Product);
+            if (ButtonContext.Equals("Изменить"))
+                queryProductTable.UpdateProduct(Product);
             Application.Current.Windows[1].Close();
         }
 
-        #endregion Команда обновления продукта
+        #endregion Команда добавления продукта
+
+        //#region Команда обновления продукта
+
+        //public ICommand UpdateCommand { get; }
+
+        //private bool CanUpdateCommandExecute(object p)
+        //{
+        //    return IsLinesFilledCorrectly();
+        //}
+
+        //private void OnUpdateCommandExecuted(object p)
+        //{
+        //    queryProductTable.UpdateProduct(Product);
+        //    Application.Current.Windows[1].Close();
+        //}
+
+        //#endregion Команда обновления продукта
 
         #region Команда выбора файла
 
@@ -120,23 +146,6 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         #endregion Команда отмены
 
-        #region Команда добавления продукта
-
-        public ICommand AddCommand { get; }
-
-        private bool CanAddCommandExecute(object p)
-        {
-            return IsLinesFilledCorrectly();
-        }
-
-        private void OnAddCommandExecuted(object p)
-        {
-            queryProductTable?.AddProduct(Product);
-            Application.Current.Windows[1].Close();
-        }
-
-        #endregion Команда добавления продукта
-
         private void GetAllRecipes()
         {
             Recipes = queryRecipeTable.GetRecipesNamesOnly();
@@ -154,6 +163,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         private void UpdateProduct(Product product)
         {
+            ButtonContext = "Изменить";
             SelectedIndex = Recipes.FindIndex(r => r.Name == product.Recipe.Name);
             Product.Id = product.Id;
             Product.Name = product.Name;
