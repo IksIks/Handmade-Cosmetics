@@ -146,6 +146,8 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         #endregion Команда закрытия окна
 
+
+
         private bool IsLinesFilledCorrectly()
         {
             if (IngredientsWeights.Count <= 0 || String.IsNullOrEmpty(RecipeName))

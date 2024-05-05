@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:vm="clr-namespace:HandmadeСosmetics.ViewModels.PagesViewModels"
       xmlns:data="clr-namespace:HandmadeСosmetics.Models.MaterialsAndProducts"
-      d:DesignHeight="450" d:DesignWidth="800" Background="White"
+      d:DesignHeight="450" d:DesignWidth="800" Background="Bisque"
   Title="Ингридиенты">
     <Page.DataContext>
         <vm:PageRecipesViewModel />
@@ -16,7 +16,7 @@
             <ColumnDefinition Width="150*" />
             <ColumnDefinition Width="150*" />
         </Grid.ColumnDefinitions>
-        <UniformGrid Grid.Column="0" Columns="1" Margin="2">
+        <UniformGrid Grid.Column="0" Columns="1" Margin="2" Background="Bisque">
             <Button Command="{Binding AddNewRecipeCommand}" Style="{StaticResource ButtonAddToTable}">
                 <Button.Content>
                     <Image Source="/Resources/Icons/add2.png" />
@@ -30,10 +30,11 @@
             </Button>
             <!--<Button />-->
         </UniformGrid>
-        <DataGrid Name="DataGrid" Grid.Column="1" ItemsSource="{Binding Recipes, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="2" SelectedItem="{Binding SelectedRecipe}"
-           FrozenColumnCount="4" ColumnWidth="*" RowHeight="50" CanUserResizeRows="False" SelectionMode="Extended"
-           EnableRowVirtualization="True" VirtualizingPanel.VirtualizationMode="Recycling" EnableColumnVirtualization="True"
-           CanUserAddRows="False" CanUserDeleteRows="False"  Background="Bisque" GridLinesVisibility="None">
+        <DataGrid Name="DataGrid" Grid.Column="1" ItemsSource="{Binding Recipes, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False"
+                  Margin="2,2,0,2" SelectedItem="{Binding SelectedRecipe}"
+                  FrozenColumnCount="4" ColumnWidth="*" RowHeight="50" CanUserResizeRows="False" SelectionMode="Extended"
+                  EnableRowVirtualization="True" VirtualizingPanel.VirtualizationMode="Recycling" EnableColumnVirtualization="True"
+                  CanUserAddRows="False" CanUserDeleteRows="False"  Background="Bisque" GridLinesVisibility="None">
             <DataGrid.InputBindings>
                 <MouseBinding Gesture="LeftDoubleClick" Command="{Binding EditRecipeCommand}" CommandParameter="{Binding ElementName=DataGrid, Path=SelectedItem}" />
             </DataGrid.InputBindings>
@@ -42,7 +43,7 @@
                                     CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" />
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid Grid.Column="2" AutoGenerateColumns="False" Margin="2" ItemsSource="{Binding SelectedRecipe.WeightInRecipes, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid Grid.Column="2" AutoGenerateColumns="False" Margin="0,2,2,2" ItemsSource="{Binding SelectedRecipe.WeightInRecipes, UpdateSourceTrigger=PropertyChanged}"
                   FrozenColumnCount="2" ColumnWidth="*" RowHeight="50" CanUserResizeRows="False" SelectionMode="Extended"
                   EnableRowVirtualization="True" VirtualizingPanel.VirtualizationMode="Recycling" EnableColumnVirtualization="True"
                   CanUserAddRows="False" CanUserDeleteRows="False"  Background="Bisque" GridLinesVisibility="None">

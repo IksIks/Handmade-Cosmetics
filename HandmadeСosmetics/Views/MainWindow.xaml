@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:HandmadeСosmetics.ViewModels"
         mc:Ignorable="d"
-        Height="500" Width="1000" WindowStartupLocation="CenterScreen" Background="BlanchedAlmond">
+        Height="650" Width="1000" WindowStartupLocation="CenterScreen" Background="BlanchedAlmond">
     <Window.DataContext>
         <vm:MainWindowViewModel />
     </Window.DataContext>
@@ -19,7 +19,7 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <StatusBar DockPanel.Dock="Bottom" Height="15" />
+        <StatusBar DockPanel.Dock="Bottom" Height="15" Background="Bisque" />
         <UniformGrid DockPanel.Dock="Right" Columns="1" Margin="-155,0,10,0">
             <Button Command="{Binding SetCurrentPageCommand}" CommandParameter="{Binding ElementName=Catalog}"
                     Style="{StaticResource MainWindowButtons_1}">

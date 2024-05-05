@@ -4,31 +4,49 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:HandmadeСosmetics.ViewModels.WindowsViewModel"
-        Title="AddProductView" Height="300" Width="250" WindowStartupLocation="CenterScreen">
+        MaxHeight="400" MaxWidth="250"  MinHeight="400" MinWidth="250" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="BlanchedAlmond">
     <Window.DataContext>
         <vm:AddProductViewModel />
     </Window.DataContext>
-    <StackPanel Orientation="Vertical">
-        <TextBlock Text="Название" />
-        <TextBox Text="{Binding Product.Name}" />
-        <TextBlock Text="Фото" />
-        <Grid>
+    <StackPanel Orientation="Vertical" Margin="6">
+        <TextBlock Text="Название" Style="{StaticResource TextBlockStyle}" />
+        <TextBox Text="{Binding Product.Name}" Style="{StaticResource TextBoxStyle}" HorizontalAlignment="Stretch" />
+        <TextBlock Text="Фото" Style="{StaticResource TextBlockStyle}" />
+        <Grid Height="70">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="48*" />
+                <ColumnDefinition Width="71*" />
             </Grid.ColumnDefinitions>
-            <Image Grid.Column="0" Source="{Binding Product.Photo, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" Width="70" Height="70" />
-            <Button Grid.Column="1" Content="Выберите файл" Command="{Binding SelectFileCommand}" Margin="10" />
+            <Image Grid.Column="0" Source="{Binding Product.Photo, UpdateSourceTrigger=PropertyChanged}" />
+            <Border Grid.Column="1">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="4" />
+                </Border.Effect>
+                <Button Content="Выберите файл" Command="{Binding SelectFileCommand}" Margin="10,20,10,20" Style="{StaticResource ButtonAddToTable}" />
+            </Border>
         </Grid>
-        <TextBlock Text="Цена" />
-        <TextBox Text="{Binding Product.Price, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock Text="Вес" />
-        <TextBox Text="{Binding Product.Weight, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBlock Text="Рецепт" />
-        <ComboBox ItemsSource="{Binding Recipes}" SelectedItem="{Binding Product.Recipe}" DisplayMemberPath="Name" SelectedIndex="{Binding SelectedIndex}" />
+        <TextBlock Text="Цена" Style="{StaticResource TextBlockStyle}" />
+        <TextBox Text="{Binding Product.Price, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxStyle}" Width="100" />
+        <TextBlock Text="Вес" Style="{StaticResource TextBlockStyle}" />
+        <TextBox Text="{Binding Product.Weight, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource TextBoxStyle}" Width="100" />
+        <TextBlock Text="Рецепт" Style="{StaticResource TextBlockStyle}" />
+        <ComboBox ItemsSource="{Binding Recipes}" SelectedItem="{Binding Product.Recipe}" DisplayMemberPath="Name" SelectedIndex="{Binding SelectedIndex}"
+                  FontSize="16" HorizontalAlignment="Stretch" />
         <UniformGrid Rows="1">
-            <Button Content="Отмена" Margin="5" Width="100" Height="25" Command="{Binding CancelCommand}" />
-            <Button Content="{Binding ButtonContext}" Margin="5" Width="100" Height="25" Command="{Binding AddOrUpdateCommand}" />
+            <Border>
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="4" />
+                </Border.Effect>
+                <Button Content="Отмена" Margin="5" Width="100" Height="25" Command="{Binding CancelCommand}"
+                        Style="{StaticResource ButtonCancel}" />
+            </Border>
+            <Border>
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="4" />
+                </Border.Effect>
+                <Button Content="{Binding ButtonContext}" Margin="5" Width="100" Height="25" Command="{Binding AddOrUpdateCommand}"
+                        Style="{StaticResource ButtonAddOrUpdate}" />
+            </Border>
         </UniformGrid>
     </StackPanel>
 </Window>

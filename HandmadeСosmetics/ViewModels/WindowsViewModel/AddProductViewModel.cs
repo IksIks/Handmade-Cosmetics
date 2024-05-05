@@ -58,7 +58,6 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             CancelCommand = new LambdaCommand(OnCancelCommandExecuted);
             AddOrUpdateCommand = new LambdaCommand(OnAddOrUpdateCommandExecuted, CanAddOrUpdateCommandExecute);
             SelectFileCommand = new LambdaCommand(OnSelectFileCommandExecuted);
-            //UpdateCommand = new LambdaCommand(OnUpdateCommandExecuted, CanUpdateCommandExecute);
         }
 
         #region Команда добавления продукта
@@ -80,23 +79,6 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         }
 
         #endregion Команда добавления продукта
-
-        //#region Команда обновления продукта
-
-        //public ICommand UpdateCommand { get; }
-
-        //private bool CanUpdateCommandExecute(object p)
-        //{
-        //    return IsLinesFilledCorrectly();
-        //}
-
-        //private void OnUpdateCommandExecuted(object p)
-        //{
-        //    queryProductTable.UpdateProduct(Product);
-        //    Application.Current.Windows[1].Close();
-        //}
-
-        //#endregion Команда обновления продукта
 
         #region Команда выбора файла
 
@@ -138,8 +120,6 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         private void OnCancelCommandExecuted(object p)
         {
             // TODO : Сделать удаление файла после отмены создания Продукта
-            //Product.Photo = "";
-            //File.Delete(addedImagePath);
             Application.Current.Windows[1].Close();
             PageCatalogViewModel.ActivateResponseToRecipeTableEvent -= GetAllRecipes;
         }
@@ -155,8 +135,8 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
         {
             if (String.IsNullOrEmpty(Product.Name) ||
                 Product.Recipe == null ||
-                Product.Weight < 0 ||
-                Product.Price < 0)
+                Product.Weight <= 0 ||
+                Product.Price <= 0)
                 return false;
             return true;
         }
