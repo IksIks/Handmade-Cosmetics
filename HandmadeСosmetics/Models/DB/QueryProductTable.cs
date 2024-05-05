@@ -1,5 +1,4 @@
 ﻿using HandmadeСosmetics.DataCotnext;
-using HandmadeСosmetics.Models.DTO;
 using HandmadeСosmetics.Models.MaterialsAndProducts;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,13 +12,7 @@ namespace HandmadeСosmetics.Models.DB
         {
             using (dbContext = new())
             {
-                //return dbContext.Products.Join
-                // (dbContext.Recipes, p => p.RecipeId, a => a.Id,
-                // (p, a) => new ProductDto(p.Id, p.Name, p.Photo, p.NetCost, a.Name, p.Price, p.Weight)).AsEnumerable()
-                // .OrderBy(p => p.Name)
-                // .ToList();
                 return dbContext.Products.Include(p => p.Recipe).ToList();
-                //(p, a) => new DTO_Product(p, a.Name)).ToList();
                 //TODO почему то не срабатывает этот конструктор, приходит NULL в строке для Photo
             }
         }
