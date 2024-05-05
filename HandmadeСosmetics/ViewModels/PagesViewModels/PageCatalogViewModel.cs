@@ -2,6 +2,7 @@
 using HandmadeСosmetics.DataCotnext;
 using HandmadeСosmetics.Models.DB;
 using HandmadeСosmetics.Models.DTO;
+using HandmadeСosmetics.Models.MaterialsAndProducts;
 using HandmadeСosmetics.ViewModel;
 using HandmadeСosmetics.Views.Windows;
 using System.Windows;
@@ -11,14 +12,14 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 {
     internal class PageCatalogViewModel : ViewModelBase
     {
-        public static event Func<Task> ActivateResponseToRecipeTableEvent;
+        public static event Action ActivateResponseToRecipeTableEvent;
 
-        public static event Action<ProductDto> UpdateProductEvent;
+        public static event Action<Product> UpdateProductEvent;
 
         private readonly QueryProductTable queryProductTable;
-        private List<ProductDto> productCatalog;
+        private List<Product> productCatalog;
 
-        public List<ProductDto> ProductCatalog
+        public List<Product> ProductCatalog
         {
             get => productCatalog;
             set => Set(ref productCatalog, value);
@@ -61,14 +62,14 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         private bool CanEditRowCommandExecute(object p)
         {
-            return p is ProductDto;
+            return p is Product;
         }
 
         private async void OnEditRowCommandExecuted(object p)
         {
             UpdateProductView updateProduct = new();
             ActivateResponseToRecipeTableEvent?.Invoke();
-            UpdateProductEvent?.Invoke(p as ProductDto);
+            UpdateProductEvent?.Invoke(p as Product);
             updateProduct.ShowDialog();
             ProductCatalog = queryProductTable.GetProducts();
         }
