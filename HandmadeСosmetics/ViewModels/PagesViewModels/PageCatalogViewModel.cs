@@ -1,7 +1,6 @@
 ﻿using HandmadeСosmetics.Command;
 using HandmadeСosmetics.DataCotnext;
 using HandmadeСosmetics.Models.DB;
-using HandmadeСosmetics.Models.DTO;
 using HandmadeСosmetics.Models.MaterialsAndProducts;
 using HandmadeСosmetics.ViewModel;
 using HandmadeСosmetics.Views.Windows;
@@ -80,15 +79,16 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         public ICommand DeleteProductCommand { get; }
 
-        private bool CanDeleteProductCommandExecute(object p) => p is ProductDto;
+        private bool CanDeleteProductCommandExecute(object p) => p is Product;
 
         private void OnDeleteProductCommandExecuted(Object p)
         {
             if (MessageBox.Show("Вы уверены?", "Удаление", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel) == MessageBoxResult.OK)
             {
-                queryProductTable.DeleteProduct((p as ProductDto).Id);
+                queryProductTable.DeleteProduct((p as Product).Id);
                 ProductCatalog = queryProductTable.GetProducts();
             }
+            //TODO при удалении рецепта сделать удаление и картинки
         }
 
         #endregion Команда удаления продукта
