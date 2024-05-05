@@ -66,7 +66,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         private async void OnEditRowCommandExecuted(object p)
         {
-            UpdateProductView updateProduct = new();
+            AddProductView updateProduct = new();
             ActivateResponseToRecipeTableEvent?.Invoke();
             UpdateProductEvent?.Invoke(p as Product);
             updateProduct.ShowDialog();
