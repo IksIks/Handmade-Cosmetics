@@ -20,9 +20,9 @@
             <Image Grid.Column="0" Source="{Binding Product.Photo, UpdateSourceTrigger=PropertyChanged}" />
             <Border Grid.Column="1">
                 <Border.Effect>
-                    <DropShadowEffect ShadowDepth="4" />
+                    <DropShadowEffect ShadowDepth="5" />
                 </Border.Effect>
-                <Button Content="Выберите файл" Command="{Binding SelectFileCommand}" Margin="10,20,10,20" Style="{StaticResource ButtonAddToTable}" />
+                <Button Content="Выберите файл" Command="{Binding SelectFileCommand}" Margin="10,20,10,20" FontSize="14" Background="Aquamarine" />
             </Border>
         </Grid>
         <TextBlock Text="Цена" Style="{StaticResource TextBlockStyle}" />

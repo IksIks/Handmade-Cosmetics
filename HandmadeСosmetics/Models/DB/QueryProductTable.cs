@@ -12,8 +12,18 @@ namespace HandmadeСosmetics.Models.DB
         {
             using (dbContext = new())
             {
-                return dbContext.Products.Include(p => p.Recipe).ToList();
-                //TODO почему то не срабатывает этот конструктор, приходит NULL в строке для Photo
+                //return dbContext.Products.Include(p => p.Recipe).ToList();
+                var ingrCollection = dbContext.Ingredients.Select(a => new { a.Id, a.CostPerUnitMeasurement });
+                var collection = dbContext.Products.Include(p => p.Recipe.WeightInRecipes).ToList();
+                foreach (var product in collection)
+                {
+                    product.NetCost = product.Recipe.WeightInRecipes.Sum(a => a.Weight * ingrCollection
+                                                                    .First(b => b.Id == a.IngredientId).CostPerUnitMeasurement)
+                                      / product.Recipe.WeightInRecipes.Sum(b => b.Weight)
+                                      * product.Weight;
+                }
+                dbContext.SaveChanges();
+                return collection;
             }
         }
 

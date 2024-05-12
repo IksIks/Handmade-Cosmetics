@@ -47,7 +47,7 @@
                             CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" />
                 <DataGridTextColumn Header="Вес" Binding="{Binding Weight, StringFormat={}{0} грамм.}" IsReadOnly="True"
                             CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" Width="100" />
-                <DataGridTextColumn Header="Стоимость" Binding="{Binding NetCost, StringFormat={}{0} руб.}" IsReadOnly="True"
+                <DataGridTextColumn Header="Стоимость" Binding="{Binding NetCost, StringFormat={}{0:N2} руб.}" IsReadOnly="True"
                             CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" Width="100" />
                 <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0} руб.}" IsReadOnly="True"
                             CellStyle="{StaticResource DataGridCell}" HeaderStyle="{StaticResource StyleHeader}" />

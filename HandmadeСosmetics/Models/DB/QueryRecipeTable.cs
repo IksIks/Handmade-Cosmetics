@@ -44,10 +44,6 @@ namespace HandmadeСosmetics.Models.DB
                 }
             }
 
-            //var ingrIds = dtoIngredients.Select(x => x.Id).ToList();
-
-            //var ingrs = dbContext.Ingredients.Where(x => ingrIds.Contains(x.Id)).ToList();
-
             await dbContext.Recipes.AddAsync(new Recipe
             {
                 Name = recipeName,
@@ -76,7 +72,7 @@ namespace HandmadeСosmetics.Models.DB
             var removedIngredients = dbContext.Ingredients
                                      .Where(i => removedIngredientsId.Contains(i.Id)).ToList();
 
-            var updatedRecipe = dbContext.Recipes
+            var recipeForUpdate = dbContext.Recipes
                                 .Include(x => x.Ingredients)
                                 .Include(a => a.WeightInRecipes)
                                 .Where(a => a.Id == recipeId).Single();
@@ -84,8 +80,8 @@ namespace HandmadeСosmetics.Models.DB
             if (addedIngredients.Count > 0)
                 foreach (var ingredient in addedIngredients)
                 {
-                    updatedRecipe.Ingredients.Add(ingredient);
-                    updatedRecipe.WeightInRecipes.Add
+                    recipeForUpdate.Ingredients.Add(ingredient);
+                    recipeForUpdate.WeightInRecipes.Add
                         (
                             new WeightInRecipe
                                 (
@@ -99,15 +95,15 @@ namespace HandmadeСosmetics.Models.DB
             if (removedIngredients.Count > 0)
                 foreach (var item in removedIngredients)
                 {
-                    updatedRecipe.Ingredients.Remove(item);
+                    recipeForUpdate.Ingredients.Remove(item);
                 }
 
             dbContext.WeightInRecipes.RemoveRange(ingredientsFromWeightInRecipesTable
                                                  .Where(w => removedIngredientsId
                                                  .Contains(w.IngredientId)));
 
-            if (!updatedRecipe.Name.Equals(recipeName))
-                updatedRecipe.Name = recipeName;
+            if (!recipeForUpdate.Name.Equals(recipeName))
+                recipeForUpdate.Name = recipeName;
 
             foreach (IngredientDto iDto in ingredientsDto)
             {
