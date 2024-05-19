@@ -13,6 +13,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
         public static Action<Ingredient> UpdateIngredientEvent;
         private List<Ingredient> ingredients;
         private readonly QueryIngredientsTable queryIngredientsTable;
+        private string section = "КОМПОНЕНТЫ";
 
         public List<Ingredient> Ingredients
         {
@@ -23,8 +24,8 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
         public PageIngredientsViewModel()
         {
             queryIngredientsTable = new QueryIngredientsTable(new DataCotnext.DataDBContex());
-            Ingredients = queryIngredientsTable.Get();
-            //TODO перенести запрос ингредиентов в Основное окно VM
+            ingredients = new();
+            MainWindowViewModel.SetResponseToBase += GetIngredientsFromDb;
             AddNewIngredientCommand = new LambdaCommand(OnAddNewIngredientCommandExecuted, CanAddNewIngredientCommandWxwcute);
             EditIngredientCommand = new LambdaCommand(OnEditIngredientCommandExecuted, CanEditIngredientCommandExecute);
             DeleteIngredientCommand = new LambdaCommand(OnDeleteIngredientCommandExecuted, CanDeleteIngredientCommandExwcute);
@@ -40,11 +41,12 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
             return false;
         }
 
-        private void OnAddNewIngredientCommandExecuted(object p)
+        private async void OnAddNewIngredientCommandExecuted(object p)
         {
             AddIngredientView addIngridientView = new();
             addIngridientView.ShowDialog();
-            Ingredients = queryIngredientsTable.Get();
+            await GetIngredientsFromDb(section);
+            //Ingredients = queryIngredientsTable.Get();
         }
 
         #endregion Команда добавления ингридиента
@@ -58,12 +60,12 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
             return p is Ingredient;
         }
 
-        private void OnEditIngredientCommandExecuted(Object p)
+        private async void OnEditIngredientCommandExecuted(Object p)
         {
             AddIngredientView updateIngridientView = new();
             UpdateIngredientEvent?.Invoke(p as Ingredient);
             updateIngridientView.ShowDialog();
-            Ingredients = queryIngredientsTable.Get();
+            await GetIngredientsFromDb(section);
         }
 
         #endregion Команда редактирования ингридиента
@@ -77,15 +79,21 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
             return p is Ingredient;
         }
 
-        private void OnDeleteIngredientCommandExecuted(object p)
+        private async void OnDeleteIngredientCommandExecuted(object p)
         {
             if (MessageBox.Show("Вы уверены?", "Удаление", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel) == MessageBoxResult.OK)
             {
-                queryIngredientsTable.DeleteIngredient((p as Ingredient).Id);
-                Ingredients = queryIngredientsTable.Get();
+                await queryIngredientsTable.DeleteIngredient((p as Ingredient).Id);
+                await GetIngredientsFromDb(section);
             }
         }
 
         #endregion Команда удаления ингредиента
+
+        private async Task GetIngredientsFromDb(string b)
+        {
+            if (b.Equals(section))
+                Ingredients = await queryIngredientsTable.Get();
+        }
     }
 }

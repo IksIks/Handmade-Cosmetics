@@ -8,7 +8,7 @@ namespace HandmadeСosmetics.Models.DB
     {
         private DataDBContex dbContext = dbContext;
 
-        public List<Product> GetProducts()
+        public async Task<List<Product>> GetProducts()
         {
             using (dbContext = new())
             {
@@ -22,7 +22,7 @@ namespace HandmadeСosmetics.Models.DB
                                       / product.Recipe.WeightInRecipes.Sum(b => b.Weight)
                                       * product.Weight;
                 }
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
                 return collection;
             }
         }

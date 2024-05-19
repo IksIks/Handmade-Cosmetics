@@ -15,6 +15,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
         private List<Recipe> recipes;
         private List<Ingredient> ingredients;
         private Recipe selectedRecipe;
+        private string section = "РЕЦЕПТЫ";
 
         public Recipe SelectedRecipe
         {
@@ -37,26 +38,23 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
         public PageRecipesViewModel()
         {
             queryRecipeTable = new QueryRecipeTable(new DataCotnext.DataDBContex());
+            MainWindowViewModel.SetResponseToBase += GetRecipesFromDb;
             AddNewRecipeCommand = new LambdaCommand(OnAddNewRecipeCommandExecuted);
             DeleteRecipeCommand = new LambdaCommand(OnDeleteRecipeCommandExecuted, CanDeleteRecipeCommandExecute);
             EditRecipeCommand = new LambdaCommand(OnEditRecipeCommandExecuted, CanEditRecipeCommandExecute);
-            GetRecipes();
-        }
-
-        private async Task GetRecipes()
-        {
-            Recipes = (await queryRecipeTable.Get()).ToList();
+            //GetRecipes();
         }
 
         #region Создание рецепта.................................................................................................
 
         public ICommand AddNewRecipeCommand { get; }
 
-        private void OnAddNewRecipeCommandExecuted(object p)
+        private async void OnAddNewRecipeCommandExecuted(object p)
         {
             AddNewRecipeView addNewRecipeView = new AddNewRecipeView();
             addNewRecipeView.ShowDialog();
-            GetRecipes();
+            await GetRecipesFromDb(section);
+            //GetRecipes();
         }
 
         #endregion Создание рецепта.................................................................................................
@@ -70,12 +68,13 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
             return p is Recipe;
         }
 
-        private void OnEditRecipeCommandExecuted(object p)
+        private async void OnEditRecipeCommandExecuted(object p)
         {
             AddNewRecipeView updateRecipeView = new();
             UpdateRecipeEvent?.Invoke(SelectedRecipe);
             updateRecipeView.ShowDialog();
-            GetRecipes();
+            await GetRecipesFromDb(section);
+            //GetRecipes();
         }
 
         #endregion Команда обновления рецепта.......................................................................................
@@ -89,15 +88,22 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
             return p is Recipe;
         }
 
-        private void OnDeleteRecipeCommandExecuted(object p)
+        private async void OnDeleteRecipeCommandExecuted(object p)
         {
             if (MessageBox.Show("Вы уверены?", "Удаление", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel) == MessageBoxResult.OK)
             {
                 queryRecipeTable.Delete(p as Recipe);
-                GetRecipes();
+                await GetRecipesFromDb(section);
+                //GetRecipes();
             }
         }
 
         #endregion Удаление рецепта..................................................................................................
+
+        private async Task GetRecipesFromDb(string b)
+        {
+            if (b.Equals("РЕЦЕПТЫ"))
+                Recipes = (await queryRecipeTable.Get()).ToList();
+        }
     }
 }

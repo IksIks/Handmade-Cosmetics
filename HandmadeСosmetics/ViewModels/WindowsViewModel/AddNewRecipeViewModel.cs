@@ -15,6 +15,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
     {
         private readonly QueryIngredientsTable queryIngredientsTable;
         private readonly QueryRecipeTable queryRecipeTable;
+        private List<Ingredient> ingredients = new();
         private string weight;
         private double parsedWeight;
         private string recipeName;
@@ -39,7 +40,14 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             set => Set(ref recipeName, value);
         }
 
-        public List<Ingredient> Ingredients { get; set; } = new();
+        public List<Ingredient> Ingredients
+        {
+            get => ingredients;
+            set => Set(ref ingredients, value);
+        }
+
+        //public List<Ingredient> Ingredients { get; set; } = new();
+
         public Ingredient SelectedItem { get; set; } = new();
         public IngredientDto SelectedItemDto { get; set; }
         public ObservableCollection<IngredientDto> IngredientsWeights { get; set; } = new();
@@ -49,8 +57,7 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
             queryRecipeTable = new(new DataDBContex());
             queryIngredientsTable = new(new DataDBContex());
             PageRecipesViewModel.UpdateRecipeEvent += FillDataUpdateView;
-            Ingredients = queryIngredientsTable.Get();
-            //TODO перенести в отдельный метод и сделать асинхронным вызов
+            GetIngredientsFromDb();
 
             #region Команды
 
@@ -146,13 +153,16 @@ namespace HandmadeСosmetics.ViewModels.WindowsViewModel
 
         #endregion Команда закрытия окна
 
-
-
         private bool IsLinesFilledCorrectly()
         {
             if (IngredientsWeights.Count <= 0 || String.IsNullOrEmpty(RecipeName))
                 return false;
             return true;
+        }
+
+        private async Task GetIngredientsFromDb()
+        {
+            Ingredients = await queryIngredientsTable.Get();
         }
     }
 }

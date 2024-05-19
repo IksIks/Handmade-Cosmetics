@@ -51,7 +51,6 @@ namespace HandmadeСosmetics.Models.DB
                 WeightInRecipes = weight
             });
             await dbContext.SaveChangesAsync();
-            //TODO перенести весь код поиска элементов в модель Recipe
         }
 
         public async Task Update(int recipeId, ObservableCollection<IngredientDto> ingredientsDto, string recipeName)

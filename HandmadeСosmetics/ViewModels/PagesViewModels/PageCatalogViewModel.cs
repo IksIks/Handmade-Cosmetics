@@ -17,6 +17,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         private readonly QueryProductTable queryProductTable;
         private List<Product> productCatalog;
+        private string section = "КАТАЛОГ";
 
         public List<Product> ProductCatalog
         {
@@ -27,8 +28,8 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
         public PageCatalogViewModel()
         {
             queryProductTable = new QueryProductTable(new DataDBContex());
-            ProductCatalog = queryProductTable.GetProducts();
-            //TODO перенести запрос продуктов в Основное окно VM
+            MainWindowViewModel.SetResponseToBase += GetProductsFromDb;
+            productCatalog = new();
             EditRowCommand = new LambdaCommand(OnEditRowCommandExecuted, CanEditRowCommandExecute);
             AddNewProductCommand = new LambdaCommand(OnAddNewProductCommandExecuted, CanAddNewProductCommandExecete);
             DeleteProductCommand = new LambdaCommand(OnDeleteProductCommandExecuted, CanDeleteProductCommandExecute);
@@ -45,12 +46,12 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
             return false;
         }
 
-        private void OnAddNewProductCommandExecuted(object p)
+        private async void OnAddNewProductCommandExecuted(object p)
         {
             AddProductView addProductView = new AddProductView();
             ActivateResponseToRecipeTableEvent?.Invoke();
             addProductView.ShowDialog();
-            ProductCatalog = queryProductTable.GetProducts();
+            await GetProductsFromDb(section);
         }
 
         #endregion Команда добавления нового продукта
@@ -70,7 +71,7 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
             ActivateResponseToRecipeTableEvent?.Invoke();
             UpdateProductEvent?.Invoke(p as Product);
             updateProduct.ShowDialog();
-            ProductCatalog = queryProductTable.GetProducts();
+            await GetProductsFromDb(section);
         }
 
         #endregion Команда редактирования данных о продукте
@@ -81,16 +82,22 @@ namespace HandmadeСosmetics.ViewModels.PagesViewModels
 
         private bool CanDeleteProductCommandExecute(object p) => p is Product;
 
-        private void OnDeleteProductCommandExecuted(Object p)
+        private async void OnDeleteProductCommandExecuted(Object p)
         {
             if (MessageBox.Show("Вы уверены?", "Удаление", MessageBoxButton.OKCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel) == MessageBoxResult.OK)
             {
-                queryProductTable.DeleteProduct((p as Product).Id);
-                ProductCatalog = queryProductTable.GetProducts();
+                await queryProductTable.DeleteProduct((p as Product).Id);
+                await GetProductsFromDb(section);
             }
             //TODO при удалении рецепта сделать удаление и картинки
         }
 
         #endregion Команда удаления продукта
+
+        private async Task GetProductsFromDb(string b)
+        {
+            if (b.Equals(section))
+                ProductCatalog = await queryProductTable.GetProducts();
+        }
     }
 }

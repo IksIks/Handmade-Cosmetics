@@ -8,11 +8,11 @@ namespace HandmadeСosmetics.Models.DB
     {
         private DataDBContex dbContext = dbContext;
 
-        public List<Ingredient> Get()
+        public async Task<List<Ingredient>> Get()
         {
             using (dbContext = new())
             {
-                return dbContext.Ingredients.AsNoTracking().OrderBy(i => i.Name).ToList();
+                return await dbContext.Ingredients.AsNoTracking().OrderBy(i => i.Name).ToListAsync();
             }
         }
 

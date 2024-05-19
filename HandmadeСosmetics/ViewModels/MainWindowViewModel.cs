@@ -12,11 +12,6 @@ namespace HandmadeСosmetics.ViewModels
 {
     internal class MainWindowViewModel : ViewModelBase
     {
-        private readonly DataDBContex dbContext;
-        private readonly QueryProductTable queryProductTable;
-        private readonly QueryIngredientsTable queryIngredientsTable;
-        private readonly QueryRecipeTable queryRecipeTable;
-
         #region Pages
 
         private Page currentPage;
@@ -57,12 +52,10 @@ namespace HandmadeСosmetics.ViewModels
 
         #endregion Pages
 
+        public static event Func<string, Task> SetResponseToBase;
+
         public MainWindowViewModel()
         {
-            dbContext = new DataDBContex();
-            queryProductTable = new(dbContext);
-            queryIngredientsTable = new(dbContext);
-            queryRecipeTable = new(dbContext);
             pageCatalog = new PageCatalog();
             pageIngredients = new PageIngredients();
             pageRecipes = new PageRecipes();
@@ -88,7 +81,7 @@ namespace HandmadeСosmetics.ViewModels
             {
                 case "КАТАЛОГ":
                     CurrentPage = PageCatalog;
-                    //queryProductTable.GetProducts();
+                    SetResponseToBase?.Invoke(b.Text);
                     break;
 
                 case "КЛИЕНТЫ":
@@ -97,11 +90,12 @@ namespace HandmadeСosmetics.ViewModels
 
                 case "РЕЦЕПТЫ":
                     CurrentPage = PageRecipes;
-                    //queryRecipeTable.GetRecipes();
+                    SetResponseToBase?.Invoke(b.Text);
                     break;
 
                 case "КОМПОНЕНТЫ":
                     CurrentPage = PageIngredients;
+                    SetResponseToBase?.Invoke(b.Text);
                     break;
 
                 default: break;
