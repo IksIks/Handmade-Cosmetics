@@ -12,7 +12,8 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top" Background="BlanchedAlmond">
             <MenuItem Header="Меню" Background="Gray" FontWeight="Bold" Height="25">
-                <MenuItem Command="{Binding СalculatorCommand}" Header="Калькулятор">
+                <MenuItem Header="Расчет массы смеси" Command="{Binding OpenCustomRecipeCalculationWindowCommand}" />
+                <MenuItem Header="Калькулятор" Command="{Binding СalculatorCommand}">
                     <MenuItem.Icon>
                         <Image Source="../Resources/Icons/calc.png" />
                     </MenuItem.Icon>

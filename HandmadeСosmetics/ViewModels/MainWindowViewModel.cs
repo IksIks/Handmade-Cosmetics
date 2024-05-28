@@ -3,6 +3,7 @@ using HandmadeСosmetics.DataCotnext;
 using HandmadeСosmetics.Models.DB;
 using HandmadeСosmetics.ViewModel;
 using HandmadeСosmetics.Views.Pages;
+using HandmadeСosmetics.Views.Windows;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Controls;
@@ -62,6 +63,7 @@ namespace HandmadeСosmetics.ViewModels
             pageClients = new PageClients();
             SetCurrentPageCommand = new LambdaCommand(OnSetCurrentPageCommandExecuted);
             СalculatorCommand = new LambdaCommand(OnСalculatorCommandExecuted);
+            OpenCustomRecipeCalculationWindowCommand = new LambdaCommand(OnOpenCustomRecipeCalculationWindowCommandExecuted);
             CreareFolderForImages();
         }
 
@@ -100,6 +102,14 @@ namespace HandmadeСosmetics.ViewModels
 
                 default: break;
             }
+        }
+
+        public ICommand OpenCustomRecipeCalculationWindowCommand { get; }
+
+        private void OnOpenCustomRecipeCalculationWindowCommandExecuted(object p)
+        {
+            var CustomRecipeWindow = new CustomRecipeCalculationView();
+            CustomRecipeWindow.ShowDialog();
         }
 
         private void CreareFolderForImages()
